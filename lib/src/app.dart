@@ -83,43 +83,61 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void setCurrentOperator(CalculatorOperator operator) {
+    bool isArithmeticOperation;
+    bool isNonCompleteArithmeticOperation;
+
+    bool isNumber;
+
     setState(() {
-      _currentOperator = operator;
+      RegExp r = RegExp(r'^\s*\d+\s*[\+\-\*\/]\s*$');
+      isNonCompleteArithmeticOperation = r.hasMatch(_currentOperation);
 
-      setFirstOperator();
+      if (!isNonCompleteArithmeticOperation) {
+        _currentOperator = operator;
 
-      switch (_currentOperator) {
-        case CalculatorOperator.ADD:
-          _computedValue += CalculatorOperator.ADD.value;
-          break;
-        case CalculatorOperator.SUBTRACT:
-          _computedValue += CalculatorOperator.SUBTRACT.value;
-          break;
-        case CalculatorOperator.MULTIPLY:
-          _computedValue += CalculatorOperator.MULTIPLY.value;
-          break;
-        case CalculatorOperator.DIVIDE:
-          _computedValue += CalculatorOperator.DIVIDE.value;
-          break;
-        case CalculatorOperator.NONE:
-          _computedValue += CalculatorOperator.NONE.value;
+        setFirstOperator();
+
+        r = RegExp(r'^\s*\d+\s*[\+\-\*\/]\s*\d+\s*$');
+        isArithmeticOperation = r.hasMatch(_currentOperation);
+
+        num? number = num.tryParse(_computedValue);
+        isNumber = number != null;
+
+        if (isArithmeticOperation && isNumber) {
+          _currentOperation = _computedValue;
+        }
+
+        switch (_currentOperator) {
+          case CalculatorOperator.ADD:
+            _computedValue += CalculatorOperator.ADD.value;
+            break;
+          case CalculatorOperator.SUBTRACT:
+            _computedValue += CalculatorOperator.SUBTRACT.value;
+            break;
+          case CalculatorOperator.MULTIPLY:
+            _computedValue += CalculatorOperator.MULTIPLY.value;
+            break;
+          case CalculatorOperator.DIVIDE:
+            _computedValue += CalculatorOperator.DIVIDE.value;
+            break;
+          case CalculatorOperator.NONE:
+            _computedValue += CalculatorOperator.NONE.value;
+        }
+
+        _currentOperation += _currentOperator.value;
       }
-
-      if (_currentOperation.contains('[+-/*]')){
-            _computeOperation();
-            _currentOperation = _computedValue;
-          } 
-
-      _currentOperation += _currentOperator.value;
     });
   }
 
   clearEntry() {
-    setState(() => _computedValue = "0");
-    _firstOperand = 0.0;
-    _secondOperand = 0.0;
-    _currentOperator = CalculatorOperator.NONE;
-    _currentOperation = "0";
+    setState(() {
+      _computedValue = "0";
+      ;
+      _firstOperand = 0.0;
+      _secondOperand = 0.0;
+      _currentOperator = CalculatorOperator.NONE;
+      _currentOperation = "0";
+    });
   }
 
   @override
