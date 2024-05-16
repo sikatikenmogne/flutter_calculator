@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_calculator/src/calculator/calculator_operator.dart';
+import 'package:flutter_calculator/src/calculator/calculator_operator_enum.dart';
 import 'calculator/calculator_button.dart';
 
 import 'calculator/calculator_icon_button.dart';
+import 'calculator/operation_displayer.dart';
 import 'calculator/result_displayer.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -33,42 +34,44 @@ class _MyHomePageState extends State<MyHomePage> {
 
   double _secondOperand = 0.0;
 
+  bool _operationEnded = false;
+
   addDigit(String value) {
     setState(() {
-      if (_computedValue != "0") {
-        _computedValue += value;
-        _currentOperation += value;
+      if(_operationEnded){
+        _clearEntry();
+        _operationEnded = false;
+      }
 
-        if (_currentOperator != CalculatorOperator.NONE) {
+      if (_currentOperator == CalculatorOperator.NONE) {
+        if(_firstOperand == 0.0) {
+          _firstOperand = double.parse(value);
+        }else{
           _secondOperand = double.parse(value);
-          _computeOperation();
         }
-      } else {
-        _computedValue = value;
-        _currentOperation = value;
+      }else{
+        _secondOperand = double.parse(value);
       }
     });
   }
 
-  void _computeOperation() {
-    setState(() {
-      switch (_currentOperator) {
-        case CalculatorOperator.ADD:
-          _computedValue = (_firstOperand + _secondOperand).toString();
-          break;
-        case CalculatorOperator.SUBTRACT:
-          _computedValue = (_firstOperand - _secondOperand).toString();
-          break;
-        case CalculatorOperator.MULTIPLY:
-          _computedValue = (_firstOperand * _secondOperand).toString();
-          break;
-        case CalculatorOperator.DIVIDE:
-          _computedValue = (_firstOperand / _secondOperand).toString();
-          break;
+  double _computeOperation() {
+    switch (_currentOperator) {
+      case CalculatorOperator.ADD:
+        return (_firstOperand + _secondOperand);
+        break;
+      case CalculatorOperator.SUBTRACT:
+        return (_firstOperand - _secondOperand);
+        break;
+      case CalculatorOperator.MULTIPLY:
+        return (_firstOperand * _secondOperand);
+        break;
+      case CalculatorOperator.DIVIDE:
+        return (_firstOperand / _secondOperand);
+        break;
         default:
-          _computedValue = "0";
-      }
-    });
+          return 0.0;
+    }
   }
 
   void setFirstOperator() {
@@ -83,56 +86,32 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void setCurrentOperator(CalculatorOperator operator) {
-    bool isArithmeticOperation;
-    bool isNonCompleteArithmeticOperation;
-
-    bool isNumber;
-
     setState(() {
-      RegExp r = RegExp(r'^\s*\d+\s*[\+\-\*\/]\s*$');
-      isNonCompleteArithmeticOperation = r.hasMatch(_currentOperation);
 
-      if (!isNonCompleteArithmeticOperation) {
+      if(_operationEnded){
+        _operationEnded = false;
+      }
+      if(_currentOperator == CalculatorOperator.NONE){
+          _currentOperator = operator;
+      }else{
+        _firstOperand = _computeOperation();
         _currentOperator = operator;
-
-        setFirstOperator();
-
-        r = RegExp(r'^\s*\d+\s*[\+\-\*\/]\s*\d+\s*$');
-        isArithmeticOperation = r.hasMatch(_currentOperation);
-
-        num? number = num.tryParse(_computedValue);
-        isNumber = number != null;
-
-        if (isArithmeticOperation && isNumber) {
-          _currentOperation = _computedValue;
-        }
-
-        switch (_currentOperator) {
-          case CalculatorOperator.ADD:
-            _computedValue += CalculatorOperator.ADD.value;
-            break;
-          case CalculatorOperator.SUBTRACT:
-            _computedValue += CalculatorOperator.SUBTRACT.value;
-            break;
-          case CalculatorOperator.MULTIPLY:
-            _computedValue += CalculatorOperator.MULTIPLY.value;
-            break;
-          case CalculatorOperator.DIVIDE:
-            _computedValue += CalculatorOperator.DIVIDE.value;
-            break;
-          case CalculatorOperator.NONE:
-            _computedValue += CalculatorOperator.NONE.value;
-        }
-
-        _currentOperation += _currentOperator.value;
+        _secondOperand = 0.0;
       }
     });
   }
 
-  clearEntry() {
+  _endOperation(){
+    setState(() {
+      // _firstOperand = _computeOperation();
+      _operationEnded = true;
+      // _currentOperator = CalculatorOperator.NONE;
+      // _secondOperand = 0.0;
+    });
+  }
+  _clearEntry() {
     setState(() {
       _computedValue = "0";
-      ;
       _firstOperand = 0.0;
       _secondOperand = 0.0;
       _currentOperator = CalculatorOperator.NONE;
@@ -184,13 +163,20 @@ class _MyHomePageState extends State<MyHomePage> {
                 Column(
                   children: [
                     Expanded(
-                        child: ResultDisplayer(
-                            value: _currentOperation,
-                            padding: 2.0,
-                            fontSize: 24.0,
-                            color: Colors.grey)),
+                      child: OperationDisplayer(
+                        firstOperand: _firstOperand,
+                        secondOperand: _secondOperand,
+                        calculatorOperator: _currentOperator,
+                        operationEnded: _operationEnded,
+                      )
+                    ),
                     Expanded(
-                        flex: 2, child: ResultDisplayer(value: _computedValue)),
+                      flex: 2, child: ResultDisplayer(
+                        firstOperand: _firstOperand,
+                        secondOperand: _secondOperand,
+                        calculatorOperator: _currentOperator,
+                      )
+                    ),
                   ],
                 )
               ],
@@ -219,7 +205,7 @@ class _MyHomePageState extends State<MyHomePage> {
               children: [
                 CalculatorButton(name: "C", onPressedButton: () => {}),
                 CalculatorButton(
-                    name: "CE", onPressedButton: () => {clearEntry()}),
+                    name: "CE", onPressedButton: () => {_clearEntry()}),
                 CalculatorButton(name: "<", onPressedButton: () => {}),
                 CalculatorIconButton(
                     name: "backspace",
@@ -251,12 +237,7 @@ class _MyHomePageState extends State<MyHomePage> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 CalculatorButton(
-                    name: "7",
-                    onPressedButton: () => {
-                          setState(() {
-                            _computedValue = "7";
-                          }),
-                        }),
+                    name: "7", onPressedButton: () => {addDigit("7")}),
                 CalculatorButton(
                     name: "8", onPressedButton: () => {addDigit("8")}),
                 CalculatorButton(
@@ -318,7 +299,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 CalculatorButton(name: ",", onPressedButton: () => {}),
                 CalculatorButton(
                     name: "=",
-                    onPressedButton: () => {_computeOperation()},
+                    onPressedButton: () => {_endOperation()},
                     buttonColor: Colors.blueAccent),
               ],
             ),
