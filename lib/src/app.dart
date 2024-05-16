@@ -24,7 +24,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  String _value = "0";
+  String _computedValue = "0";
+  String _currentOperation = "0";
 
   CalculatorOperator _currentOperator = CalculatorOperator.NONE;
 
@@ -34,14 +35,17 @@ class _MyHomePageState extends State<MyHomePage> {
 
   addDigit(String value) {
     setState(() {
-      if (_value != "0") {
-        _value += value;
+      if (_computedValue != "0") {
+        _computedValue += value;
+        _currentOperation += value;
+
         if (_currentOperator != CalculatorOperator.NONE) {
           _secondOperand = double.parse(value);
           _computeOperation();
         }
       } else {
-        _value = value;
+        _computedValue = value;
+        _currentOperation = value;
       }
     });
   }
@@ -50,35 +54,35 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       switch (_currentOperator) {
         case CalculatorOperator.ADD:
-          _value = (_firstOperand + _secondOperand).toString();
+          _computedValue = (_firstOperand + _secondOperand).toString();
           break;
-        case CalculatorOperator.SUBSTRACT:
-          _value = (_firstOperand - _secondOperand).toString();
+        case CalculatorOperator.SUBTRACT:
+          _computedValue = (_firstOperand - _secondOperand).toString();
           break;
         case CalculatorOperator.MULTIPLY:
-          _value = (_firstOperand * _secondOperand).toString();
+          _computedValue = (_firstOperand * _secondOperand).toString();
           break;
-        case CalculatorOperator.DIVIDER:
-          _value = (_firstOperand / _secondOperand).toString();
+        case CalculatorOperator.DIVIDE:
+          _computedValue = (_firstOperand / _secondOperand).toString();
           break;
         default:
-          _value = "0";
+          _computedValue = "0";
       }
     });
   }
 
   void setFirstOperator() {
-    if (_value == "0") return;
+    if (_computedValue == "0") return;
 
-    _firstOperand = double.parse(_value);
+    _firstOperand = double.parse(_computedValue);
   }
 
   void setSecondOperator() {
-    _secondOperand = double.parse(_value);
-    _value = "0";
+    _secondOperand = double.parse(_computedValue);
+    _computedValue = "0";
   }
 
-  void currentOperator(CalculatorOperator operator) {
+  void setCurrentOperator(CalculatorOperator operator) {
     setState(() {
       _currentOperator = operator;
 
@@ -86,28 +90,36 @@ class _MyHomePageState extends State<MyHomePage> {
 
       switch (_currentOperator) {
         case CalculatorOperator.ADD:
-          _value += "+";
+          _computedValue += CalculatorOperator.ADD.value;
           break;
-        case CalculatorOperator.SUBSTRACT:
-          _value += "-";
+        case CalculatorOperator.SUBTRACT:
+          _computedValue += CalculatorOperator.SUBTRACT.value;
           break;
         case CalculatorOperator.MULTIPLY:
-          _value += "*";
+          _computedValue += CalculatorOperator.MULTIPLY.value;
           break;
-        case CalculatorOperator.DIVIDER:
-          _value += "/";
+        case CalculatorOperator.DIVIDE:
+          _computedValue += CalculatorOperator.DIVIDE.value;
           break;
         case CalculatorOperator.NONE:
-          _value += "";
+          _computedValue += CalculatorOperator.NONE.value;
       }
+
+      if (_currentOperation.contains('[+-/*]')){
+            _computeOperation();
+            _currentOperation = _computedValue;
+          } 
+
+      _currentOperation += _currentOperator.value;
     });
   }
 
   clearEntry() {
-    setState(() => _value = "0");
+    setState(() => _computedValue = "0");
     _firstOperand = 0.0;
     _secondOperand = 0.0;
     _currentOperator = CalculatorOperator.NONE;
+    _currentOperation = "0";
   }
 
   @override
@@ -147,10 +159,24 @@ class _MyHomePageState extends State<MyHomePage> {
           Expanded(
             flex: 2,
             child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                mainAxisSize: MainAxisSize.max,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [ResultDisplayer(value: _value)]),
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Column(
+                  children: [
+                    Expanded(
+                        child: ResultDisplayer(
+                            value: _currentOperation,
+                            padding: 2.0,
+                            fontSize: 24.0,
+                            color: Colors.grey)),
+                    Expanded(
+                        flex: 2, child: ResultDisplayer(value: _computedValue)),
+                  ],
+                )
+              ],
+            ),
           ),
           Expanded(
             child: Row(
@@ -196,7 +222,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 CalculatorButton(
                     name: "/",
                     onPressedButton: () =>
-                        {currentOperator(CalculatorOperator.DIVIDER)}),
+                        {setCurrentOperator(CalculatorOperator.DIVIDE)}),
               ],
             ),
           ),
@@ -210,7 +236,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     name: "7",
                     onPressedButton: () => {
                           setState(() {
-                            _value = "7";
+                            _computedValue = "7";
                           }),
                         }),
                 CalculatorButton(
@@ -220,7 +246,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 CalculatorButton(
                     name: "*",
                     onPressedButton: () =>
-                        {currentOperator(CalculatorOperator.MULTIPLY)}),
+                        {setCurrentOperator(CalculatorOperator.MULTIPLY)}),
               ],
             ),
           ),
@@ -239,7 +265,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 CalculatorButton(
                     name: "-",
                     onPressedButton: () =>
-                        {currentOperator(CalculatorOperator.SUBSTRACT)}),
+                        {setCurrentOperator(CalculatorOperator.SUBTRACT)}),
               ],
             ),
           ),
@@ -258,7 +284,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 CalculatorButton(
                     name: "+",
                     onPressedButton: () =>
-                        {currentOperator(CalculatorOperator.ADD)}),
+                        {setCurrentOperator(CalculatorOperator.ADD)}),
               ],
             ),
           ),

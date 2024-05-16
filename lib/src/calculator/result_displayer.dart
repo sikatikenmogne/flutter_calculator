@@ -1,27 +1,29 @@
 import 'package:flutter/material.dart';
 
 class ResultDisplayer extends StatelessWidget {
-  String? value = "0";
+  final String value;
+  final double padding;
+  final double fontSize;
+  final Color color;
 
-  ResultDisplayer({super.key, String this.value = "0"});
+  ResultDisplayer({
+    Key? key,
+    this.value = "0",
+    this.padding = 8.0,
+    this.fontSize = 48.0,
+    this.color = Colors.black,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Text(
-              value!,
-              style: const TextStyle(fontSize: 48.0),
-              textAlign: TextAlign.end,
-            )
-          ],
-        ), 
-      ),
+    return Padding(
+      padding: EdgeInsets.all(padding),
+      child: Container(
+          child: Text(
+            value,
+            style: TextStyle(fontSize: fontSize, color: color),
+            textAlign: TextAlign.end,
+          )),
     );
   }
 }
