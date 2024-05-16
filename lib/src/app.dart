@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_calculator/src/calculator/calculator_operator.dart';
 import 'calculator/calculator_button.dart';
 
 import 'calculator/calculator_icon_button.dart';
@@ -23,19 +24,91 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   String _value = "0";
+
+  CalculatorOperator _currentOperator = CalculatorOperator.NONE;
+
+  double _firstOperand = 0.0;
+
+  double _secondOperand = 0.0;
 
   addDigit(String value) {
     setState(() {
-      _value != "0" ? _value += value : _value = value;
+      if (_value != "0") {
+        _value += value;
+        if (_currentOperator != CalculatorOperator.NONE) {
+          _secondOperand = double.parse(value);
+          _computeOperation();
+        }
+      } else {
+        _value = value;
+      }
+    });
+  }
+
+  void _computeOperation() {
+    setState(() {
+      switch (_currentOperator) {
+        case CalculatorOperator.ADD:
+          _value = (_firstOperand + _secondOperand).toString();
+          break;
+        case CalculatorOperator.SUBSTRACT:
+          _value = (_firstOperand - _secondOperand).toString();
+          break;
+        case CalculatorOperator.MULTIPLY:
+          _value = (_firstOperand * _secondOperand).toString();
+          break;
+        case CalculatorOperator.DIVIDER:
+          _value = (_firstOperand / _secondOperand).toString();
+          break;
+        default:
+          _value = "0";
+      }
+    });
+  }
+
+  void setFirstOperator() {
+    if (_value == "0") return;
+
+    _firstOperand = double.parse(_value);
+  }
+
+  void setSecondOperator() {
+    _secondOperand = double.parse(_value);
+    _value = "0";
+  }
+
+  void currentOperator(CalculatorOperator operator) {
+    setState(() {
+      _currentOperator = operator;
+
+      setFirstOperator();
+
+      switch (_currentOperator) {
+        case CalculatorOperator.ADD:
+          _value += "+";
+          break;
+        case CalculatorOperator.SUBSTRACT:
+          _value += "-";
+          break;
+        case CalculatorOperator.MULTIPLY:
+          _value += "*";
+          break;
+        case CalculatorOperator.DIVIDER:
+          _value += "/";
+          break;
+        case CalculatorOperator.NONE:
+          _value += "";
+      }
     });
   }
 
   clearEntry() {
     setState(() => _value = "0");
+    _firstOperand = 0.0;
+    _secondOperand = 0.0;
+    _currentOperator = CalculatorOperator.NONE;
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -56,144 +129,158 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-              Expanded(
-                flex: 2,
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    mainAxisSize: MainAxisSize.max,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [ResultDisplayer(value: _value)]),
-              ),
-              Expanded(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  mainAxisSize: MainAxisSize.max,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    CalculatorButton(name: "MC", onPressedButton: () => {}),
-                    CalculatorButton(name: "MR", onPressedButton: () => {}),
-                    CalculatorButton(name: "M+", onPressedButton: () => {}),
-                    CalculatorButton(name: "M-", onPressedButton: () => {}),
-                    CalculatorButton(name: "MS", onPressedButton: () => {}),
-                  ],
-                ), // Buttons
-              ),
-              const SizedBox(height: 5),
-              Expanded(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  mainAxisSize: MainAxisSize.max,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    CalculatorButton(name: "C", onPressedButton: () => {}),
-                    CalculatorButton(
-                        name: "CE", onPressedButton: () => {clearEntry()}),
-                    CalculatorButton(name: "<", onPressedButton: () => {}),
-                    CalculatorIconButton(
-                            name: "backspace", onPressedButton: () => {}, buttonColor: Colors.transparent),
-                  ],
-                ), // Buttons
-              ),
-              Expanded(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  mainAxisSize: MainAxisSize.max,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    CalculatorButton(name: "1/x", onPressedButton: () => ()),
-                    CalculatorButton(name: "x^2", onPressedButton: () => {}),
-                    CalculatorButton(name: "2√x", onPressedButton: () => {}),
-                    CalculatorButton(name: "/", onPressedButton: () => {}),
-                  ],
-                ),
-              ),
-              Expanded(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  mainAxisSize: MainAxisSize.max,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    CalculatorButton(
-                        name: "7",
-                        onPressedButton: () => {
-                              setState(() {
-                                _value = "7";
-                              }),
-                            }),
-                    CalculatorButton(
-                        name: "8", onPressedButton: () => {addDigit("8")}),
-                    CalculatorButton(
-                        name: "9", onPressedButton: () => {addDigit("9")}),
-                    CalculatorButton(name: "*", onPressedButton: () => {}),
-                  ],
-                ),
-              ),
-              Expanded(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  mainAxisSize: MainAxisSize.max,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    CalculatorButton(
-                        name: "4", onPressedButton: () => {addDigit("4")}),
-                    CalculatorButton(
-                        name: "5", onPressedButton: () => {addDigit("5")}),
-                    CalculatorButton(
-                        name: "6", onPressedButton: () => {addDigit("6")}),
-                    CalculatorButton(name: "-", onPressedButton: () => {}),
-                  ],
-                ),
-              ),
-              Expanded(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  mainAxisSize: MainAxisSize.max,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    CalculatorButton(
-                        name: "1", onPressedButton: () => {addDigit("1")}),
-                    CalculatorButton(
-                        name: "2", onPressedButton: () => {addDigit("2")}),
-                    CalculatorButton(
-                        name: "3", onPressedButton: () => {addDigit("3")}),
-                    CalculatorButton(name: "+", onPressedButton: () => {}),
-                  ],
-                ),
-              ),
-              Expanded(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  mainAxisSize: MainAxisSize.max,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    CalculatorButton(name: "+/-", onPressedButton: () => {}),
-                    CalculatorButton(name: "0", onPressedButton: () => {addDigit("0")}),
-                    CalculatorButton(name: ",", onPressedButton: () => {}),
-                    CalculatorButton(name: "=", onPressedButton: () => {},
-                        buttonColor: Colors.blueAccent),
-                  ],
-                ),
-              )
-
-          ],
-        
+        // Column is also a layout widget. It takes a list of children and
+        // arranges them vertically. By default, it sizes itself to fit its
+        // children horizontally, and tries to be as tall as its parent.
+        //
+        // Column has various properties to control how it sizes itself and
+        // how it positions its children. Here we use mainAxisAlignment to
+        // center the children vertically; the main axis here is the vertical
+        // axis because Columns are vertical (the cross axis would be
+        // horizontal).
+        //
+        // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
+        // action in the IDE, or press "p" in the console), to see the
+        // wireframe for each widget.
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Expanded(
+            flex: 2,
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [ResultDisplayer(value: _value)]),
+          ),
+          Expanded(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                CalculatorButton(name: "MC", onPressedButton: () => {}),
+                CalculatorButton(name: "MR", onPressedButton: () => {}),
+                CalculatorButton(name: "M+", onPressedButton: () => {}),
+                CalculatorButton(name: "M-", onPressedButton: () => {}),
+                CalculatorButton(name: "MS", onPressedButton: () => {}),
+              ],
+            ), // Buttons
+          ),
+          const SizedBox(height: 5),
+          Expanded(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                CalculatorButton(name: "C", onPressedButton: () => {}),
+                CalculatorButton(
+                    name: "CE", onPressedButton: () => {clearEntry()}),
+                CalculatorButton(name: "<", onPressedButton: () => {}),
+                CalculatorIconButton(
+                    name: "backspace",
+                    onPressedButton: () => {},
+                    buttonColor: Colors.transparent),
+              ],
+            ), // Buttons
+          ),
+          Expanded(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                CalculatorButton(name: "1/x", onPressedButton: () => ()),
+                CalculatorButton(name: "x^2", onPressedButton: () => {}),
+                CalculatorButton(name: "2√x", onPressedButton: () => {}),
+                CalculatorButton(
+                    name: "/",
+                    onPressedButton: () =>
+                        {currentOperator(CalculatorOperator.DIVIDER)}),
+              ],
+            ),
+          ),
+          Expanded(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                CalculatorButton(
+                    name: "7",
+                    onPressedButton: () => {
+                          setState(() {
+                            _value = "7";
+                          }),
+                        }),
+                CalculatorButton(
+                    name: "8", onPressedButton: () => {addDigit("8")}),
+                CalculatorButton(
+                    name: "9", onPressedButton: () => {addDigit("9")}),
+                CalculatorButton(
+                    name: "*",
+                    onPressedButton: () =>
+                        {currentOperator(CalculatorOperator.MULTIPLY)}),
+              ],
+            ),
+          ),
+          Expanded(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                CalculatorButton(
+                    name: "4", onPressedButton: () => {addDigit("4")}),
+                CalculatorButton(
+                    name: "5", onPressedButton: () => {addDigit("5")}),
+                CalculatorButton(
+                    name: "6", onPressedButton: () => {addDigit("6")}),
+                CalculatorButton(
+                    name: "-",
+                    onPressedButton: () =>
+                        {currentOperator(CalculatorOperator.SUBSTRACT)}),
+              ],
+            ),
+          ),
+          Expanded(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                CalculatorButton(
+                    name: "1", onPressedButton: () => {addDigit("1")}),
+                CalculatorButton(
+                    name: "2", onPressedButton: () => {addDigit("2")}),
+                CalculatorButton(
+                    name: "3", onPressedButton: () => {addDigit("3")}),
+                CalculatorButton(
+                    name: "+",
+                    onPressedButton: () =>
+                        {currentOperator(CalculatorOperator.ADD)}),
+              ],
+            ),
+          ),
+          Expanded(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                CalculatorButton(name: "+/-", onPressedButton: () => {}),
+                CalculatorButton(
+                    name: "0", onPressedButton: () => {addDigit("0")}),
+                CalculatorButton(name: ",", onPressedButton: () => {}),
+                CalculatorButton(
+                    name: "=",
+                    onPressedButton: () => {_computeOperation()},
+                    buttonColor: Colors.blueAccent),
+              ],
+            ),
+          )
+        ],
       ),
-
     );
   }
 }
