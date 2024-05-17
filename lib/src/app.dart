@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_calculator/src/calculator/calculator_operator_enum.dart';
+import 'package:flutter_calculator/src/calculator/operation.dart';
+import 'package:flutter_calculator/src/calculator/operation_computer.dart';
 import 'calculator/calculator_button.dart';
 
 import 'calculator/calculator_icon_button.dart';
 import 'calculator/operation_displayer.dart';
-import 'calculator/result_displayer.dart';
+import 'calculator/input_output_displayer.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -25,7 +27,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  String _computedValue = "0";
+  String _displayedValue = "0";
+  String _inputValue = "0";
   String _currentOperation = "0";
 
   CalculatorOperator _currentOperator = CalculatorOperator.NONE;
@@ -36,21 +39,40 @@ class _MyHomePageState extends State<MyHomePage> {
 
   bool _operationEnded = false;
 
+  Operation _operation = Operation();
+
   addDigit(String value) {
     setState(() {
-      if(_operationEnded){
+      if (_operationEnded) {
         _clearEntry();
         _operationEnded = false;
       }
 
-      if (_currentOperator == CalculatorOperator.NONE) {
-        if(_firstOperand == 0.0) {
-          _firstOperand = double.parse(value);
-        }else{
-          _secondOperand = double.parse(value);
+      if (_displayedValue == "0") {
+        _displayedValue = value;
+      } else {
+        if(_currentOperator == CalculatorOperator.NONE) {
+          _displayedValue += value;
+        } else {
+          if(_operation.firstOperand == 0.0) {
+            _displayedValue = value;
+          } else {
+            if (_operation.secondOperand == 0.0) {
+              _displayedValue = "";
+            }
+            _displayedValue += value;
+          }
         }
-      }else{
-        _secondOperand = double.parse(value);
+      }
+
+      if (_currentOperator == CalculatorOperator.NONE) {
+        _firstOperand = double.parse(_displayedValue);
+        _operation.firstOperand = _firstOperand;
+      } else {
+        if (!_operationEnded) {
+          _secondOperand = double.parse(_displayedValue);
+          _operation.secondOperand = _secondOperand;
+        }
       }
     });
   }
@@ -69,53 +91,67 @@ class _MyHomePageState extends State<MyHomePage> {
       case CalculatorOperator.DIVIDE:
         return (_firstOperand / _secondOperand);
         break;
-        default:
-          return 0.0;
+      default:
+        return 0.0;
     }
   }
 
   void setFirstOperator() {
-    if (_computedValue == "0") return;
+    if (_displayedValue == "0") return;
 
-    _firstOperand = double.parse(_computedValue);
+    _firstOperand = double.parse(_displayedValue);
   }
 
   void setSecondOperator() {
-    _secondOperand = double.parse(_computedValue);
-    _computedValue = "0";
+    _secondOperand = double.parse(_displayedValue);
+    _displayedValue = "0";
   }
 
-  void setCurrentOperator(CalculatorOperator operator) {
+  void setCurrentOperator(CalculatorOperator newOperator) {
     setState(() {
-
-      if(_operationEnded){
+      if (_operationEnded) {
         _operationEnded = false;
       }
-      if(_currentOperator == CalculatorOperator.NONE){
-          _currentOperator = operator;
-      }else{
-        _firstOperand = _computeOperation();
-        _currentOperator = operator;
+      if (_currentOperator == CalculatorOperator.NONE) {
+        _currentOperator = newOperator;
+        _operation.calculatorOperator = _currentOperator;
+      } else {
+        _firstOperand = OperationComputer.compute(operation: _operation).toDouble();
+        _currentOperator = newOperator;
+        _operation.calculatorOperator = _currentOperator;
         _secondOperand = 0.0;
       }
     });
   }
 
-  _endOperation(){
+  _endOperation() {
     setState(() {
-      // _firstOperand = _computeOperation();
-      _operationEnded = true;
-      // _currentOperator = CalculatorOperator.NONE;
-      // _secondOperand = 0.0;
+      if (_operation.calculatorOperator != CalculatorOperator.NONE &&
+          _secondOperand != 0.0) {
+        _operationEnded = true;
+        _operation.operationEnded = _operationEnded;
+        _displayedValue =
+            OperationComputer.compute(operation: _operation).toString();
+        _firstOperand = double.parse(_displayedValue);
+        _secondOperand = 0.0;
+        _currentOperator = CalculatorOperator.NONE;
+        _operation.firstOperand = _firstOperand;
+        _operation.secondOperand = _secondOperand;
+        _operation.operationEnded = _operationEnded;
+      }
     });
   }
+
   _clearEntry() {
     setState(() {
-      _computedValue = "0";
+      _displayedValue = "0";
       _firstOperand = 0.0;
       _secondOperand = 0.0;
       _currentOperator = CalculatorOperator.NONE;
       _currentOperation = "0";
+      _operation.firstOperand = _firstOperand;
+      _operation.secondOperand = _secondOperand;
+      _operation.calculatorOperator = _currentOperator;
     });
   }
 
@@ -163,20 +199,18 @@ class _MyHomePageState extends State<MyHomePage> {
                 Column(
                   children: [
                     Expanded(
-                      child: OperationDisplayer(
-                        firstOperand: _firstOperand,
-                        secondOperand: _secondOperand,
-                        calculatorOperator: _currentOperator,
-                        operationEnded: _operationEnded,
-                      )
-                    ),
+                        child: OperationDisplayer(
+                      firstOperand: _firstOperand,
+                      secondOperand: _secondOperand,
+                      calculatorOperator: _currentOperator,
+                      operationEnded: _operationEnded,
+                    )),
                     Expanded(
-                      flex: 2, child: ResultDisplayer(
-                        firstOperand: _firstOperand,
-                        secondOperand: _secondOperand,
-                        calculatorOperator: _currentOperator,
-                      )
-                    ),
+                        flex: 2,
+                        child: InputOutputDisplayer(
+                          valueToDisplay: _displayedValue,
+                          calculatorOperator: _currentOperator,
+                        )),
                   ],
                 )
               ],

@@ -1,0 +1,34 @@
+import 'package:flutter/material.dart';
+
+import 'calculator_operator_enum.dart';
+
+class InputOutputDisplayer extends StatelessWidget {
+  final String valueToDisplay;
+  final CalculatorOperator calculatorOperator;
+  final double padding;
+  final double fontSize;
+  final Color color;
+
+
+  InputOutputDisplayer({
+    Key? key,
+    this.valueToDisplay = "0.0",
+    this.calculatorOperator = CalculatorOperator.NONE,
+    this.padding = 8.0,
+    this.fontSize = 48.0,
+    this.color = Colors.black,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.all(padding),
+      child: Container(
+          child: Text(
+            valueToDisplay,
+            style: TextStyle(fontSize: fontSize, color: color),
+            textAlign: TextAlign.end,
+          )),
+    );
+  }
+}
