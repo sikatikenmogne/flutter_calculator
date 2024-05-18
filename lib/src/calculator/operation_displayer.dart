@@ -29,9 +29,7 @@ class OperationDisplayer extends StatelessWidget {
       padding: EdgeInsets.all(padding),
       child: Container(
           child: Text(
-        calculatorOperator != CalculatorOperator.NONE
-            ? "$firstOperand ${calculatorOperator.value} ${secondOperand != 0 ? "$secondOperand" : ""}${operationEnded ? " =" : ""}"
-            : "$firstOperand",
+            "$firstOperand${calculatorOperator != CalculatorOperator.NONE ? " ${calculatorOperator.value}" : ""}${secondOperand != 0 && operationEnded ? " $secondOperand" : ""}${operationEnded ? " =" : ""}",
         style: TextStyle(fontSize: fontSize, color: color),
         textAlign: TextAlign.end,
       )),

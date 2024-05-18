@@ -28,8 +28,6 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   String _displayedValue = "0";
-  String _inputValue = "0";
-  String _currentOperation = "0";
 
   CalculatorOperator _currentOperator = CalculatorOperator.NONE;
 
@@ -39,25 +37,29 @@ class _MyHomePageState extends State<MyHomePage> {
 
   bool _operationEnded = false;
 
-  Operation _operation = Operation();
+  Operation _currentOperation = Operation();
 
   addDigit(String value) {
     setState(() {
       if (_operationEnded) {
-        _clearEntry();
+        clearEntry();
         _operationEnded = false;
       }
 
       if (_displayedValue == "0") {
         _displayedValue = value;
+        if(_currentOperation.firstOperand != 0 && _currentOperation.calculatorOperator != CalculatorOperator.NONE)
+          {
+            _currentOperation.secondOperand = double.parse(value);
+          }
       } else {
         if(_currentOperator == CalculatorOperator.NONE) {
           _displayedValue += value;
         } else {
-          if(_operation.firstOperand == 0.0) {
+          if(_currentOperation.firstOperand == 0.0) {
             _displayedValue = value;
           } else {
-            if (_operation.secondOperand == 0.0) {
+            if (_currentOperation.secondOperand == 0.0) {
               _displayedValue = "";
             }
             _displayedValue += value;
@@ -67,33 +69,14 @@ class _MyHomePageState extends State<MyHomePage> {
 
       if (_currentOperator == CalculatorOperator.NONE) {
         _firstOperand = double.parse(_displayedValue);
-        _operation.firstOperand = _firstOperand;
+        _currentOperation.firstOperand = _firstOperand;
       } else {
         if (!_operationEnded) {
           _secondOperand = double.parse(_displayedValue);
-          _operation.secondOperand = _secondOperand;
+          _currentOperation.secondOperand = double.parse(_displayedValue);
         }
       }
     });
-  }
-
-  double _computeOperation() {
-    switch (_currentOperator) {
-      case CalculatorOperator.ADD:
-        return (_firstOperand + _secondOperand);
-        break;
-      case CalculatorOperator.SUBTRACT:
-        return (_firstOperand - _secondOperand);
-        break;
-      case CalculatorOperator.MULTIPLY:
-        return (_firstOperand * _secondOperand);
-        break;
-      case CalculatorOperator.DIVIDE:
-        return (_firstOperand / _secondOperand);
-        break;
-      default:
-        return 0.0;
-    }
   }
 
   void setFirstOperator() {
@@ -111,47 +94,61 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       if (_operationEnded) {
         _operationEnded = false;
+        _displayedValue = "0";
+        _secondOperand = 0.0;
+        _firstOperand = OperationComputer.compute(operation: _currentOperation).toDouble();
+        _currentOperation.firstOperand = _firstOperand;
+        _currentOperation.operationEnded = _operationEnded;
+        _currentOperation.secondOperand = _secondOperand;
+        _currentOperator = CalculatorOperator.NONE;
+        _currentOperation.calculatorOperator = _currentOperator;
+      }
+      else{
+        if (_currentOperation.calculatorOperator != CalculatorOperator.NONE &&
+            _firstOperand != 0.0) {
+          _currentOperator = newOperator;
+          _currentOperation.calculatorOperator = _currentOperator;
+          return;
+        }
       }
       if (_currentOperator == CalculatorOperator.NONE) {
         _currentOperator = newOperator;
-        _operation.calculatorOperator = _currentOperator;
+        _currentOperation.calculatorOperator = _currentOperator;
       } else {
-        _firstOperand = OperationComputer.compute(operation: _operation).toDouble();
+        _firstOperand = OperationComputer.compute(operation: _currentOperation).toDouble();
         _currentOperator = newOperator;
-        _operation.calculatorOperator = _currentOperator;
+        _currentOperation.calculatorOperator = _currentOperator;
         _secondOperand = 0.0;
       }
     });
   }
 
-  _endOperation() {
+  void endOperation() {
     setState(() {
-      if (_operation.calculatorOperator != CalculatorOperator.NONE &&
-          _secondOperand != 0.0) {
+      if (_currentOperation.calculatorOperator != CalculatorOperator.NONE &&
+          _secondOperand != 0.0 && !_operationEnded) {
         _operationEnded = true;
-        _operation.operationEnded = _operationEnded;
         _displayedValue =
-            OperationComputer.compute(operation: _operation).toString();
-        _firstOperand = double.parse(_displayedValue);
-        _secondOperand = 0.0;
-        _currentOperator = CalculatorOperator.NONE;
-        _operation.firstOperand = _firstOperand;
-        _operation.secondOperand = _secondOperand;
-        _operation.operationEnded = _operationEnded;
+            OperationComputer.compute(operation: _currentOperation).toString();
+        //  _firstOperand = double.parse(_displayedValue);
+        // _currentOperation.firstOperand = double.parse(_displayedValue);
+        // _secondOperand = 0.0;
+        // _currentOperator = CalculatorOperator.NONE;
+        // _currentOperation.firstOperand = _firstOperand;
+        // _currentOperation.secondOperand = _secondOperand;
       }
     });
   }
 
-  _clearEntry() {
+  void clearEntry() {
     setState(() {
       _displayedValue = "0";
       _firstOperand = 0.0;
       _secondOperand = 0.0;
       _currentOperator = CalculatorOperator.NONE;
-      _currentOperation = "0";
-      _operation.firstOperand = _firstOperand;
-      _operation.secondOperand = _secondOperand;
-      _operation.calculatorOperator = _currentOperator;
+      _currentOperation.firstOperand = _firstOperand;
+      _currentOperation.secondOperand = _secondOperand;
+      _currentOperation.calculatorOperator = _currentOperator;
     });
   }
 
@@ -199,18 +196,20 @@ class _MyHomePageState extends State<MyHomePage> {
                 Column(
                   children: [
                     Expanded(
-                        child: OperationDisplayer(
-                      firstOperand: _firstOperand,
-                      secondOperand: _secondOperand,
-                      calculatorOperator: _currentOperator,
-                      operationEnded: _operationEnded,
-                    )),
+                      child: OperationDisplayer(
+                        firstOperand: _firstOperand,
+                        secondOperand: _secondOperand,
+                        calculatorOperator: _currentOperator,
+                        operationEnded: _operationEnded,
+                      )
+                    ),
                     Expanded(
-                        flex: 2,
-                        child: InputOutputDisplayer(
-                          valueToDisplay: _displayedValue,
-                          calculatorOperator: _currentOperator,
-                        )),
+                      flex: 2,
+                      child: InputOutputDisplayer(
+                        valueToDisplay: _displayedValue,
+                        calculatorOperator: _currentOperator,
+                      )
+                    ),
                   ],
                 )
               ],
@@ -239,7 +238,7 @@ class _MyHomePageState extends State<MyHomePage> {
               children: [
                 CalculatorButton(name: "C", onPressedButton: () => {}),
                 CalculatorButton(
-                    name: "CE", onPressedButton: () => {_clearEntry()}),
+                    name: "CE", onPressedButton: () => {clearEntry()}),
                 CalculatorButton(name: "<", onPressedButton: () => {}),
                 CalculatorIconButton(
                     name: "backspace",
@@ -333,7 +332,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 CalculatorButton(name: ",", onPressedButton: () => {}),
                 CalculatorButton(
                     name: "=",
-                    onPressedButton: () => {_endOperation()},
+                    onPressedButton: () => {endOperation()},
                     buttonColor: Colors.blueAccent),
               ],
             ),
