@@ -1,0 +1,26 @@
+# .gitattributes
+
+# Ignore C++ files
+*.cpp linguist-vendored
+*.hpp linguist-vendored
+*.cxx linguist-vendored
+*.hxx linguist-vendored
+*.cc linguist-vendored
+*.hh linguist-vendored
+*.c++ linguist-vendored
+*.h++ linguist-vendored
+
+# Ignore CMake files
+CMakeLists.txt linguist-vendored
+*.cmake linguist-vendored
+
+# Ignore HTML files
+*.html linguist-vendored
+*.htm linguist-vendored
+
+# Ignore Swift files
+*.swift linguist-vendored
+
+# Ignore C files
+*.c linguist-vendored
+*.h linguist-vendored
