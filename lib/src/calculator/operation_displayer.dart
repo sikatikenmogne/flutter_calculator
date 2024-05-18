@@ -18,7 +18,7 @@ class OperationDisplayer extends StatelessWidget {
       this.secondOperand = 0.0,
       this.calculatorOperator = CalculatorOperator.NONE,
       this.operationEnded = false,
-      this.padding = 2.0,
+      this.padding = 8.0,
       this.fontSize = 20.0,
       this.color = Colors.grey})
       : super(key: key);
@@ -26,7 +26,7 @@ class OperationDisplayer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(padding),
+      padding: EdgeInsets.fromLTRB(padding, padding, padding, 0.0),
       child: Container(
           child: Text(
             "$firstOperand${calculatorOperator != CalculatorOperator.NONE ? " ${calculatorOperator.value}" : ""}${secondOperand != 0 && operationEnded ? " $secondOperand" : ""}${operationEnded ? " =" : ""}",

@@ -26,8 +26,9 @@ class CalculatorIconButton extends StatelessWidget {
                 )),
               ),
               child: const Icon(
-                Icons.backspace,
+                Icons.backspace_outlined,
                 color: Colors.black87,
+                size: 20.0,
               ),
             )));
   }

@@ -189,7 +189,7 @@ class _MyHomePageState extends State<MyHomePage> {
           Expanded(
             flex: 2,
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.end,
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -205,30 +205,34 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     Expanded(
                       flex: 2,
-                      child: InputOutputDisplayer(
-                        valueToDisplay: _displayedValue,
-                        calculatorOperator: _currentOperator,
-                      )
+                      child: Container(
+                        padding: EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 8.0),
+                        alignment: Alignment.topRight,
+                        child: InputOutputDisplayer(
+                          valueToDisplay: _displayedValue,
+                          calculatorOperator: _currentOperator,
+                        )
+                      ),
                     ),
                   ],
                 )
               ],
             ),
           ),
-          Expanded(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                CalculatorButton(name: "MC", onPressedButton: () => {}),
-                CalculatorButton(name: "MR", onPressedButton: () => {}),
-                CalculatorButton(name: "M+", onPressedButton: () => {}),
-                CalculatorButton(name: "M-", onPressedButton: () => {}),
-                CalculatorButton(name: "MS", onPressedButton: () => {}),
-              ],
-            ), // Buttons
-          ),
+          // Expanded(
+          //   child: Row(
+          //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          //     mainAxisSize: MainAxisSize.max,
+          //     crossAxisAlignment: CrossAxisAlignment.stretch,
+          //     children: [
+          //       CalculatorButton(name: "MC", onPressedButton: () => {}),
+          //       CalculatorButton(name: "MR", onPressedButton: () => {}),
+          //       CalculatorButton(name: "M+", onPressedButton: () => {}),
+          //       CalculatorButton(name: "M-", onPressedButton: () => {}),
+          //       CalculatorButton(name: "MS", onPressedButton: () => {}),
+          //     ],
+          //   ), // Buttons
+          // ),
           const SizedBox(height: 5),
           Expanded(
             child: Row(
@@ -236,14 +240,15 @@ class _MyHomePageState extends State<MyHomePage> {
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                CalculatorButton(name: "C", onPressedButton: () => {}),
+                CalculatorButton(name: "%", onPressedButton: () => {}),
                 CalculatorButton(
                     name: "CE", onPressedButton: () => {clearEntry()}),
-                CalculatorButton(name: "<", onPressedButton: () => {}),
+                CalculatorButton(name: "C", onPressedButton: () => {}),
                 CalculatorIconButton(
-                    name: "backspace",
-                    onPressedButton: () => {},
-                    buttonColor: Colors.transparent),
+                  name: "backspace_outlined",
+                  onPressedButton: () => {},
+                  buttonColor: Colors.white // Colors.redAccent,
+                ),
               ],
             ), // Buttons
           ),
@@ -253,9 +258,9 @@ class _MyHomePageState extends State<MyHomePage> {
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                CalculatorButton(name: "1/x", onPressedButton: () => ()),
-                CalculatorButton(name: "x^2", onPressedButton: () => {}),
-                CalculatorButton(name: "2√x", onPressedButton: () => {}),
+                CalculatorButton(name: "¹/x", onPressedButton: () => ()),
+                CalculatorButton(name: "x²", onPressedButton: () => {}),
+                CalculatorButton(name: "²√x", onPressedButton: () => {}),
                 CalculatorButton(
                     name: "/",
                     onPressedButton: () =>

@@ -22,11 +22,12 @@ class InputOutputDisplayer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(padding),
+      padding: EdgeInsets.fromLTRB(padding, 0.0, padding, padding),
       child: Container(
+        alignment: Alignment.topRight,
           child: Text(
             valueToDisplay,
-            style: TextStyle(fontSize: fontSize, color: color),
+            style: TextStyle(fontSize: fontSize, color: color, fontWeight: FontWeight.bold),
             textAlign: TextAlign.end,
           )),
     );
