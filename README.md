@@ -1,10 +1,14 @@
 # Flutter Calculator
 
+<div align="center">
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-![visitors](https://visitor-badge.glitch.me/badge?page_id=sikatikenmogne.flutter_calculator)
+<!-- ![visitors](https://visitor-badge.glitch.me/badge?page_id=sikatikenmogne.flutter_calculator) -->
 [![GitHub issues](https://img.shields.io/github/issues/sikatikenmogne/flutter_calculator)](https://github.com/sikatikenmogne/flutter_calculator/issues)
 [![GitHub stars](https://img.shields.io/github/stars/sikatikenmogne/flutter_calculator)](https://github.com/sikatikenmogne/flutter_calculator/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/sikatikenmogne/flutter_calculator)](https://github.com/sikatikenmogne/flutter_calculator/network)
+
+</div>
 
 Simple calculator application built with Flutter.
 
@@ -34,29 +38,29 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Installation
 
-1. Clone the repo
+#### 1. Clone the repo
 
-    ```sh
-    git clone https://github.com/sikatikenmogne/flutter_calculator.git
-    ```
+```sh
+git clone https://github.com/sikatikenmogne/flutter_calculator.git
+```
 
-2. Navigate to the project directory
+#### 2. Navigate to the project directory
 
-    ```sh
-    cd flutter_calculator
-    ```
+```sh
+cd flutter_calculator
+```
 
-3. Install dependencies
+#### 3. Install dependencies
 
-    ```sh
-    flutter pub get
-    ```
+```sh
+flutter pub get
+```
 
-4. Run the app
+#### 4. Run the app
 
-    ```sh
-    flutter run
-    ```
+```sh
+flutter run
+```                                                             
 
 ### Usage
 
@@ -78,6 +82,4 @@ Distributed under the MIT License. See [LICENSE](LICENSE) for more information.
 
 ### Contact
 
-[![Samuel SIKATI](https://img.shields.io/badge/Author-Samuel%20SIKATI-blue?style=for-the-badge)](https://github.com/sikatikenmogne) -  [![Gmail](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:sikatikenmogne@gmail.com)
-
-[![Project Link](https://img.shields.io/badge/Project-Link-blue?style=for-the-badge&logo=github)](https://github.com/sikatikenmogne/flutter_calculator) - https://github.com/sikatikenmogne/flutter_calculator
+[![Samuel SIKATI](https://img.shields.io/badge/Author-Samuel%20SIKATI-blue?style=for-the-badge&logo=github)](https://github.com/sikatikenmogne) -  [![Gmail](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:sikatikenmogne@gmail.com)
