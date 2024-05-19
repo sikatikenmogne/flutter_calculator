@@ -27,7 +27,7 @@ extension CalculatorOperatorExtension on CalculatorOperator {
       case CalculatorOperator.MULTIPLY:
         return '*';
       case CalculatorOperator.DIVIDE:
-        return '/';
+        return '÷';
       case CalculatorOperator.NONE:
         return '';
       case CalculatorOperator.SQUARE:

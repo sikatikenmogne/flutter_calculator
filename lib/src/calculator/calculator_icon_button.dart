@@ -20,6 +20,8 @@ class CalculatorIconButton extends StatelessWidget {
             child: ElevatedButton(
               onPressed: onPressedButton,
               style: ButtonStyle(
+                backgroundColor:
+                MaterialStateProperty.all<Color>(this.buttonColor),
                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                     RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5.0),

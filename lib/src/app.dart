@@ -48,15 +48,15 @@ class _MyHomePageState extends State<MyHomePage> {
 
       if (_displayedValue == "0") {
         _displayedValue = value;
-        if(_currentOperation.firstOperand != 0 && _currentOperation.calculatorOperator != CalculatorOperator.NONE)
-          {
-            _currentOperation.secondOperand = double.parse(value);
-          }
+        if (_currentOperation.firstOperand != 0 &&
+            _currentOperation.calculatorOperator != CalculatorOperator.NONE) {
+          _currentOperation.secondOperand = double.parse(value);
+        }
       } else {
-        if(_currentOperator == CalculatorOperator.NONE) {
+        if (_currentOperator == CalculatorOperator.NONE) {
           _displayedValue += value;
         } else {
-          if(_currentOperation.firstOperand == 0.0) {
+          if (_currentOperation.firstOperand == 0.0) {
             _displayedValue = value;
           } else {
             if (_currentOperation.secondOperand == 0.0) {
@@ -96,14 +96,14 @@ class _MyHomePageState extends State<MyHomePage> {
         _operationEnded = false;
         _displayedValue = "0";
         _secondOperand = 0.0;
-        _firstOperand = OperationComputer.compute(operation: _currentOperation).toDouble();
+        _firstOperand =
+            OperationComputer.compute(operation: _currentOperation).toDouble();
         _currentOperation.firstOperand = _firstOperand;
         _currentOperation.operationEnded = _operationEnded;
         _currentOperation.secondOperand = _secondOperand;
         _currentOperator = CalculatorOperator.NONE;
         _currentOperation.calculatorOperator = _currentOperator;
-      }
-      else{
+      } else {
         if (_currentOperation.calculatorOperator != CalculatorOperator.NONE &&
             _firstOperand != 0.0) {
           _currentOperator = newOperator;
@@ -115,7 +115,8 @@ class _MyHomePageState extends State<MyHomePage> {
         _currentOperator = newOperator;
         _currentOperation.calculatorOperator = _currentOperator;
       } else {
-        _firstOperand = OperationComputer.compute(operation: _currentOperation).toDouble();
+        _firstOperand =
+            OperationComputer.compute(operation: _currentOperation).toDouble();
         _currentOperator = newOperator;
         _currentOperation.calculatorOperator = _currentOperator;
         _secondOperand = 0.0;
@@ -126,7 +127,8 @@ class _MyHomePageState extends State<MyHomePage> {
   void endOperation() {
     setState(() {
       if (_currentOperation.calculatorOperator != CalculatorOperator.NONE &&
-          _secondOperand != 0.0 && !_operationEnded) {
+          _secondOperand != 0.0 &&
+          !_operationEnded) {
         _operationEnded = true;
         _displayedValue =
             OperationComputer.compute(operation: _currentOperation).toString();
@@ -165,10 +167,50 @@ class _MyHomePageState extends State<MyHomePage> {
         // TRY THIS: Try changing the color here to a specific color (to
         // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
         // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        // backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        backgroundColor: Colors.white,
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+        title: Row(
+          children: [
+            Text(
+              widget.title,
+              style: const TextStyle(fontWeight: FontWeight.bold),
+              textAlign: TextAlign.left,
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 0, 8.0, 0),
+              child: IconButton(
+                icon: const Icon(Icons.pin_invoke_rounded,
+                    color: Colors.black87, size: 20.0),
+                tooltip: 'Pin calculator',
+                onPressed: () {},
+              ),
+            ),
+          ],
+        ),
+        actions: <Widget>[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 0, 8.0, 0),
+                child: IconButton(
+                  icon: const Icon(Icons.history_outlined,
+                      color: Colors.black87, size: 20.0),
+                  tooltip: 'Operations history',
+                  onPressed: () {},
+                ),
+              ),
+            ],
+          ),
+        ], //<Widget>[]
+        leading: IconButton(
+          icon: const Icon(Icons.menu, color: Colors.black87, size: 20.0),
+          tooltip: 'Menu',
+          onPressed: () {},
+        ),
       ),
       body: Column(
         // Column is also a layout widget. It takes a list of children and
@@ -196,23 +238,21 @@ class _MyHomePageState extends State<MyHomePage> {
                 Column(
                   children: [
                     Expanded(
-                      child: OperationDisplayer(
-                        firstOperand: _firstOperand,
-                        secondOperand: _secondOperand,
-                        calculatorOperator: _currentOperator,
-                        operationEnded: _operationEnded,
-                      )
-                    ),
+                        child: OperationDisplayer(
+                      firstOperand: _firstOperand,
+                      secondOperand: _secondOperand,
+                      calculatorOperator: _currentOperator,
+                      operationEnded: _operationEnded,
+                    )),
                     Expanded(
                       flex: 2,
                       child: Container(
-                        padding: EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 8.0),
-                        alignment: Alignment.topRight,
-                        child: InputOutputDisplayer(
-                          valueToDisplay: _displayedValue,
-                          calculatorOperator: _currentOperator,
-                        )
-                      ),
+                          padding: EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 8.0),
+                          alignment: Alignment.topRight,
+                          child: InputOutputDisplayer(
+                            valueToDisplay: _displayedValue,
+                            calculatorOperator: _currentOperator,
+                          )),
                     ),
                   ],
                 )
@@ -240,14 +280,22 @@ class _MyHomePageState extends State<MyHomePage> {
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                CalculatorButton(name: "%", onPressedButton: () => {}),
                 CalculatorButton(
-                    name: "CE", onPressedButton: () => {clearEntry()}),
-                CalculatorButton(name: "C", onPressedButton: () => {}),
+                    name: "%",
+                    onPressedButton: () => {},
+                    buttonColor: Colors.white70),
+                CalculatorButton(
+                    name: "CE",
+                    onPressedButton: () => {clearEntry()},
+                    buttonColor: Colors.white70),
+                CalculatorButton(
+                    name: "C",
+                    onPressedButton: () => {},
+                    buttonColor: Colors.white70),
                 CalculatorIconButton(
                   name: "backspace_outlined",
                   onPressedButton: () => {},
-                  buttonColor: Colors.white // Colors.redAccent,
+                  buttonColor: Colors.white70, // Colors.redAccent,
                 ),
               ],
             ), // Buttons
@@ -258,13 +306,23 @@ class _MyHomePageState extends State<MyHomePage> {
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                CalculatorButton(name: "¹/x", onPressedButton: () => ()),
-                CalculatorButton(name: "x²", onPressedButton: () => {}),
-                CalculatorButton(name: "²√x", onPressedButton: () => {}),
                 CalculatorButton(
-                    name: "/",
+                    name: "¹/x",
+                    onPressedButton: () => (),
+                    buttonColor: Colors.white70),
+                CalculatorButton(
+                    name: "x²",
+                    onPressedButton: () => {},
+                    buttonColor: Colors.white70),
+                CalculatorButton(
+                    name: "²√x",
+                    onPressedButton: () => {},
+                    buttonColor: Colors.white70),
+                CalculatorButton(
+                    name: "÷",
                     onPressedButton: () =>
-                        {setCurrentOperator(CalculatorOperator.DIVIDE)}),
+                        {setCurrentOperator(CalculatorOperator.DIVIDE)},
+                    buttonColor: Colors.white70),
               ],
             ),
           ),
@@ -283,7 +341,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 CalculatorButton(
                     name: "*",
                     onPressedButton: () =>
-                        {setCurrentOperator(CalculatorOperator.MULTIPLY)}),
+                        {setCurrentOperator(CalculatorOperator.MULTIPLY)},
+                    buttonColor: Colors.white70),
               ],
             ),
           ),
@@ -302,7 +361,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 CalculatorButton(
                     name: "-",
                     onPressedButton: () =>
-                        {setCurrentOperator(CalculatorOperator.SUBTRACT)}),
+                        {setCurrentOperator(CalculatorOperator.SUBTRACT)},
+                    buttonColor: Colors.white70),
               ],
             ),
           ),
@@ -321,7 +381,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 CalculatorButton(
                     name: "+",
                     onPressedButton: () =>
-                        {setCurrentOperator(CalculatorOperator.ADD)}),
+                        {setCurrentOperator(CalculatorOperator.ADD)},
+                    buttonColor: Colors.white70),
               ],
             ),
           ),
