@@ -1,8 +1,8 @@
 import 'dart:math';
 
-import 'package:flutter_calculator/src/calculator/operation.dart';
+import 'package:flutter_calculator/src/models/operation.dart';
 
-import 'calculator_operator_enum.dart';
+import '../models/calculator_operator_enum.dart';
 
 class OperationComputer {
 

@@ -1,8 +1,8 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_calculator/src/calculator/calculator_operator_enum.dart';
-import 'package:flutter_calculator/src/calculator/input_output_displayer.dart';
+import 'package:flutter_calculator/src/models/calculator_operator_enum.dart';
+import 'package:flutter_calculator/src/widgets/input_output_displayer.dart';
 
 class OperationDisplayer extends StatelessWidget {
   final double firstOperand;

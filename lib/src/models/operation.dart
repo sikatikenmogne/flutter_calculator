@@ -1,4 +1,4 @@
-import 'package:flutter_calculator/src/calculator/calculator_operator_enum.dart';
+import 'package:flutter_calculator/src/models/calculator_operator_enum.dart';
 
 class Operation {
   double _firstOperand = 0.0;
