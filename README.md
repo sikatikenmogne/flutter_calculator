@@ -60,7 +60,7 @@ flutter pub get
 
 ```sh
 flutter run
-```                                                             
+```
 
 ### Usage
 

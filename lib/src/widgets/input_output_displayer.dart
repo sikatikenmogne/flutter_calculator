@@ -9,11 +9,10 @@ class InputOutputDisplayer extends StatelessWidget {
   final double fontSize;
   final Color color;
 
-
   InputOutputDisplayer({
     Key? key,
     this.valueToDisplay = "0.0",
-    this.calculatorOperator = CalculatorOperator.NONE,
+    this.calculatorOperator = CalculatorOperator.none,
     this.padding = 8.0,
     this.fontSize = 48.0,
     this.color = Colors.black,
@@ -24,10 +23,11 @@ class InputOutputDisplayer extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.fromLTRB(padding, 0.0, padding, padding),
       child: Container(
-        alignment: Alignment.topRight,
+          alignment: Alignment.topRight,
           child: Text(
             valueToDisplay,
-            style: TextStyle(fontSize: fontSize, color: color, fontWeight: FontWeight.bold),
+            style: TextStyle(
+                fontSize: fontSize, color: color, fontWeight: FontWeight.bold),
             textAlign: TextAlign.end,
           )),
     );

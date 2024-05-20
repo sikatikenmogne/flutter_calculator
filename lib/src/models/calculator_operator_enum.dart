@@ -1,56 +1,56 @@
 enum CalculatorOperator {
-  ADD,
-  SUBTRACT,
-  MULTIPLY,
-  DIVIDE,
-  NONE,
-  SQUARE,
-  SQUARE_ROOT,
-  INVERSE,
-  POWER,
-  MODULUS,
-  FACTORIAL,
-  LOGARITHM,
-  TANGENT,
-  COSINE,
-  ABSOLUTE,
-  EXPONENTIAL,
+  add,
+  subtract,
+  multiply,
+  divide,
+  none,
+  square,
+  squareRoot,
+  inverse,
+  power,
+  modulus,
+  factorial,
+  logarithm,
+  tangent,
+  cosine,
+  absolute,
+  exponential,
 }
 
 extension CalculatorOperatorExtension on CalculatorOperator {
   String get value {
     switch (this) {
-      case CalculatorOperator.ADD:
+      case CalculatorOperator.add:
         return '+';
-      case CalculatorOperator.SUBTRACT:
+      case CalculatorOperator.subtract:
         return '-';
-      case CalculatorOperator.MULTIPLY:
+      case CalculatorOperator.multiply:
         return '*';
-      case CalculatorOperator.DIVIDE:
+      case CalculatorOperator.divide:
         return '÷';
-      case CalculatorOperator.NONE:
+      case CalculatorOperator.none:
         return '';
-      case CalculatorOperator.SQUARE:
+      case CalculatorOperator.square:
         return '²';
-      case CalculatorOperator.SQUARE_ROOT:
+      case CalculatorOperator.squareRoot:
         return '√';
-      case CalculatorOperator.INVERSE:
+      case CalculatorOperator.inverse:
         return '1/';
-      case CalculatorOperator.POWER:
+      case CalculatorOperator.power:
         return '^';
-      case CalculatorOperator.MODULUS:
+      case CalculatorOperator.modulus:
         return '%';
-      case CalculatorOperator.FACTORIAL:
+      case CalculatorOperator.factorial:
         return '!';
-      case CalculatorOperator.LOGARITHM:
+      case CalculatorOperator.logarithm:
         return 'log';
-      case CalculatorOperator.TANGENT:
+      case CalculatorOperator.tangent:
         return 'tan';
-      case CalculatorOperator.COSINE:
+      case CalculatorOperator.cosine:
         return 'cos';
-      case CalculatorOperator.ABSOLUTE:
+      case CalculatorOperator.absolute:
         return '|';
-      case CalculatorOperator.EXPONENTIAL:
+      case CalculatorOperator.exponential:
         return 'e^';
 
       default:

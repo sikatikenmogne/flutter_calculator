@@ -5,8 +5,7 @@ class CalculatorIconButton extends StatelessWidget {
   final VoidCallback onPressedButton;
   final Color buttonColor;
 
-  CalculatorIconButton({
-    Key? key,
+  const CalculatorIconButton({super.key, 
     required this.name,
     required this.onPressedButton,
     this.buttonColor = Colors.white,
@@ -21,8 +20,8 @@ class CalculatorIconButton extends StatelessWidget {
               onPressed: onPressedButton,
               style: ButtonStyle(
                 backgroundColor:
-                MaterialStateProperty.all<Color>(this.buttonColor),
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                WidgetStateProperty.all<Color>(buttonColor),
+                shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                     RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5.0),
                 )),

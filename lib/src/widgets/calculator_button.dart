@@ -21,11 +21,11 @@ class CalculatorButton extends StatelessWidget {
         child: Padding(
             padding: const EdgeInsets.all(2.0),
             child: ElevatedButton(
-              onPressed: onPressedButton!,
+              onPressed: onPressedButton,
               style: ButtonStyle(
                 backgroundColor:
-                    MaterialStateProperty.all<Color>(this.buttonColor),
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    WidgetStateProperty.all<Color>(this.buttonColor),
+                shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                     RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5.0),
                 )),
