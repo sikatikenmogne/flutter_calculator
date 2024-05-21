@@ -3,7 +3,6 @@
 <div align="center">
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-<!-- ![visitors](https://visitor-badge.glitch.me/badge?page_id=sikatikenmogne.flutter_calculator) -->
 [![GitHub issues](https://img.shields.io/github/issues/sikatikenmogne/flutter_calculator)](https://github.com/sikatikenmogne/flutter_calculator/issues)
 [![GitHub stars](https://img.shields.io/github/stars/sikatikenmogne/flutter_calculator)](https://github.com/sikatikenmogne/flutter_calculator/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/sikatikenmogne/flutter_calculator)](https://github.com/sikatikenmogne/flutter_calculator/network)
@@ -22,9 +21,9 @@ Simple calculator application built with Flutter.
 
 ## Features
 
-- Basic arithmetic operations: addition, subtraction, multiplication, division
-- Advanced operations: square root, reciprocal
-- Beautiful and intuitive user interface
+- [x] Beautiful and intuitive user interface
+- [x] Basic arithmetic operations: addition, subtraction, multiplication, division
+- [ ] Advanced operations: square root, reciprocal
 
 ## Getting Started
 
@@ -32,9 +31,9 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-- Flutter SDK
-- Dart SDK
-- An IDE like VS Code or Android Studio
+- Flutter SDK (version 2.5.3 or later)
+- Dart SDK (version 2.14.4 or later)
+- An IDE like VS Code (version 1.61.2 or later) or Android Studio (version 2020.3.1 or later)
 
 ### Installation
 
