@@ -123,8 +123,12 @@ class _MyHomePageState extends State<MyHomePage> {
         _operationEnded = true;
         _displayedValue =
             OperationComputer.compute(operation: _currentOperation).toString();
+      }else{
+        if(_currentOperation.calculatorOperator == CalculatorOperator.square){
+          _operationEnded = true;
+          _displayedValue = OperationComputer.compute(operation: _currentOperation).toString();
       }
-    });
+    }});
   }
 
   void clearEntry() {
@@ -272,7 +276,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     buttonColor: Colors.white70),
                 CalculatorButton(
                     name: "x²",
-                    onPressedButton: () => {},
+                    onPressedButton: () => {setCurrentOperator(CalculatorOperator.square)},
                     buttonColor: Colors.white70),
                 CalculatorButton(
                     name: "²√x",
