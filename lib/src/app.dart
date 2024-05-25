@@ -28,7 +28,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   bool _operationEnded = false;
 
-  final Operation _currentOperation = Operation();
+  Operation _currentOperation = Operation();
 
   addDigit(String value) {
     setState(() {
@@ -41,7 +41,13 @@ class _MyHomePageState extends State<MyHomePage> {
         _displayedValue = value;
         if (_currentOperation.firstOperand != 0 &&
             _currentOperation.calculatorOperator != CalculatorOperator.none) {
-          _currentOperation.secondOperand = double.parse(value);
+          // _currentOperation.secondOperand = double.parse(value);
+
+          _currentOperation = Operation(
+              firstOperand: _firstOperand,
+              secondOperand: _secondOperand,
+              calculatorOperator: _currentOperator,
+              operationEnded: _operationEnded);
         }
       } else {
         if (_currentOperator == CalculatorOperator.none) {
@@ -60,11 +66,22 @@ class _MyHomePageState extends State<MyHomePage> {
 
       if (_currentOperator == CalculatorOperator.none) {
         _firstOperand = double.parse(_displayedValue);
-        _currentOperation.firstOperand = _firstOperand;
+        // _currentOperation.firstOperand = _firstOperand;
+        _currentOperation = Operation(
+            firstOperand: _firstOperand,
+            secondOperand: _secondOperand,
+            calculatorOperator: _currentOperator,
+            operationEnded: _operationEnded);
       } else {
         if (!_operationEnded) {
           _secondOperand = double.parse(_displayedValue);
-          _currentOperation.secondOperand = double.parse(_displayedValue);
+          // _currentOperation.secondOperand = double.parse(_displayedValue);
+
+          _currentOperation = Operation(
+              firstOperand: _firstOperand,
+              secondOperand: _secondOperand,
+              calculatorOperator: _currentOperator,
+              operationEnded: _operationEnded);
         }
       }
     });
@@ -89,27 +106,48 @@ class _MyHomePageState extends State<MyHomePage> {
         _secondOperand = 0.0;
         _firstOperand =
             OperationComputer.compute(operation: _currentOperation).toDouble();
-        _currentOperation.firstOperand = _firstOperand;
-        _currentOperation.operationEnded = _operationEnded;
-        _currentOperation.secondOperand = _secondOperand;
         _currentOperator = CalculatorOperator.none;
-        _currentOperation.calculatorOperator = _currentOperator;
+
+        _currentOperation = Operation(
+            firstOperand: _firstOperand,
+            secondOperand: _secondOperand,
+            calculatorOperator: _currentOperator,
+            operationEnded: _operationEnded);
       } else {
         if (_currentOperation.calculatorOperator != CalculatorOperator.none &&
             _firstOperand != 0.0) {
           _currentOperator = newOperator;
-          _currentOperation.calculatorOperator = _currentOperator;
+
+          _currentOperation = Operation(
+              firstOperand: _firstOperand,
+              secondOperand: _secondOperand,
+              calculatorOperator: _currentOperator,
+              operationEnded: _operationEnded);
+
           return;
         }
       }
       if (_currentOperator == CalculatorOperator.none) {
         _currentOperator = newOperator;
-        _currentOperation.calculatorOperator = _currentOperator;
+        // _currentOperation.calculatorOperator = _currentOperator;
+
+        _currentOperation = Operation(
+            firstOperand: _firstOperand,
+            secondOperand: _secondOperand,
+            calculatorOperator: _currentOperator,
+            operationEnded: _operationEnded);
       } else {
         _firstOperand =
             OperationComputer.compute(operation: _currentOperation).toDouble();
         _currentOperator = newOperator;
-        _currentOperation.calculatorOperator = _currentOperator;
+        // _currentOperation.calculatorOperator = _currentOperator;
+
+        _currentOperation = Operation(
+            firstOperand: _firstOperand,
+            secondOperand: _secondOperand,
+            calculatorOperator: _currentOperator,
+            operationEnded: _operationEnded);
+
         _secondOperand = 0.0;
       }
     });
@@ -123,12 +161,15 @@ class _MyHomePageState extends State<MyHomePage> {
         _operationEnded = true;
         _displayedValue =
             OperationComputer.compute(operation: _currentOperation).toString();
-      }else{
-        if(_currentOperation.calculatorOperator == CalculatorOperator.square){
+      } else {
+        if (_currentOperation.calculatorOperator == CalculatorOperator.square) {
           _operationEnded = true;
-          _displayedValue = OperationComputer.compute(operation: _currentOperation).toString();
+          _displayedValue =
+              OperationComputer.compute(operation: _currentOperation)
+                  .toString();
+        }
       }
-    }});
+    });
   }
 
   void clearEntry() {
@@ -137,9 +178,13 @@ class _MyHomePageState extends State<MyHomePage> {
       _firstOperand = 0.0;
       _secondOperand = 0.0;
       _currentOperator = CalculatorOperator.none;
-      _currentOperation.firstOperand = _firstOperand;
-      _currentOperation.secondOperand = _secondOperand;
-      _currentOperation.calculatorOperator = _currentOperator;
+      _currentOperation = Operation(
+          firstOperand: _firstOperand,
+          secondOperand: _secondOperand,
+          calculatorOperator: _currentOperator);
+      // _currentOperation.firstOperand = _firstOperand;
+      // _currentOperation.secondOperand = _secondOperand;
+      // _currentOperation.calculatorOperator = _currentOperator;
     });
   }
 
@@ -207,6 +252,11 @@ class _MyHomePageState extends State<MyHomePage> {
                       secondOperand: _secondOperand,
                       calculatorOperator: _currentOperator,
                       operationEnded: _operationEnded,
+                      operationToDisplay: Operation(
+                          firstOperand: _firstOperand,
+                          secondOperand: _secondOperand,
+                          calculatorOperator: _currentOperator,
+                          operationEnded: _operationEnded),
                     )),
                     Expanded(
                       flex: 2,
@@ -276,7 +326,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     buttonColor: Colors.white70),
                 CalculatorButton(
                     name: "x²",
-                    onPressedButton: () => {setCurrentOperator(CalculatorOperator.square)},
+                    onPressedButton: () =>
+                        {setCurrentOperator(CalculatorOperator.square)},
                     buttonColor: Colors.white70),
                 CalculatorButton(
                     name: "²√x",

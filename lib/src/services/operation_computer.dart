@@ -45,10 +45,7 @@ class OperationComputer {
   } //
 
   static void reset(Operation operation) {
-    operation.operationEnded = false;
-    operation.calculatorOperator = CalculatorOperator.none;
-    operation.firstOperand = 0.0;
-    operation.secondOperand = 0.0;
+    operation = Operation();
   }
 
   static double add(double firstOperand, double secondOperand) {

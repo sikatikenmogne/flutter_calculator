@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_calculator/src/models/calculator_operator_enum.dart';
 
+import '../models/operation.dart';
+
 class OperationDisplayer extends StatelessWidget {
   final double firstOperand;
   final double secondOperand;
   final CalculatorOperator calculatorOperator;
+  final Operation operationToDisplay;
   final double padding;
   final double fontSize;
   final Color color;
@@ -15,6 +18,7 @@ class OperationDisplayer extends StatelessWidget {
       this.secondOperand = 0.0,
       this.calculatorOperator = CalculatorOperator.none,
       this.operationEnded = false,
+      this.operationToDisplay = const Operation(),
       this.padding = 8.0,
       this.fontSize = 20.0,
       this.color = Colors.grey})
@@ -25,7 +29,7 @@ class OperationDisplayer extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.fromLTRB(padding, padding, padding, 0.0),
       child: Text(
-        "$firstOperand${calculatorOperator != CalculatorOperator.none ? " ${calculatorOperator.value}" : ""}${secondOperand != 0 && operationEnded ? " $secondOperand" : ""}${operationEnded ? " =" : ""}",
+        operationToDisplay.toString(),
         style: TextStyle(fontSize: fontSize, color: color),
         textAlign: TextAlign.end,
       ),
