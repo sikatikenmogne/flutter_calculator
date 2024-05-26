@@ -61,11 +61,11 @@ flutter pub get
 flutter run
 ```
 
-### Usage
+## Usage
 
 Open the app, and you'll see a standard calculator interface. You can perform basic arithmetic operations, as well as some advanced operations.
 
-### Contributing
+## Contributing
 
 Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are greatly appreciated.
 
@@ -75,10 +75,10 @@ Contributions are what make the open-source community such an amazing place to l
    4. Push to the Branch (`git push origin feature/AmazingFeature`)
    5. Open a Pull Request
 
-### License
+## License
 
 Distributed under the MIT License. See [LICENSE](LICENSE) for more information.
 
-### Contact
+## Contact
 
-[![Samuel SIKATI](https://img.shields.io/badge/Author-Samuel%20SIKATI-blue?style=for-the-badge&logo=github)](https://github.com/sikatikenmogne) -  [![Gmail](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:sikatikenmogne@gmail.com)
+[![Gmail](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:sikatikenmogne@gmail.com)
