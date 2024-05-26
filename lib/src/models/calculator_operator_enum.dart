@@ -31,7 +31,7 @@ extension CalculatorOperatorExtension on CalculatorOperator {
       case CalculatorOperator.none:
         return '';
       case CalculatorOperator.square:
-        return '²';
+        return 'sqr';
       case CalculatorOperator.squareRoot:
         return '√';
       case CalculatorOperator.inverse:

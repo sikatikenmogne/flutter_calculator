@@ -8,11 +8,12 @@ class Operation {
 
   @override
   String toString() {
-    return calculatorOperator != CalculatorOperator.none ? 
-          isBinaryOperation ? 
-            _renderBinaryOperation(firstOperand, secondOperand, calculatorOperator, operationEnded)
-          :
-            _renderUnaryOperation(firstOperand, calculatorOperator, operationEnded)
+    return calculatorOperator != CalculatorOperator.none
+        ? isBinaryOperation
+            ? _renderBinaryOperation(
+                firstOperand, secondOperand, calculatorOperator, operationEnded)
+            : _renderUnaryOperation(
+                firstOperand, calculatorOperator, operationEnded)
         : "$firstOperand";
   }
 
@@ -23,10 +24,22 @@ class Operation {
       this.operationEnded = false});
 
   bool get isBinaryOperation {
-    return calculatorOperator != CalculatorOperator.none ? 
-      <CalculatorOperator>{CalculatorOperator.add, CalculatorOperator.subtract, CalculatorOperator.multiply, CalculatorOperator.divide}.contains(calculatorOperator) 
-    : 
-      false;
+    return calculatorOperator != CalculatorOperator.none
+        ? <CalculatorOperator>{
+            CalculatorOperator.add,
+            CalculatorOperator.subtract,
+            CalculatorOperator.multiply,
+            CalculatorOperator.divide,
+            CalculatorOperator.modulus,
+            CalculatorOperator.power,
+          }.contains(calculatorOperator)
+        : false;
+  }
+
+  bool get isComplete {
+    return isBinaryOperation
+        ? (firstOperand != 0.0 && secondOperand != 0.0 && !operationEnded)
+        : (firstOperand != 0.0 && !operationEnded);
   }
 
   String _renderBinaryOperation(double firstOperand, double secondOperand,

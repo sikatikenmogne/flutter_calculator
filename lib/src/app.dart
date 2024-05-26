@@ -155,20 +155,22 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void endOperation() {
     setState(() {
-      if (_currentOperation.calculatorOperator != CalculatorOperator.none &&
-          _secondOperand != 0.0 &&
-          !_operationEnded) {
+      if (_currentOperation.isBinaryOperation && _currentOperation.isComplete) {
         _operationEnded = true;
+
         _displayedValue =
             OperationComputer.compute(operation: _currentOperation).toString();
       } else {
-        if (_currentOperation.calculatorOperator == CalculatorOperator.square) {
-          _operationEnded = true;
-          _displayedValue =
-              OperationComputer.compute(operation: _currentOperation)
-                  .toString();
-        }
+        _operationEnded = true;
+        _displayedValue =
+            OperationComputer.compute(operation: _currentOperation).toString();
       }
+
+      _currentOperation = Operation(
+          firstOperand: _firstOperand,
+          secondOperand: _secondOperand,
+          calculatorOperator: _currentOperator,
+          operationEnded: _operationEnded);
     });
   }
 
@@ -296,7 +298,8 @@ class _MyHomePageState extends State<MyHomePage> {
               children: [
                 CalculatorButton(
                     name: "%",
-                    onPressedButton: () => {},
+                    onPressedButton: () =>
+                        {setCurrentOperator(CalculatorOperator.modulus)},
                     buttonColor: Colors.white70),
                 CalculatorButton(
                     name: "CE",
@@ -322,7 +325,8 @@ class _MyHomePageState extends State<MyHomePage> {
               children: [
                 CalculatorButton(
                     name: "¹/x",
-                    onPressedButton: () => (),
+                    onPressedButton: () =>
+                        (setCurrentOperator(CalculatorOperator.inverse)),
                     buttonColor: Colors.white70),
                 CalculatorButton(
                     name: "x²",
@@ -331,7 +335,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     buttonColor: Colors.white70),
                 CalculatorButton(
                     name: "²√x",
-                    onPressedButton: () => {},
+                    onPressedButton: () =>
+                        {setCurrentOperator(CalculatorOperator.squareRoot)},
                     buttonColor: Colors.white70),
                 CalculatorButton(
                     name: "÷",
