@@ -4,6 +4,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![GitHub issues](https://img.shields.io/github/issues/sikatikenmogne/flutter_calculator)](https://github.com/sikatikenmogne/flutter_calculator/issues)
+[![wakatime](https://wakatime.com/badge/user/018cee13-789a-4312-ba87-bff7005ff31b/project/372f01fd-4d0b-483b-b027-de232d6b4adb.svg)](https://wakatime.com/badge/user/018cee13-789a-4312-ba87-bff7005ff31b/project/372f01fd-4d0b-483b-b027-de232d6b4adb)
 [![GitHub stars](https://img.shields.io/github/stars/sikatikenmogne/flutter_calculator)](https://github.com/sikatikenmogne/flutter_calculator/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/sikatikenmogne/flutter_calculator)](https://github.com/sikatikenmogne/flutter_calculator/network)
 
