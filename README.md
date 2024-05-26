@@ -23,7 +23,7 @@ Simple calculator application built with Flutter.
 
 - [x] Beautiful and intuitive user interface
 - [x] Basic arithmetic operations: addition, subtraction, multiplication, division
-- [ ] Advanced operations: square root, reciprocal
+- [x] Advanced operations: square root, inverse
 
 ## Getting Started
 
