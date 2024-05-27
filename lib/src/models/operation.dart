@@ -37,9 +37,15 @@ class Operation {
   }
 
   bool get isComplete {
-    return isBinaryOperation
-        ? (firstOperand != 0.0 && secondOperand != 0.0 && !operationEnded)
-        : (firstOperand != 0.0 && !operationEnded);
+    if (calculatorOperator != CalculatorOperator.none) {
+      if (isBinaryOperation) {
+        return (firstOperand != 0.0 && secondOperand != 0.0 && !operationEnded);
+      } else {
+        return (firstOperand != 0.0 && !operationEnded);
+      }
+    } else {
+      return false;
+    }
   }
 
   String _renderBinaryOperation(double firstOperand, double secondOperand,

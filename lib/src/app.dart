@@ -176,6 +176,26 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void clearEntry() {
     setState(() {
+      if (!(_currentOperation.isComplete && _currentOperation.operationEnded)) {
+        _displayedValue = "0";
+        if (_currentOperation.calculatorOperator != CalculatorOperator.none) {
+          _secondOperand = double.parse(_displayedValue);
+        } else {
+          _firstOperand = double.parse(_displayedValue);
+        }
+        _currentOperation = Operation(
+            firstOperand: _firstOperand,
+            secondOperand: _secondOperand,
+            calculatorOperator: _currentOperator,
+            operationEnded: _operationEnded);
+      } else {
+        clear();
+      }
+    });
+  }
+
+  void clear() {
+    setState(() {
       _displayedValue = "0";
       _firstOperand = 0.0;
       _secondOperand = 0.0;
@@ -184,9 +204,6 @@ class _MyHomePageState extends State<MyHomePage> {
           firstOperand: _firstOperand,
           secondOperand: _secondOperand,
           calculatorOperator: _currentOperator);
-      // _currentOperation.firstOperand = _firstOperand;
-      // _currentOperation.secondOperand = _secondOperand;
-      // _currentOperation.calculatorOperator = _currentOperator;
     });
   }
 
@@ -307,7 +324,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     buttonColor: Colors.white70),
                 CalculatorButton(
                     name: "C",
-                    onPressedButton: () => {},
+                    onPressedButton: () => {clear()},
                     buttonColor: Colors.white70),
                 CalculatorIconButton(
                   name: "backspace_outlined",
