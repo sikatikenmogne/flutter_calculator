@@ -194,6 +194,29 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void backspace() {
+    setState(() {
+      if (_displayedValue != "") {
+        _displayedValue =
+            _displayedValue.substring(0, _displayedValue.length - 1);
+
+        if (_displayedValue == "") _displayedValue = "0";
+
+        if (_currentOperation.calculatorOperator != CalculatorOperator.none) {
+          _secondOperand = double.parse(_displayedValue);
+        } else {
+          _firstOperand = double.parse(_displayedValue);
+        }
+      
+        _currentOperation = Operation(
+          firstOperand: _firstOperand,
+          secondOperand: _secondOperand,
+          calculatorOperator: _currentOperator,
+          operationEnded: _operationEnded);
+      }
+    });
+  }
+
   void clear() {
     setState(() {
       _displayedValue = "0";
@@ -328,7 +351,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     buttonColor: Colors.white70),
                 CalculatorIconButton(
                   name: "backspace_outlined",
-                  onPressedButton: () => {},
+                  onPressedButton: () => {backspace()},
                   buttonColor: Colors.white70, // Colors.redAccent,
                 ),
               ],
