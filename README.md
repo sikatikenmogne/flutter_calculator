@@ -1,4 +1,4 @@
-# Flutter Calculator
+<h1 align="center">  🧮  Flutter Calculator </h1>
 
 <div align="center">
 
@@ -8,15 +8,7 @@
 [![GitHub stars](https://img.shields.io/github/stars/sikatikenmogne/flutter_calculator)](https://github.com/sikatikenmogne/flutter_calculator/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/sikatikenmogne/flutter_calculator)](https://github.com/sikatikenmogne/flutter_calculator/network)
 
-</div>
-
-Simple calculator application built with Flutter.
-
----
-
-<div align="center">
-
-![Screenshot](screenshot.jpg)
+Simple calculator app built with Flutter.
 
 </div>
 
@@ -25,6 +17,14 @@ Simple calculator application built with Flutter.
 - [x] Beautiful and intuitive user interface
 - [x] Basic arithmetic operations: addition, subtraction, multiplication, division
 - [x] Advanced operations: square root, inverse
+
+## Preview
+
+<div align="center">
+
+<img src="screenshot.jpg" height="600px">
+
+</div>
 
 ## Getting Started
 
