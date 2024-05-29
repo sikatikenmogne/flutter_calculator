@@ -207,13 +207,37 @@ class _MyHomePageState extends State<MyHomePage> {
         } else {
           _firstOperand = double.parse(_displayedValue);
         }
-      
+
         _currentOperation = Operation(
+            firstOperand: _firstOperand,
+            secondOperand: _secondOperand,
+            calculatorOperator: _currentOperator,
+            operationEnded: _operationEnded);
+      }
+    });
+  }
+
+  plusMinus() {
+    setState(() {
+      if (_displayedValue != "0") {
+        if (_displayedValue[0] == "-") {
+          _displayedValue = _displayedValue.substring(1);
+        } else {
+          _displayedValue = "-" + _displayedValue;
+        }
+      }
+
+      if (_currentOperation.calculatorOperator != CalculatorOperator.none) {
+        _secondOperand = double.parse(_displayedValue);
+      } else {
+        _firstOperand = double.parse(_displayedValue);
+      }
+
+      _currentOperation = Operation(
           firstOperand: _firstOperand,
           secondOperand: _secondOperand,
           calculatorOperator: _currentOperator,
           operationEnded: _operationEnded);
-      }
     });
   }
 
@@ -452,7 +476,8 @@ class _MyHomePageState extends State<MyHomePage> {
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                CalculatorButton(name: "+/-", onPressedButton: () => {}),
+                CalculatorButton(
+                    name: "+/-", onPressedButton: () => {plusMinus()}),
                 CalculatorButton(
                     name: "0", onPressedButton: () => {addDigit("0")}),
                 CalculatorButton(name: ",", onPressedButton: () => {}),
