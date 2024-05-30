@@ -241,6 +241,18 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  setDecimal() {
+    setState(() {
+      if (_displayedValue != "0") {
+        if (!_displayedValue.contains('.')) {
+          _displayedValue = "$_displayedValue.0";
+        } else {
+          _displayedValue = "-" + _displayedValue;
+        }
+      }
+    });
+  }
+
   void clear() {
     setState(() {
       _displayedValue = "0";
@@ -480,7 +492,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     name: "+/-", onPressedButton: () => {plusMinus()}),
                 CalculatorButton(
                     name: "0", onPressedButton: () => {addDigit("0")}),
-                CalculatorButton(name: ",", onPressedButton: () => {}),
+                CalculatorButton(
+                    name: ",", onPressedButton: () => {addDigit(".")}),
                 CalculatorButton(
                     name: "=",
                     onPressedButton: () => {endOperation()},
