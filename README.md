@@ -45,9 +45,9 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### :clipboard: Prerequisites
 
-- Flutter SDK (version 2.5.3 or later)
-- Dart SDK (version 2.14.4 or later)
-- An IDE like VS Code (version 1.61.2 or later) or Android Studio (version 2020.3.1 or later)
+- Flutter SDK (version that supports Dart SDK '>=3.3.4 <4.0.0')
+- Dart SDK (version '>=3.3.4 <4.0.0')
+- An IDE like VS Code or Android Studio
 
 ### :wrench: Installation
 
