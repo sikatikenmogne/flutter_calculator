@@ -14,12 +14,12 @@ class Operation {
                 firstOperand, secondOperand, calculatorOperator, operationEnded)
             : _renderUnaryOperation(
                 firstOperand, calculatorOperator, operationEnded)
-        : "$firstOperand";
+        : _formatNumber(firstOperand);
   }
 
   const Operation(
-      {this.firstOperand = 0.0,
-      this.secondOperand = 0.0,
+      {this.firstOperand = 0,
+      this.secondOperand = 0,
       this.calculatorOperator = CalculatorOperator.none,
       this.operationEnded = false});
 
@@ -39,22 +39,30 @@ class Operation {
   bool get isComplete {
     if (calculatorOperator != CalculatorOperator.none) {
       if (isBinaryOperation) {
-        return (firstOperand != 0.0 && secondOperand != 0.0 && !operationEnded);
+        return (firstOperand != 0 && secondOperand != 0 && !operationEnded);
       } else {
-        return (firstOperand != 0.0 && !operationEnded);
+        return (firstOperand != 0 && !operationEnded);
       }
     } else {
       return false;
     }
   }
 
+  String _formatNumber(double number) {
+    if (number % 1 == 0) {
+      return number.toInt().toString();
+    } else {
+      return number.toString();
+    }
+  }
+
   String _renderBinaryOperation(double firstOperand, double secondOperand,
       CalculatorOperator calculatorOperator, bool operationEnded) {
-    return "$firstOperand${calculatorOperator != CalculatorOperator.none ? " ${calculatorOperator.value}" : ""}${secondOperand != 0 && operationEnded ? " $secondOperand" : ""}${operationEnded ? " =" : ""}";
+    return "${_formatNumber(firstOperand)}${calculatorOperator != CalculatorOperator.none ? " ${calculatorOperator.value}" : ""}${secondOperand != 0 && operationEnded ? " ${_formatNumber(secondOperand)}" : ""}${operationEnded ? " =" : ""}";
   }
 
   String _renderUnaryOperation(double uniqueOperand,
       CalculatorOperator calculatorOperator, bool operationEnded) {
-    return "${calculatorOperator.value}($uniqueOperand)${operationEnded ? " =" : ""}";
+    return "${calculatorOperator.value}(${_formatNumber(uniqueOperand)})${operationEnded ? " =" : ""}";
   }
 }

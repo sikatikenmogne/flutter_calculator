@@ -18,6 +18,14 @@ class InputOutputDisplayer extends StatelessWidget {
     this.color = Colors.black,
   }) : super(key: key);
 
+  String _formatNumber(double number) {
+    if (number % 1 == 0) {
+      return number.toInt().toString();
+    } else {
+      return number.toString();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -25,7 +33,7 @@ class InputOutputDisplayer extends StatelessWidget {
       child: Container(
           alignment: Alignment.topRight,
           child: Text(
-            valueToDisplay,
+            _formatNumber(double.parse(valueToDisplay)),
             style: TextStyle(
                 fontSize: fontSize, color: color, fontWeight: FontWeight.bold),
             textAlign: TextAlign.end,
