@@ -241,13 +241,11 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  setDecimal() {
+  void setDecimal() {
     setState(() {
       if (_displayedValue != "0") {
-        if (!_displayedValue.contains('.')) {
-          _displayedValue = "$_displayedValue.0";
-        } else {
-          _displayedValue = "-" + _displayedValue;
+        if (!_displayedValue.contains('.') && !_currentOperation.operationEnded) {
+          _displayedValue = "$_displayedValue.";
         }
       }
     });
@@ -492,8 +490,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     name: "+/-", onPressedButton: () => {plusMinus()}),
                 CalculatorButton(
                     name: "0", onPressedButton: () => {addDigit("0")}),
-                CalculatorButton(
-                    name: ",", onPressedButton: () => {addDigit(".")}),
+                CalculatorButton(name: ".", onPressedButton: setDecimal),
                 CalculatorButton(
                     name: "=",
                     onPressedButton: () => {endOperation()},
