@@ -12,13 +12,13 @@ Simple calculator app built with Flutter.
 
 </div>
 
-## Features
+## ✅ Features
 
 - [x] Beautiful and intuitive user interface
 - [x] Basic arithmetic operations: addition, subtraction, multiplication, division
 - [x] Advanced operations: square root, inverse
 
-## Preview
+## :mag: Preview
 
 This app is designed to provide a simple and intuitive interface for all your calculation needs. The screenshot below gives you a glimpse of the app's user-friendly design and functionality.
 
@@ -31,17 +31,17 @@ This app is designed to provide a simple and intuitive interface for all your ca
 </div>
 </details>
 
-## Getting Started
+## :rocket: Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
-### Prerequisites
+### :clipboard: Prerequisites
 
 - Flutter SDK (version 2.5.3 or later)
 - Dart SDK (version 2.14.4 or later)
 - An IDE like VS Code (version 1.61.2 or later) or Android Studio (version 2020.3.1 or later)
 
-### Installation
+### :wrench: Installation
 
 #### 1. Clone the repo
 
@@ -67,11 +67,11 @@ flutter pub get
 flutter run
 ```
 
-## Usage
+## :video_game: Usage
 
 Open the app, and you'll see a standard calculator interface. You can perform basic arithmetic operations, as well as some advanced operations.
 
-## Contributing
+## :handshake: Contributing
 
 Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are greatly appreciated.
 
@@ -81,10 +81,10 @@ Contributions are what make the open-source community such an amazing place to l
    4. Push to the Branch (`git push origin feature/AmazingFeature`)
    5. Open a Pull Request
 
-## License
+## :page_with_curl: License
 
 Distributed under the MIT License. See [LICENSE](LICENSE) for more information.
 
-## Contact
+## :email: Contact
 
 [![Gmail](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:sikatikenmogne@gmail.com)
