@@ -20,11 +20,16 @@ Simple calculator app built with Flutter.
 
 ## Preview
 
+This app is designed to provide a simple and intuitive interface for all your calculation needs. The screenshot below gives you a glimpse of the app's user-friendly design and functionality.
+
+<details>
+<summary>📸 App screenshot</summary>
 <div align="center">
 
 <img src="screenshot.jpg" height="600px">
 
 </div>
+</details>
 
 ## Getting Started
 
