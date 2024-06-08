@@ -17,7 +17,15 @@ Simple calculator app built with Flutter.
 - [x] Beautiful and intuitive user interface
 - [x] Basic arithmetic operations: addition, subtraction, multiplication, division
 - [x] Advanced operations: square root, inverse
-
+- [x] Clear Entry (CE) button functionality
+- [x] Clear (C) button functionality
+- [x] Decimal point support
+- [ ] Error handling for division by zero
+- [ ] Keyboard input support
+- [ ] History of previous calculations
+- [ ] Parentheses support for complex calculations
+- [ ] Scientific operations (exponential, logarithmic, trigonometric functions)
+  
 ## :mag: Preview
 
 This app is designed to provide a simple and intuitive interface for all your calculation needs. The screenshot below gives you a glimpse of the app's user-friendly design and functionality.
