@@ -34,7 +34,7 @@ This app is designed to provide a simple and intuitive interface for all your ca
 <summary>📸 App screenshot</summary>
 <div align="center">
 
-<img src="screenshot.jpg" height="600px">
+<img src="screenshot.png" height="600px">
 
 </div>
 </details>
@@ -51,31 +51,12 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### :wrench: Installation
 
-#### 1. Clone the repo
+1. Clone the repo `git clone https://github.com/sikatikenmogne/flutter_calculator.git`
+2. Navigate to the project directory `cd flutter_calculator`
+3. Install dependencies `flutter pub get`
+4. Run the app `flutter run`
 
-```sh
-git clone https://github.com/sikatikenmogne/flutter_calculator.git
-```
-
-#### 2. Navigate to the project directory
-
-```sh
-cd flutter_calculator
-```
-
-#### 3. Install dependencies
-
-```sh
-flutter pub get
-```
-
-#### 4. Run the app
-
-```sh
-flutter run
-```
-
-## :video_game: Usage
+## :bulb: Usage
 
 Open the app, and you'll see a standard calculator interface. You can perform basic arithmetic operations, as well as some advanced operations.
 
