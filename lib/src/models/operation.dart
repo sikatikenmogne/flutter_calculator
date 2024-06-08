@@ -65,4 +65,19 @@ class Operation {
       CalculatorOperator calculatorOperator, bool operationEnded) {
     return "${calculatorOperator.value}(${_formatNumber(uniqueOperand)})${operationEnded ? " =" : ""}";
   }
+
+  Operation copyWith({
+    double? firstOperand,
+    double? secondOperand,
+    CalculatorOperator? calculatorOperator,
+    bool? operationEnded,
+  }) {
+    return Operation(
+      firstOperand: firstOperand ?? this.firstOperand,
+      secondOperand: secondOperand ?? this.secondOperand,
+      calculatorOperator: calculatorOperator ?? this.calculatorOperator,
+      operationEnded: operationEnded ?? this.operationEnded,
+    );
+  }
+
 }
