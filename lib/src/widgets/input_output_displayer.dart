@@ -11,7 +11,7 @@ class InputOutputDisplayer extends StatelessWidget {
 
   InputOutputDisplayer({
     Key? key,
-    this.valueToDisplay = "0.0",
+    this.valueToDisplay = "0",
     this.calculatorOperator = CalculatorOperator.none,
     this.padding = 8.0,
     this.fontSize = 48.0,
