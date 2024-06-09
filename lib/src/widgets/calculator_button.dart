@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 // ignore: must_be_immutable
 class CalculatorButton extends StatelessWidget {
   final String name;
-  final void Function() onPressedButton;
+  final void Function() onPressed;
   final TextStyle textStyle;
   final Color buttonColor;
 
   const CalculatorButton({
     super.key,
     required this.name,
-    required this.onPressedButton,
+    required this.onPressed,
     this.textStyle = const TextStyle(fontSize: 24.0, color: Colors.black87),
     this.buttonColor = Colors.white,
   });
@@ -21,7 +21,7 @@ class CalculatorButton extends StatelessWidget {
         child: Padding(
             padding: const EdgeInsets.all(2.0),
             child: ElevatedButton(
-              onPressed: onPressedButton,
+              onPressed: onPressed,
               style: ButtonStyle(
                 backgroundColor:
                     WidgetStateProperty.all<Color>(this.buttonColor),

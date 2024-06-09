@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 
 class CalculatorIconButton extends StatelessWidget {
   final String name;
-  final VoidCallback onPressedButton;
+  final void Function() onPressed;
   final Color buttonColor;
 
-  const CalculatorIconButton({super.key, 
+  const CalculatorIconButton({
+    super.key,
     required this.name,
-    required this.onPressedButton,
+    required this.onPressed,
     this.buttonColor = Colors.white,
   });
 
@@ -17,10 +18,9 @@ class CalculatorIconButton extends StatelessWidget {
         child: Padding(
             padding: const EdgeInsets.all(2.0),
             child: ElevatedButton(
-              onPressed: onPressedButton,
+              onPressed: onPressed,
               style: ButtonStyle(
-                backgroundColor:
-                WidgetStateProperty.all<Color>(buttonColor),
+                backgroundColor: WidgetStateProperty.all<Color>(buttonColor),
                 shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                     RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5.0),
