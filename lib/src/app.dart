@@ -155,25 +155,23 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void endOperation() {
     setState(() {
-      if (_currentOperation.isBinaryOperation && _currentOperation.isComplete) {
-        _operationEnded = true;
+      _operationEnded = true;
 
-        _displayedValue =
-            OperationComputer.compute(operation: _currentOperation).toString();
-      } else {
-        _operationEnded = true;
-        _displayedValue =
-            OperationComputer.compute(operation: _currentOperation).toString();
+      try {
+        _displayedValue = OperationComputer.compute(operation: _currentOperation).toString();
+      } on Exception catch (e) {
+        // TODO: Implement user feedback for invalid operations
       }
 
       _currentOperation = Operation(
-          firstOperand: _firstOperand,
-          secondOperand: _secondOperand,
-          calculatorOperator: _currentOperator,
-          operationEnded: _operationEnded);
+        firstOperand: _firstOperand,
+        secondOperand: _secondOperand,
+        calculatorOperator: _currentOperator,
+        operationEnded: _operationEnded,
+      );
     });
   }
-
+  
   void clearEntry() {
     setState(() {
       if (!(_currentOperation.isComplete && _currentOperation.operationEnded)) {
