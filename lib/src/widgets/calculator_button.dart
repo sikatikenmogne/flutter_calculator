@@ -3,17 +3,17 @@ import 'package:flutter/material.dart';
 // ignore: must_be_immutable
 class CalculatorButton extends StatelessWidget {
   final String name;
-  final VoidCallback onPressedButton;
+  final void Function() onPressedButton;
   final TextStyle textStyle;
   final Color buttonColor;
 
   const CalculatorButton({
-      super.key,
-      required this.name,
-      required this.onPressedButton,
-      this.textStyle = const TextStyle(fontSize: 24.0, color: Colors.black87),
-      this.buttonColor = Colors.white,
-    });
+    super.key,
+    required this.name,
+    required this.onPressedButton,
+    this.textStyle = const TextStyle(fontSize: 24.0, color: Colors.black87),
+    this.buttonColor = Colors.white,
+  });
 
   @override
   Widget build(BuildContext context) {
