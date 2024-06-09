@@ -30,7 +30,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Operation _currentOperation = Operation();
 
-  addDigit(String value) {
+  void addDigit(String value) {
     setState(() {
       if (_operationEnded) {
         clearEntry();
@@ -217,7 +217,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  plusMinus() {
+  void plusMinus() {
     setState(() {
       if (_displayedValue != "0") {
         if (_displayedValue[0] == "-") {
@@ -244,7 +244,8 @@ class _MyHomePageState extends State<MyHomePage> {
   void setDecimal() {
     setState(() {
       if (_displayedValue != "0") {
-        if (!_displayedValue.contains('.') && !_currentOperation.operationEnded) {
+        if (!_displayedValue.contains('.') &&
+            !_currentOperation.operationEnded) {
           _displayedValue = "$_displayedValue.";
         }
       }
@@ -355,11 +356,11 @@ class _MyHomePageState extends State<MyHomePage> {
           //     mainAxisSize: MainAxisSize.max,
           //     crossAxisAlignment: CrossAxisAlignment.stretch,
           //     children: [
-          //       CalculatorButton(name: "MC", onPressedButton: () => {}),
-          //       CalculatorButton(name: "MR", onPressedButton: () => {}),
-          //       CalculatorButton(name: "M+", onPressedButton: () => {}),
-          //       CalculatorButton(name: "M-", onPressedButton: () => {}),
-          //       CalculatorButton(name: "MS", onPressedButton: () => {}),
+          //       CalculatorButton(name: "MC", onPressed: () => {}),
+          //       CalculatorButton(name: "MR", onPressed: () => {}),
+          //       CalculatorButton(name: "M+", onPressed: () => {}),
+          //       CalculatorButton(name: "M-", onPressed: () => {}),
+          //       CalculatorButton(name: "MS", onPressed: () => {}),
           //     ],
           //   ), // Buttons
           // ),
@@ -372,20 +373,20 @@ class _MyHomePageState extends State<MyHomePage> {
               children: [
                 CalculatorButton(
                     name: "%",
-                    onPressedButton: () =>
-                        {setCurrentOperator(CalculatorOperator.modulus)},
+                    onPressed: () =>
+                        setCurrentOperator(CalculatorOperator.modulus),
                     buttonColor: Colors.white70),
                 CalculatorButton(
                     name: "CE",
-                    onPressedButton: () => {clearEntry()},
+                    onPressed: clearEntry,
                     buttonColor: Colors.white70),
                 CalculatorButton(
                     name: "C",
-                    onPressedButton: () => {clear()},
+                    onPressed: clear,
                     buttonColor: Colors.white70),
                 CalculatorIconButton(
                   name: "backspace_outlined",
-                  onPressedButton: () => {backspace()},
+                  onPressed: backspace,
                   buttonColor: Colors.white70, // Colors.redAccent,
                 ),
               ],
@@ -399,23 +400,23 @@ class _MyHomePageState extends State<MyHomePage> {
               children: [
                 CalculatorButton(
                     name: "¹/x",
-                    onPressedButton: () =>
-                        (setCurrentOperator(CalculatorOperator.inverse)),
+                    onPressed: () =>
+                        setCurrentOperator(CalculatorOperator.inverse),
                     buttonColor: Colors.white70),
                 CalculatorButton(
                     name: "x²",
-                    onPressedButton: () =>
-                        {setCurrentOperator(CalculatorOperator.square)},
+                    onPressed: () =>
+                        setCurrentOperator(CalculatorOperator.square),
                     buttonColor: Colors.white70),
                 CalculatorButton(
                     name: "²√x",
-                    onPressedButton: () =>
-                        {setCurrentOperator(CalculatorOperator.squareRoot)},
+                    onPressed: () =>
+                        setCurrentOperator(CalculatorOperator.squareRoot),
                     buttonColor: Colors.white70),
                 CalculatorButton(
                     name: "÷",
-                    onPressedButton: () =>
-                        {setCurrentOperator(CalculatorOperator.divide)},
+                    onPressed: () =>
+                        setCurrentOperator(CalculatorOperator.divide),
                     buttonColor: Colors.white70),
               ],
             ),
@@ -426,16 +427,13 @@ class _MyHomePageState extends State<MyHomePage> {
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                CalculatorButton(
-                    name: "7", onPressedButton: () => {addDigit("7")}),
-                CalculatorButton(
-                    name: "8", onPressedButton: () => {addDigit("8")}),
-                CalculatorButton(
-                    name: "9", onPressedButton: () => {addDigit("9")}),
+                CalculatorButton(name: "7", onPressed: () => addDigit("7")),
+                CalculatorButton(name: "8", onPressed: () => addDigit("8")),
+                CalculatorButton(name: "9", onPressed: () => addDigit("9")),
                 CalculatorButton(
                     name: "*",
-                    onPressedButton: () =>
-                        {setCurrentOperator(CalculatorOperator.multiply)},
+                    onPressed: () =>
+                        setCurrentOperator(CalculatorOperator.multiply),
                     buttonColor: Colors.white70),
               ],
             ),
@@ -446,15 +444,12 @@ class _MyHomePageState extends State<MyHomePage> {
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                CalculatorButton(
-                    name: "4", onPressedButton: () => {addDigit("4")}),
-                CalculatorButton(
-                    name: "5", onPressedButton: () => {addDigit("5")}),
-                CalculatorButton(
-                    name: "6", onPressedButton: () => {addDigit("6")}),
+                CalculatorButton(name: "4", onPressed: () => addDigit("4")),
+                CalculatorButton(name: "5", onPressed: () => addDigit("5")),
+                CalculatorButton(name: "6", onPressed: () => addDigit("6")),
                 CalculatorButton(
                     name: "-",
-                    onPressedButton: () =>
+                    onPressed: () =>
                         {setCurrentOperator(CalculatorOperator.subtract)},
                     buttonColor: Colors.white70),
               ],
@@ -466,16 +461,13 @@ class _MyHomePageState extends State<MyHomePage> {
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                CalculatorButton(
-                    name: "1", onPressedButton: () => {addDigit("1")}),
-                CalculatorButton(
-                    name: "2", onPressedButton: () => {addDigit("2")}),
-                CalculatorButton(
-                    name: "3", onPressedButton: () => {addDigit("3")}),
+                CalculatorButton(name: "1", onPressed: () => addDigit("1")),
+                CalculatorButton(name: "2", onPressed: () => addDigit("2")),
+                CalculatorButton(name: "3", onPressed: () => addDigit("3")),
                 CalculatorButton(
                     name: "+",
-                    onPressedButton: () =>
-                        {setCurrentOperator(CalculatorOperator.add)},
+                    onPressed: () =>
+                        setCurrentOperator(CalculatorOperator.add),
                     buttonColor: Colors.white70),
               ],
             ),
@@ -486,14 +478,12 @@ class _MyHomePageState extends State<MyHomePage> {
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                CalculatorButton(
-                    name: "+/-", onPressedButton: () => {plusMinus()}),
-                CalculatorButton(
-                    name: "0", onPressedButton: () => {addDigit("0")}),
-                CalculatorButton(name: ".", onPressedButton: setDecimal),
+                CalculatorButton(name: "+/-", onPressed: plusMinus),
+                CalculatorButton(name: "0", onPressed: () => addDigit("0")),
+                CalculatorButton(name: ".", onPressed: setDecimal),
                 CalculatorButton(
                     name: "=",
-                    onPressedButton: () => {endOperation()},
+                    onPressed: endOperation,
                     buttonColor: Colors.blueAccent),
               ],
             ),
