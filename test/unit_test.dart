@@ -64,11 +64,11 @@ void main() {
       expect(() => OperationComputer.factorial(-1), throwsArgumentError);
     });
 
-    // test('logarithm', () {
-    //   expect(OperationComputer.logarithm(8, 2), 3);
-    //   expect(() => OperationComputer.logarithm(-1, 2), throwsException);
-    //   expect(() => OperationComputer.logarithm(8, 1), throwsException);
-    // });
+    test('logarithm', () {
+      expect(OperationComputer.logarithm(8, 2), 3);
+      expect(() => OperationComputer.logarithm(-1, 2), throwsException);
+      expect(() => OperationComputer.logarithm(8, 1), throwsException);
+    });
 
     test('exponential', () {
       expect(OperationComputer.exponential(2, 3), 8);

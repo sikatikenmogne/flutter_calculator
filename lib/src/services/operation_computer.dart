@@ -104,7 +104,10 @@ class OperationComputer {
   }
 
   static double logarithm(double firstOperand, double secondOperand) {
-    if (firstOperand <= 0 || secondOperand == 1) return -1;
+    if (firstOperand <= 0)
+      throw Exception('The number must be greater than zero.');
+    if (secondOperand == 1)
+      throw Exception('The base of the logarithm cannot be one.');
     return log(firstOperand) / log(secondOperand);
   }
 
