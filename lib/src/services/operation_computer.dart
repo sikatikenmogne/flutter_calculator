@@ -92,8 +92,10 @@ class OperationComputer {
   static double modulus(double firstOperand, double secondOperand) {
     if (secondOperand == 0)
       throw Exception('The second operand should not be zero');
-    double result = firstOperand % secondOperand;
-    return firstOperand < 0 && result > 0 ? -result : result;
+    double result = firstOperand.abs() % secondOperand.abs();
+    return (firstOperand < 0 || secondOperand < 0) && result > 0
+        ? -result
+        : result;
   }
 
   static int factorial(int number) {

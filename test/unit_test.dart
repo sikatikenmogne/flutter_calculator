@@ -51,11 +51,12 @@ void main() {
       expect(OperationComputer.power(2, 0), 1);
     });
 
-    // test('modulus', () {
-    //   expect(OperationComputer.modulus(10, 3), 1);
-    //   expect(OperationComputer.modulus(-10, 3), -1);
-    //   expect(() => OperationComputer.modulus(10, 0), throwsException);
-    // });
+    test('modulus', () {
+      expect(OperationComputer.modulus(10, 3), 1);
+      expect(OperationComputer.modulus(-10, 3), -1);
+      expect(OperationComputer.modulus(10, -3), -1);
+      expect(() => OperationComputer.modulus(10, 0), throwsException);
+    });
 
     test('factorial', () {
       expect(OperationComputer.factorial(5), 120);
