@@ -73,6 +73,7 @@ class OperationComputer {
   }
 
   static double squareRoot(double operand) {
+    if (operand < 0) throw Exception('Number must be non-negative.');
     return sqrt(operand);
   }
 
@@ -89,7 +90,10 @@ class OperationComputer {
   }
 
   static double modulus(double firstOperand, double secondOperand) {
-    return firstOperand % secondOperand;
+    if (secondOperand == 0)
+      throw Exception('The second operand should not be zero');
+    double result = firstOperand % secondOperand;
+    return firstOperand < 0 && result > 0 ? -result : result;
   }
 
   static int factorial(int number) {
@@ -97,8 +101,9 @@ class OperationComputer {
     return number <= 1 ? 1 : number * factorial(number - 1);
   }
 
-  static double logarithm(double number, double base) {
-    return log(number) / log(base);
+  static double logarithm(double firstOperand, double secondOperand) {
+    if (firstOperand <= 0 || secondOperand == 1) return -1;
+    return log(firstOperand) / log(secondOperand);
   }
 
   static num exponential(double number, double exponent) {
