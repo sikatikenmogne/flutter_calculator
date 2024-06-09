@@ -1,5 +1,5 @@
 import 'dart:math';
-
+import 'dart:developer' as developer;
 import 'package:flutter_calculator/src/models/operation.dart';
 
 import '../models/calculator_operator_enum.dart';
@@ -18,7 +18,17 @@ class OperationComputer {
       case CalculatorOperator.square:
         return square(operation.firstOperand);
       case CalculatorOperator.squareRoot:
-        return squareRoot(operation.firstOperand);
+        try {
+          return squareRoot(operation.firstOperand);
+        } catch (e) {
+          print('An error occurred: $e');
+          developer.log(
+            'An error occured while computing the square root operation',
+            name: 'OperationComputer.compute',
+            error: e,
+          );
+          throw Exception('$e');
+        }
       case CalculatorOperator.inverse:
         return inverse(operation.firstOperand);
       case CalculatorOperator.power:
@@ -28,7 +38,17 @@ class OperationComputer {
       case CalculatorOperator.factorial:
         return factorial(operation.firstOperand.toInt());
       case CalculatorOperator.logarithm:
-        return logarithm(operation.firstOperand, operation.secondOperand);
+        try {
+          return logarithm(operation.firstOperand, operation.secondOperand);
+        } catch (e) {
+          print('An error occurred: $e');
+          developer.log(
+            'An error occured while computing the logarithm operation',
+            name: 'OperationComputer.compute',
+            error: e,
+          );
+          throw Exception('$e');
+        }
       case CalculatorOperator.exponential:
         return exponential(operation.firstOperand, operation.secondOperand);
       case CalculatorOperator.absolute:
