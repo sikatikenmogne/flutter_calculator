@@ -23,7 +23,7 @@ class OperationComputer {
             name: 'OperationComputer.compute',
             error: e,
           );
-          throw Exception('$e');
+          throw ArgumentError('$e');
         }
       case CalculatorOperator.square:
         return square(operation.firstOperand);
