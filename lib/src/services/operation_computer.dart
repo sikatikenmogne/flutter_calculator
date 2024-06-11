@@ -14,7 +14,17 @@ class OperationComputer {
       case CalculatorOperator.multiply:
         return multiply(operation.firstOperand, operation.secondOperand);
       case CalculatorOperator.divide:
-        return divide(operation.firstOperand, operation.secondOperand);
+        try {
+          return divide(operation.firstOperand, operation.secondOperand);
+        } catch (e) {
+          print('An error occurred: $e');
+          developer.log(
+            'An error occured while computing the divide operation',
+            name: 'OperationComputer.compute',
+            error: e,
+          );
+          throw Exception('$e');
+        }
       case CalculatorOperator.square:
         return square(operation.firstOperand);
       case CalculatorOperator.squareRoot:
