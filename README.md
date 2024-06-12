@@ -22,7 +22,8 @@ Simple calculator app built with Flutter.
 - [x] Clear Entry (CE) button functionality
 - [x] Clear (C) button functionality
 - [x] Decimal point support
-- [ ] Error handling for division by zero
+- [x] Error handling for division by zero
+- [ ] Error message displaying
 - [ ] Keyboard input support
 - [ ] History of previous calculations
 - [ ] Parentheses support for complex calculations
