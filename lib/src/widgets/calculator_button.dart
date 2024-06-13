@@ -22,11 +22,10 @@ class CalculatorButton extends StatelessWidget {
         child: ElevatedButton(
           onPressed: onPressed,
           style: ButtonStyle(
-            backgroundColor:
-                WidgetStateProperty.all<Color>(this.buttonColor),
+            backgroundColor: WidgetStateProperty.all<Color>(this.buttonColor),
             shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                 RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(5.0),
+              borderRadius: BorderRadius.circular(30.0),
             )),
           ),
           child: Text(name, style: textStyle, textAlign: TextAlign.center),

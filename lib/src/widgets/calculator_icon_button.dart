@@ -22,7 +22,7 @@ class CalculatorIconButton extends StatelessWidget {
             backgroundColor: WidgetStateProperty.all<Color>(buttonColor),
             shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                 RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(5.0),
+              borderRadius: BorderRadius.circular(30.0),
             )),
           ),
           child: const Icon(
