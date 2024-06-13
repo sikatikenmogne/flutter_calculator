@@ -158,7 +158,8 @@ class _MyHomePageState extends State<MyHomePage> {
       _operationEnded = true;
 
       try {
-        _displayedValue = OperationComputer.compute(operation: _currentOperation).toString();
+        _displayedValue =
+            OperationComputer.compute(operation: _currentOperation).toString();
       } on Exception catch (e) {
         // TODO: Implement user feedback for invalid operations
       }
@@ -171,7 +172,7 @@ class _MyHomePageState extends State<MyHomePage> {
       );
     });
   }
-  
+
   void clearEntry() {
     setState(() {
       if (!(_currentOperation.isComplete && _currentOperation.operationEnded)) {
@@ -369,23 +370,29 @@ class _MyHomePageState extends State<MyHomePage> {
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                CalculatorButton(
-                    name: "%",
-                    onPressed: () =>
-                        setCurrentOperator(CalculatorOperator.modulus),
-                    buttonColor: Colors.white70),
-                CalculatorButton(
-                    name: "CE",
-                    onPressed: clearEntry,
-                    buttonColor: Colors.white70),
-                CalculatorButton(
-                    name: "C",
-                    onPressed: clear,
-                    buttonColor: Colors.white70),
-                CalculatorIconButton(
-                  name: "backspace_outlined",
-                  onPressed: backspace,
-                  buttonColor: Colors.white70, // Colors.redAccent,
+                Expanded(
+                  child: CalculatorButton(
+                      name: "%",
+                      onPressed: () =>
+                          setCurrentOperator(CalculatorOperator.modulus),
+                      buttonColor: Colors.white70),
+                ),
+                Expanded(
+                  child: CalculatorButton(
+                      name: "CE",
+                      onPressed: clearEntry,
+                      buttonColor: Colors.white70),
+                ),
+                Expanded(
+                  child: CalculatorButton(
+                      name: "C", onPressed: clear, buttonColor: Colors.white70),
+                ),
+                Expanded(
+                  child: CalculatorIconButton(
+                    name: "backspace_outlined",
+                    onPressed: backspace,
+                    buttonColor: Colors.white70, // Colors.redAccent,
+                  ),
                 ),
               ],
             ), // Buttons
@@ -396,26 +403,34 @@ class _MyHomePageState extends State<MyHomePage> {
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                CalculatorButton(
-                    name: "¹/x",
-                    onPressed: () =>
-                        setCurrentOperator(CalculatorOperator.inverse),
-                    buttonColor: Colors.white70),
-                CalculatorButton(
-                    name: "x²",
-                    onPressed: () =>
-                        setCurrentOperator(CalculatorOperator.square),
-                    buttonColor: Colors.white70),
-                CalculatorButton(
-                    name: "²√x",
-                    onPressed: () =>
-                        setCurrentOperator(CalculatorOperator.squareRoot),
-                    buttonColor: Colors.white70),
-                CalculatorButton(
-                    name: "÷",
-                    onPressed: () =>
-                        setCurrentOperator(CalculatorOperator.divide),
-                    buttonColor: Colors.white70),
+                Expanded(
+                  child: CalculatorButton(
+                      name: "¹/x",
+                      onPressed: () =>
+                          setCurrentOperator(CalculatorOperator.inverse),
+                      buttonColor: Colors.white70),
+                ),
+                Expanded(
+                  child: CalculatorButton(
+                      name: "x²",
+                      onPressed: () =>
+                          setCurrentOperator(CalculatorOperator.square),
+                      buttonColor: Colors.white70),
+                ),
+                Expanded(
+                  child: CalculatorButton(
+                      name: "²√x",
+                      onPressed: () =>
+                          setCurrentOperator(CalculatorOperator.squareRoot),
+                      buttonColor: Colors.white70),
+                ),
+                Expanded(
+                  child: CalculatorButton(
+                      name: "÷",
+                      onPressed: () =>
+                          setCurrentOperator(CalculatorOperator.divide),
+                      buttonColor: Colors.white70),
+                ),
               ],
             ),
           ),
@@ -425,14 +440,22 @@ class _MyHomePageState extends State<MyHomePage> {
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                CalculatorButton(name: "7", onPressed: () => addDigit("7")),
-                CalculatorButton(name: "8", onPressed: () => addDigit("8")),
-                CalculatorButton(name: "9", onPressed: () => addDigit("9")),
-                CalculatorButton(
-                    name: "*",
-                    onPressed: () =>
-                        setCurrentOperator(CalculatorOperator.multiply),
-                    buttonColor: Colors.white70),
+                Expanded(
+                    child: CalculatorButton(
+                        name: "7", onPressed: () => addDigit("7"))),
+                Expanded(
+                    child: CalculatorButton(
+                        name: "8", onPressed: () => addDigit("8"))),
+                Expanded(
+                    child: CalculatorButton(
+                        name: "9", onPressed: () => addDigit("9"))),
+                Expanded(
+                  child: CalculatorButton(
+                      name: "*",
+                      onPressed: () =>
+                          setCurrentOperator(CalculatorOperator.multiply),
+                      buttonColor: Colors.white70),
+                ),
               ],
             ),
           ),
@@ -442,14 +465,22 @@ class _MyHomePageState extends State<MyHomePage> {
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                CalculatorButton(name: "4", onPressed: () => addDigit("4")),
-                CalculatorButton(name: "5", onPressed: () => addDigit("5")),
-                CalculatorButton(name: "6", onPressed: () => addDigit("6")),
-                CalculatorButton(
-                    name: "-",
-                    onPressed: () =>
-                        {setCurrentOperator(CalculatorOperator.subtract)},
-                    buttonColor: Colors.white70),
+                Expanded(
+                    child: CalculatorButton(
+                        name: "4", onPressed: () => addDigit("4"))),
+                Expanded(
+                    child: CalculatorButton(
+                        name: "5", onPressed: () => addDigit("5"))),
+                Expanded(
+                    child: CalculatorButton(
+                        name: "6", onPressed: () => addDigit("6"))),
+                Expanded(
+                  child: CalculatorButton(
+                      name: "-",
+                      onPressed: () =>
+                          {setCurrentOperator(CalculatorOperator.subtract)},
+                      buttonColor: Colors.white70),
+                ),
               ],
             ),
           ),
@@ -459,14 +490,22 @@ class _MyHomePageState extends State<MyHomePage> {
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                CalculatorButton(name: "1", onPressed: () => addDigit("1")),
-                CalculatorButton(name: "2", onPressed: () => addDigit("2")),
-                CalculatorButton(name: "3", onPressed: () => addDigit("3")),
-                CalculatorButton(
-                    name: "+",
-                    onPressed: () =>
-                        setCurrentOperator(CalculatorOperator.add),
-                    buttonColor: Colors.white70),
+                Expanded(
+                    child: CalculatorButton(
+                        name: "1", onPressed: () => addDigit("1"))),
+                Expanded(
+                    child: CalculatorButton(
+                        name: "2", onPressed: () => addDigit("2"))),
+                Expanded(
+                    child: CalculatorButton(
+                        name: "3", onPressed: () => addDigit("3"))),
+                Expanded(
+                  child: CalculatorButton(
+                      name: "+",
+                      onPressed: () =>
+                          setCurrentOperator(CalculatorOperator.add),
+                      buttonColor: Colors.white70),
+                ),
               ],
             ),
           ),
@@ -476,13 +515,19 @@ class _MyHomePageState extends State<MyHomePage> {
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                CalculatorButton(name: "+/-", onPressed: plusMinus),
-                CalculatorButton(name: "0", onPressed: () => addDigit("0")),
-                CalculatorButton(name: ".", onPressed: setDecimal),
-                CalculatorButton(
-                    name: "=",
-                    onPressed: endOperation,
-                    buttonColor: Colors.blueAccent),
+                Expanded(
+                    child: CalculatorButton(name: "+/-", onPressed: plusMinus)),
+                Expanded(
+                    child: CalculatorButton(
+                        name: "0", onPressed: () => addDigit("0"))),
+                Expanded(
+                    child: CalculatorButton(name: ".", onPressed: setDecimal)),
+                Expanded(
+                  child: CalculatorButton(
+                      name: "=",
+                      onPressed: endOperation,
+                      buttonColor: Colors.blueAccent),
+                ),
               ],
             ),
           )
