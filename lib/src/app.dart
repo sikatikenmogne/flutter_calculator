@@ -341,7 +341,6 @@ class _MyHomePageState extends State<MyHomePage> {
                           alignment: Alignment.topRight,
                           child: InputOutputDisplayer(
                             valueToDisplay: _displayedValue,
-                            calculatorOperator: _currentOperator,
                           )),
                     ),
                   ],
