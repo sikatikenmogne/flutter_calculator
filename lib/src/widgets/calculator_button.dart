@@ -25,7 +25,7 @@ class CalculatorButton extends StatelessWidget {
             backgroundColor: WidgetStateProperty.all<Color>(this.buttonColor),
             shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                 RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(30.0),
+              borderRadius: BorderRadius.circular(15.0),
             )),
           ),
           child: Text(name, style: textStyle, textAlign: TextAlign.center),
