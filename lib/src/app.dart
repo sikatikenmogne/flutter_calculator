@@ -324,10 +324,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   children: [
                     Expanded(
                         child: OperationDisplayer(
-                      firstOperand: _firstOperand,
-                      secondOperand: _secondOperand,
-                      calculatorOperator: _currentOperator,
-                      operationEnded: _operationEnded,
                       operationToDisplay: Operation(
                           firstOperand: _firstOperand,
                           secondOperand: _secondOperand,

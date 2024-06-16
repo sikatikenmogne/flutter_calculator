@@ -22,9 +22,6 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: OperationDisplayer(
-            firstOperand: 5.0,
-            secondOperand: 3.0,
-            calculatorOperator: CalculatorOperator.add,
             operationToDisplay: Operation(
               firstOperand: 5.0,
               secondOperand: 3.0,
