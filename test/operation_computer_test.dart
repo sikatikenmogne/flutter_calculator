@@ -1,7 +1,7 @@
+import 'package:flutter_calculator/src/models/operator.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_calculator/src/services/operation_computer.dart';
 import 'package:flutter_calculator/src/models/operation.dart';
-import 'package:flutter_calculator/src/models/calculator_operator_enum.dart';
 
 void main() {
   group('OperationComputer', () {
@@ -95,10 +95,10 @@ void main() {
     });
 
     test('compute', () {
-      expect(OperationComputer.compute(operation: Operation(firstOperand: 2, secondOperand: 3, calculatorOperator: CalculatorOperator.add)), 5);
-      expect(OperationComputer.compute(operation: Operation(firstOperand: 2, secondOperand: 3, calculatorOperator: CalculatorOperator.subtract)), -1);
-      expect(OperationComputer.compute(operation: Operation(firstOperand: 2, secondOperand: 3, calculatorOperator: CalculatorOperator.multiply)), 6);
-      expect(() => OperationComputer.compute(operation: Operation(firstOperand: 2, secondOperand: 0, calculatorOperator: CalculatorOperator.divide)), throwsArgumentError);
+      expect(OperationComputer.compute(operation: Operation(firstOperand: 2, secondOperand: 3, calculatorOperator: Operator.add)), 5);
+      expect(OperationComputer.compute(operation: Operation(firstOperand: 2, secondOperand: 3, calculatorOperator: Operator.subtract)), -1);
+      expect(OperationComputer.compute(operation: Operation(firstOperand: 2, secondOperand: 3, calculatorOperator: Operator.multiply)), 6);
+      expect(() => OperationComputer.compute(operation: Operation(firstOperand: 2, secondOperand: 0, calculatorOperator: Operator.divide)), throwsArgumentError);
     });
   });
 }
