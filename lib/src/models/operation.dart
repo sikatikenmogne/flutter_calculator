@@ -1,14 +1,16 @@
 import 'package:flutter_calculator/src/models/calculator_operator_enum.dart';
 
+import 'operator.dart';
+
 class Operation {
   final double firstOperand;
   final double secondOperand;
-  final CalculatorOperator calculatorOperator;
+  final Operator? calculatorOperator;
   final bool operationEnded;
 
   @override
   String toString() {
-    return calculatorOperator != CalculatorOperator.none
+    return ((calculatorOperator != Operator.none) && (calculatorOperator != null)) 
         ? isBinaryOperation
             ? _renderBinaryOperation(
                 firstOperand, secondOperand, calculatorOperator, operationEnded)
@@ -20,24 +22,24 @@ class Operation {
   const Operation(
       {this.firstOperand = 0,
       this.secondOperand = 0,
-      this.calculatorOperator = CalculatorOperator.none,
+      this.calculatorOperator,
       this.operationEnded = false});
 
   bool get isBinaryOperation {
-    return calculatorOperator != CalculatorOperator.none
-        ? <CalculatorOperator>{
-            CalculatorOperator.add,
-            CalculatorOperator.subtract,
-            CalculatorOperator.multiply,
-            CalculatorOperator.divide,
-            CalculatorOperator.modulus,
-            CalculatorOperator.power,
+    return calculatorOperator != Operator.none
+        ? <Operator>{
+            Operator.add,
+            Operator.subtract,
+            Operator.multiply,
+            Operator.divide,
+            Operator.modulus,
+            Operator.power,
           }.contains(calculatorOperator)
         : false;
   }
 
   bool get isComplete {
-    if (calculatorOperator != CalculatorOperator.none) {
+    if (calculatorOperator != Operator.none) {
       if (isBinaryOperation) {
         return (firstOperand != 0 && secondOperand != 0 && !operationEnded);
       } else {
@@ -46,6 +48,12 @@ class Operation {
     } else {
       return false;
     }
+  }
+
+  num compute() {
+    return (isBinaryOperation)
+        ? calculatorOperator!.operation(firstOperand, secondOperand)
+        : calculatorOperator!.operation(firstOperand, null);
   }
 
   String _formatNumber(double number) {
@@ -57,19 +65,19 @@ class Operation {
   }
 
   String _renderBinaryOperation(double firstOperand, double secondOperand,
-      CalculatorOperator calculatorOperator, bool operationEnded) {
-    return "${_formatNumber(firstOperand)}${calculatorOperator != CalculatorOperator.none ? " ${calculatorOperator.value}" : ""}${secondOperand != 0 && operationEnded ? " ${_formatNumber(secondOperand)}" : ""}${operationEnded ? " =" : ""}";
+      Operator? calculatorOperator, bool operationEnded) {
+    return "${_formatNumber(firstOperand)}${calculatorOperator != Operator.none ? " ${calculatorOperator}" : ""}${secondOperand != 0 && operationEnded ? " ${_formatNumber(secondOperand)}" : ""}${operationEnded ? " =" : ""}";
   }
 
-  String _renderUnaryOperation(double uniqueOperand,
-      CalculatorOperator calculatorOperator, bool operationEnded) {
-    return "${calculatorOperator.value}(${_formatNumber(uniqueOperand)})${operationEnded ? " =" : ""}";
+  String _renderUnaryOperation(
+      double uniqueOperand, Operator? calculatorOperator, bool operationEnded) {
+    return "${calculatorOperator}(${_formatNumber(uniqueOperand)})${operationEnded ? " =" : ""}";
   }
 
   Operation copyWith({
     double? firstOperand,
     double? secondOperand,
-    CalculatorOperator? calculatorOperator,
+    Operator? calculatorOperator,
     bool? operationEnded,
   }) {
     return Operation(
@@ -79,5 +87,4 @@ class Operation {
       operationEnded: operationEnded ?? this.operationEnded,
     );
   }
-
 }

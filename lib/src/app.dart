@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_calculator/src/models/calculator_operator_enum.dart';
 import 'package:flutter_calculator/src/models/operation.dart';
 import 'package:flutter_calculator/src/services/operation_computer.dart';
+import 'models/operator.dart';
 import 'widgets/calculator_button.dart';
 
 import 'widgets/calculator_icon_button.dart';
@@ -20,7 +21,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   String _displayedValue = "0";
 
-  CalculatorOperator _currentOperator = CalculatorOperator.none;
+  Operator _currentOperator = Operator.none;
 
   double _firstOperand = 0.0;
 
@@ -40,7 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
       if (_displayedValue == "0") {
         _displayedValue = value;
         if (_currentOperation.firstOperand != 0 &&
-            _currentOperation.calculatorOperator != CalculatorOperator.none) {
+            _currentOperation.calculatorOperator != Operator.none) {
           // _currentOperation.secondOperand = double.parse(value);
 
           _currentOperation = Operation(
@@ -50,7 +51,7 @@ class _MyHomePageState extends State<MyHomePage> {
               operationEnded: _operationEnded);
         }
       } else {
-        if (_currentOperator == CalculatorOperator.none) {
+        if (_currentOperator == Operator.none) {
           _displayedValue += value;
         } else {
           if (_currentOperation.firstOperand == 0.0) {
@@ -64,7 +65,7 @@ class _MyHomePageState extends State<MyHomePage> {
         }
       }
 
-      if (_currentOperator == CalculatorOperator.none) {
+      if (_currentOperator == Operator.none) {
         _firstOperand = double.parse(_displayedValue);
         // _currentOperation.firstOperand = _firstOperand;
         _currentOperation = Operation(
@@ -98,7 +99,7 @@ class _MyHomePageState extends State<MyHomePage> {
     _displayedValue = "0";
   }
 
-  void setCurrentOperator(CalculatorOperator newOperator) {
+  void setCurrentOperator(Operator newOperator) {
     setState(() {
       if (_operationEnded) {
         _operationEnded = false;
@@ -106,7 +107,7 @@ class _MyHomePageState extends State<MyHomePage> {
         _secondOperand = 0.0;
         _firstOperand =
             OperationComputer.compute(operation: _currentOperation).toDouble();
-        _currentOperator = CalculatorOperator.none;
+        _currentOperator = Operator.none;
 
         _currentOperation = Operation(
             firstOperand: _firstOperand,
@@ -114,7 +115,7 @@ class _MyHomePageState extends State<MyHomePage> {
             calculatorOperator: _currentOperator,
             operationEnded: _operationEnded);
       } else {
-        if (_currentOperation.calculatorOperator != CalculatorOperator.none &&
+        if (_currentOperation.calculatorOperator != Operator.none &&
             _firstOperand != 0.0) {
           _currentOperator = newOperator;
 
@@ -127,7 +128,7 @@ class _MyHomePageState extends State<MyHomePage> {
           return;
         }
       }
-      if (_currentOperator == CalculatorOperator.none) {
+      if (_currentOperator == Operator.none) {
         _currentOperator = newOperator;
         // _currentOperation.calculatorOperator = _currentOperator;
 
@@ -177,7 +178,7 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       if (!(_currentOperation.isComplete && _currentOperation.operationEnded)) {
         _displayedValue = "0";
-        if (_currentOperation.calculatorOperator != CalculatorOperator.none) {
+        if (_currentOperation.calculatorOperator != Operator.none) {
           _secondOperand = double.parse(_displayedValue);
         } else {
           _firstOperand = double.parse(_displayedValue);
@@ -201,7 +202,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
         if (_displayedValue == "") _displayedValue = "0";
 
-        if (_currentOperation.calculatorOperator != CalculatorOperator.none) {
+        if (_currentOperation.calculatorOperator != Operator.none) {
           _secondOperand = double.parse(_displayedValue);
         } else {
           _firstOperand = double.parse(_displayedValue);
@@ -226,7 +227,7 @@ class _MyHomePageState extends State<MyHomePage> {
         }
       }
 
-      if (_currentOperation.calculatorOperator != CalculatorOperator.none) {
+      if (_currentOperation.calculatorOperator != Operator.none) {
         _secondOperand = double.parse(_displayedValue);
       } else {
         _firstOperand = double.parse(_displayedValue);
@@ -256,7 +257,7 @@ class _MyHomePageState extends State<MyHomePage> {
       _displayedValue = "0";
       _firstOperand = 0.0;
       _secondOperand = 0.0;
-      _currentOperator = CalculatorOperator.none;
+      _currentOperator = Operator.none;
       _currentOperation = Operation(
           firstOperand: _firstOperand,
           secondOperand: _secondOperand,
@@ -369,7 +370,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: CalculatorButton(
                       name: "%",
                       onPressed: () =>
-                          setCurrentOperator(CalculatorOperator.modulus),
+                          setCurrentOperator(Operator.modulus),
                       buttonColor: Colors.white70),
                 ),
                 Expanded(
@@ -402,28 +403,28 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: CalculatorButton(
                       name: "¹/x",
                       onPressed: () =>
-                          setCurrentOperator(CalculatorOperator.inverse),
+                          setCurrentOperator(Operator.inverse),
                       buttonColor: Colors.white70),
                 ),
                 Expanded(
                   child: CalculatorButton(
                       name: "x²",
                       onPressed: () =>
-                          setCurrentOperator(CalculatorOperator.square),
+                          setCurrentOperator(Operator.square),
                       buttonColor: Colors.white70),
                 ),
                 Expanded(
                   child: CalculatorButton(
                       name: "²√x",
                       onPressed: () =>
-                          setCurrentOperator(CalculatorOperator.squareRoot),
+                          setCurrentOperator(Operator.squareRoot),
                       buttonColor: Colors.white70),
                 ),
                 Expanded(
                   child: CalculatorButton(
                       name: "÷",
                       onPressed: () =>
-                          setCurrentOperator(CalculatorOperator.divide),
+                          setCurrentOperator(Operator.divide),
                       buttonColor: Colors.white70),
                 ),
               ],
@@ -448,7 +449,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: CalculatorButton(
                       name: "*",
                       onPressed: () =>
-                          setCurrentOperator(CalculatorOperator.multiply),
+                          setCurrentOperator(Operator.multiply),
                       buttonColor: Colors.white70),
                 ),
               ],
@@ -473,7 +474,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: CalculatorButton(
                       name: "-",
                       onPressed: () =>
-                          {setCurrentOperator(CalculatorOperator.subtract)},
+                          {setCurrentOperator(Operator.subtract)},
                       buttonColor: Colors.white70),
                 ),
               ],
@@ -498,7 +499,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: CalculatorButton(
                       name: "+",
                       onPressed: () =>
-                          setCurrentOperator(CalculatorOperator.add),
+                          setCurrentOperator(Operator.add),
                       buttonColor: Colors.white70),
                 ),
               ],

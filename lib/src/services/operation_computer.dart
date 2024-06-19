@@ -13,72 +13,73 @@ class OperationComputer {
   ///
   /// Returns the computed result as a [num].
   static num compute({required Operation operation}) {
-    switch (operation.calculatorOperator) {
-      case CalculatorOperator.add:
-        return add(operation.firstOperand, operation.secondOperand);
-      case CalculatorOperator.subtract:
-        return subtract(operation.firstOperand, operation.secondOperand);
-      case CalculatorOperator.multiply:
-        return multiply(operation.firstOperand, operation.secondOperand);
-      case CalculatorOperator.divide:
-        try {
-          return divide(operation.firstOperand, operation.secondOperand);
-        } catch (e) {
-          print('An error occurred: $e');
-          developer.log(
-            'An error occured while computing the divide operation',
-            name: 'OperationComputer.compute',
-            error: e,
-          );
-          throw ArgumentError('$e');
-        }
-      case CalculatorOperator.square:
-        return square(operation.firstOperand);
-      case CalculatorOperator.squareRoot:
-        try {
-          return squareRoot(operation.firstOperand);
-        } catch (e) {
-          print('An error occurred: $e');
-          developer.log(
-            'An error occured while computing the square root operation',
-            name: 'OperationComputer.compute',
-            error: e,
-          );
-          throw Exception('$e');
-        }
-      case CalculatorOperator.inverse:
-        return inverse(operation.firstOperand);
-      case CalculatorOperator.power:
-        return power(operation.firstOperand, operation.secondOperand);
-      case CalculatorOperator.modulus:
-        return modulus(operation.firstOperand, operation.secondOperand);
-      case CalculatorOperator.factorial:
-        return factorial(operation.firstOperand.toInt());
-      case CalculatorOperator.logarithm:
-        try {
-          return logarithm(operation.firstOperand, operation.secondOperand);
-        } catch (e) {
-          print('An error occurred: $e');
-          developer.log(
-            'An error occured while computing the logarithm operation',
-            name: 'OperationComputer.compute',
-            error: e,
-          );
-          throw Exception('$e');
-        }
-      case CalculatorOperator.exponential:
-        return exponential(operation.firstOperand, operation.secondOperand);
-      case CalculatorOperator.absolute:
-        return absolute(operation.firstOperand);
-      case CalculatorOperator.none:
-        return sine(operation.firstOperand);
-      case CalculatorOperator.cosine:
-        return cosine(operation.firstOperand);
-      case CalculatorOperator.tangent:
-        return tangent(operation.firstOperand);
-      default:
-        return operation.firstOperand;
-    }
+    // switch (operation.calculatorOperator) {
+    //   case CalculatorOperator.add:
+    //     return add(operation.firstOperand, operation.secondOperand);
+    //   case CalculatorOperator.subtract:
+    //     return subtract(operation.firstOperand, operation.secondOperand);
+    //   case CalculatorOperator.multiply:
+    //     return multiply(operation.firstOperand, operation.secondOperand);
+    //   case CalculatorOperator.divide:
+    //     try {
+    //       return divide(operation.firstOperand, operation.secondOperand);
+    //     } catch (e) {
+    //       print('An error occurred: $e');
+    //       developer.log(
+    //         'An error occured while computing the divide operation',
+    //         name: 'OperationComputer.compute',
+    //         error: e,
+    //       );
+    //       throw ArgumentError('$e');
+    //     }
+    //   case CalculatorOperator.square:
+    //     return square(operation.firstOperand);
+    //   case CalculatorOperator.squareRoot:
+    //     try {
+    //       return squareRoot(operation.firstOperand);
+    //     } catch (e) {
+    //       print('An error occurred: $e');
+    //       developer.log(
+    //         'An error occured while computing the square root operation',
+    //         name: 'OperationComputer.compute',
+    //         error: e,
+    //       );
+    //       throw Exception('$e');
+    //     }
+    //   case CalculatorOperator.inverse:
+    //     return inverse(operation.firstOperand);
+    //   case CalculatorOperator.power:
+    //     return power(operation.firstOperand, operation.secondOperand);
+    //   case CalculatorOperator.modulus:
+    //     return modulus(operation.firstOperand, operation.secondOperand);
+    //   case CalculatorOperator.factorial:
+    //     return factorial(operation.firstOperand.toInt());
+    //   case CalculatorOperator.logarithm:
+    //     try {
+    //       return logarithm(operation.firstOperand, operation.secondOperand);
+    //     } catch (e) {
+    //       print('An error occurred: $e');
+    //       developer.log(
+    //         'An error occured while computing the logarithm operation',
+    //         name: 'OperationComputer.compute',
+    //         error: e,
+    //       );
+    //       throw Exception('$e');
+    //     }
+    //   case CalculatorOperator.exponential:
+    //     return exponential(operation.firstOperand, operation.secondOperand);
+    //   case CalculatorOperator.absolute:
+    //     return absolute(operation.firstOperand);
+    //   case CalculatorOperator.none:
+    //     return sine(operation.firstOperand);
+    //   case CalculatorOperator.cosine:
+    //     return cosine(operation.firstOperand);
+    //   case CalculatorOperator.tangent:
+    //     return tangent(operation.firstOperand);
+    //   default:
+    //     return operation.firstOperand;
+    // }
+    return operation.compute();
   }
 
   /// Resets the given [operation].
