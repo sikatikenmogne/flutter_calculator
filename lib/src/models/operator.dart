@@ -85,7 +85,13 @@ class Operator {
       symbols: "%",
       isUnary: false,
       operation: (num firstOperand, num? secondOperand) {
-        return firstOperand % secondOperand!;
+        if (secondOperand == 0)
+          throw Exception('The second operand should not be zero');
+
+        num result = firstOperand.abs() % secondOperand!.abs();
+        return (firstOperand < 0 || secondOperand < 0) && result > 0
+            ? -result
+            : result;
       });
 
   static Operator factorial = Operator(
@@ -103,6 +109,8 @@ class Operator {
   static Operator logarithm = Operator(
       symbols: "log",
       operation: (num firstOperand, num? secondOperand) {
+        if (firstOperand <= 0)
+          throw Exception('The number must be greater than zero.');
         return log(firstOperand);
       });
 
