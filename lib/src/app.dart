@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_calculator/src/models/calculator_operator_enum.dart';
 import 'package:flutter_calculator/src/models/operation.dart';
-import 'package:flutter_calculator/src/services/operation_computer.dart';
 import 'models/operator.dart';
 import 'widgets/calculator_button.dart';
 
@@ -105,8 +103,9 @@ class _MyHomePageState extends State<MyHomePage> {
         _operationEnded = false;
         _displayedValue = "0";
         _secondOperand = 0.0;
-        _firstOperand =
-            OperationComputer.compute(operation: _currentOperation).toDouble();
+     
+        _firstOperand = _currentOperation.compute().toDouble();
+
         _currentOperator = Operator.none;
 
         _currentOperation = Operation(
@@ -138,8 +137,7 @@ class _MyHomePageState extends State<MyHomePage> {
             calculatorOperator: _currentOperator,
             operationEnded: _operationEnded);
       } else {
-        _firstOperand =
-            OperationComputer.compute(operation: _currentOperation).toDouble();
+        _firstOperand = _currentOperation.compute().toDouble();
         _currentOperator = newOperator;
         // _currentOperation.calculatorOperator = _currentOperator;
 
@@ -159,8 +157,7 @@ class _MyHomePageState extends State<MyHomePage> {
       _operationEnded = true;
 
       try {
-        _displayedValue =
-            OperationComputer.compute(operation: _currentOperation).toString();
+        _displayedValue = _currentOperation.compute().toString();
       } on Exception catch (e) {
         // TODO: Implement user feedback for invalid operations
       }
