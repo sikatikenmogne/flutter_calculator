@@ -1,5 +1,3 @@
-import 'package:flutter_calculator/src/models/calculator_operator_enum.dart';
-
 import 'operator.dart';
 
 class Operation {
@@ -10,7 +8,8 @@ class Operation {
 
   @override
   String toString() {
-    return ((calculatorOperator != Operator.none) && (calculatorOperator != null)) 
+    return ((calculatorOperator != Operator.none) &&
+            (calculatorOperator != null))
         ? isBinaryOperation
             ? _renderBinaryOperation(
                 firstOperand, secondOperand, calculatorOperator, operationEnded)
@@ -26,15 +25,8 @@ class Operation {
       this.operationEnded = false});
 
   bool get isBinaryOperation {
-    return calculatorOperator != Operator.none
-        ? <Operator>{
-            Operator.add,
-            Operator.subtract,
-            Operator.multiply,
-            Operator.divide,
-            Operator.modulus,
-            Operator.power,
-          }.contains(calculatorOperator)
+    return calculatorOperator != Operator.none && calculatorOperator != null
+        ? calculatorOperator!.isBinaryOperator
         : false;
   }
 
