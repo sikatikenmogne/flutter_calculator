@@ -79,4 +79,11 @@ class Operation {
       operationEnded: operationEnded ?? this.operationEnded,
     );
   }
+
+  static void clear(Operation currentOperation) {
+    currentOperation.firstOperand = 0;
+    currentOperation.secondOperand = 0;
+    currentOperation.calculatorOperator = Operator.none;
+    currentOperation.operationEnded = false;
+  }
 }
