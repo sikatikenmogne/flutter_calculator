@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../models/calculator_operator_enum.dart';
 
 class InputOutputDisplayer extends StatelessWidget {
   final String valueToDisplay;

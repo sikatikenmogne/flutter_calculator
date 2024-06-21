@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_calculator/src/models/operation.dart';
 import 'package:flutter_calculator/src/models/operator.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_calculator/src/models/calculator_operator_enum.dart';
 import 'package:flutter_calculator/src/widgets/operation_displayer.dart';
 
 void main() {
