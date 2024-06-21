@@ -118,10 +118,10 @@ class Operation {
   ///
   /// Sets the first and second operands to 0, the calculator operator to none,
   /// and operationEnded to false.
-  static void clear(Operation currentOperation) {
-    currentOperation.firstOperand = 0;
-    currentOperation.secondOperand = 0;
-    currentOperation.calculatorOperator = Operator.none;
-    currentOperation.operationEnded = false;
+  void clear() {
+    firstOperand = 0;
+    secondOperand = 0;
+    calculatorOperator = Operator.none;
+    operationEnded = false;
   }
 }

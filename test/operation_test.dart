@@ -89,9 +89,9 @@ void main() {
         operationEnded: true,
       );
 
-      Operation.clear(operation);
+      operation.clear();
 
-       Operation clearedOperation = operation;
+      Operation clearedOperation = operation;
 
       expect(clearedOperation.firstOperand, equals(0.0));
       expect(clearedOperation.secondOperand, equals(0.0));
