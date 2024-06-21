@@ -1,14 +1,20 @@
 import 'dart:math';
 
 class Operator {
-  String symbols;
-  num Function(num, num?) operation;
-  bool? isUnary;
+  final String symbols;
+  final num Function(num, num?) operation;
+  final bool isUnary;
 
-  Operator(
-      {required this.symbols, required this.operation, bool isUnary = true}) {
-    isUnary = isUnary;
-  }
+  /// Creates a new instance of the [Operator] class.
+  ///
+  /// The [symbols] parameter represents the symbol(s) used to represent the operator.
+  /// The [operation] parameter is a function that performs the operation.
+  /// The [isUnary] parameter indicates whether the operator is unary or binary.
+  const Operator({
+      required this.symbols,
+      required this.operation,
+      this.isUnary = true,
+  });
 
   @override
   String toString() {
@@ -16,7 +22,7 @@ class Operator {
   }
 
   bool get isBinaryOperator {
-    return !isUnary!;
+    return !isUnary;
   }
 
   static Operator add = Operator(
