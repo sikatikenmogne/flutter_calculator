@@ -83,16 +83,18 @@ void main() {
       expect(result, equals(25));
     });
 
-    test('Square root operator should return the correct result and throw exceptions for invalid input', () {
+    test(
+        'Square root operator should return the correct result and throw exceptions for invalid input',
+        () {
       final operator = Operator.squareRoot;
-    
+
       // Test with valid input
       final result = operator.operation(25, null);
       expect(result, equals(5));
-    
+
       // Test with negative number
       expect(() => operator.operation(-1, null), throwsA(isA<Exception>()));
-     });
+    });
     test('Inverse operator should return the correct result', () {
       final operator = Operator.inverse;
       final result = operator.operation(5, null);
@@ -142,11 +144,4 @@ void main() {
       expect(() => logOperator.operation(-1, null), throwsA(isA<Exception>()));
     });
   });
-
-// test('logarithm', () {
-//   expect(Operation(firstOperand: 8, secondOperand: 2, calculatorOperator: Operator.logarithm).compute(), 3);
-//   expect(() => Operation(firstOperand: -1, secondOperand: 2, calculatorOperator: Operator.logarithm).compute(), throwsException);
-//   expect(() => Operation(firstOperand: 8, secondOperand: 1, calculatorOperator: Operator.logarithm).compute(), throwsException);
-// });
-  // Add more test cases for other operators as needed
 }
