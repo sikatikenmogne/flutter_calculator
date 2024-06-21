@@ -80,5 +80,105 @@ void main() {
       expect(copiedOperation.calculatorOperator, equals(Operator.add));
       expect(copiedOperation.operationEnded, equals(false));
     });
+
+    test('Should clear an operation correctly', () {
+      Operation operation = Operation(
+        firstOperand: 5.0,
+        secondOperand: 3.0,
+        calculatorOperator: Operator.add,
+        operationEnded: true,
+      );
+
+      Operation.clear(operation);
+
+       Operation clearedOperation = operation;
+
+      expect(clearedOperation.firstOperand, equals(0.0));
+      expect(clearedOperation.secondOperand, equals(0.0));
+      expect(clearedOperation.calculatorOperator, equals(Operator.none));
+      expect(clearedOperation.operationEnded, equals(false));
+    });
+
+    test('Should compute the operation correctly', () {
+      final operation = Operation(
+        firstOperand: 5.0,
+        secondOperand: 3.0,
+        calculatorOperator: Operator.add,
+        operationEnded: true,
+      );
+
+      final updatedOperation = operation.compute();
+
+      expect(updatedOperation, equals(8.0));
+      expect(operation.firstOperand, equals(5.0));
+      expect(operation.secondOperand, equals(3.0));
+      expect(operation.calculatorOperator, equals(Operator.add));
+      expect(operation.operationEnded, equals(true));
+    });
+
+    test('Should compute the operation correctly when the operation is unary',
+        () {
+      final operation = Operation(
+        firstOperand: 9.0,
+        calculatorOperator: Operator.square,
+        operationEnded: true,
+      );
+
+      final updatedOperation = operation.compute();
+
+      expect(updatedOperation, equals(81.0));
+      expect(operation.firstOperand, equals(9.0));
+      expect(operation.calculatorOperator, equals(Operator.square));
+      expect(operation.operationEnded, equals(true));
+    });
+
+    test(
+        'Should compute the operation correctly when the operation is unary and the first operand is zero',
+        () {
+      final operation = Operation(
+        firstOperand: 0.0,
+        calculatorOperator: Operator.square,
+        operationEnded: true,
+      );
+
+      final updatedOperation = operation.compute();
+
+      expect(updatedOperation, equals(0.0));
+      expect(operation.firstOperand, equals(0.0));
+      expect(operation.calculatorOperator, equals(Operator.square));
+      expect(operation.operationEnded, equals(true));
+    });
+
+    test(
+        'Should compute the operation correctly when the operation is unary and the first operand is decimal',
+        () {
+      final operation = Operation(
+        firstOperand: 5.0,
+        calculatorOperator: Operator.square,
+        operationEnded: true,
+      );
+
+      final updatedOperation = operation.compute();
+
+      expect(updatedOperation, equals(25.0));
+      expect(operation.calculatorOperator, equals(Operator.square));
+      expect(operation.operationEnded, equals(true));
+    });
+
+    test(
+        'Should compute the operation correctly when the operation is unary and the operation has ended',
+        () {
+      final operation = Operation(
+        firstOperand: 9.0,
+        calculatorOperator: Operator.square,
+        operationEnded: true,
+      );
+
+      final updatedOperation = operation.compute();
+
+      expect(updatedOperation, equals(81.0));
+      expect(operation.calculatorOperator, equals(Operator.square));
+      expect(operation.operationEnded, equals(true));
+    });
   });
 }
