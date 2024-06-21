@@ -2,11 +2,25 @@ import 'operator.dart';
 
 /// Represents a mathematical operation.
 class Operation {
-  final double firstOperand;
-  final double secondOperand;
-  final Operator? calculatorOperator;
-  final bool operationEnded;
+  double firstOperand;
+  double secondOperand;
+  Operator? calculatorOperator;
+  bool operationEnded;
 
+  /// Constructs an instance of [Operation].
+  Operation({
+    this.firstOperand = 0,
+    this.secondOperand = 0,
+    this.calculatorOperator,
+    this.operationEnded = false,
+  });
+
+  /// Returns a string representation of the operation.
+  ///
+  /// If the [calculatorOperator] is not [Operator.none] and not null, it will
+  /// render the operation as a binary or unary operation based on the
+  /// [isBinaryOperation] property. Otherwise, it will format the [firstOperand]
+  /// as a number.
   @override
   String toString() {
     return ((calculatorOperator != Operator.none) &&
