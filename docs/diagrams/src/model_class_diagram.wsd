@@ -1,0 +1,47 @@
+@startuml modelClassDiagram
+class Operation {
+    -firstOperand: double
+    -secondOperand: double
+    -calculatorOperator: Operator
+    -operationEnded: bool
+    +Operation(firstOperand: double, secondOperand: double, calculatorOperator: Operator, operationEnded: bool)
+    +toString(): String
+    +isBinaryOperation: bool
+    +isComplete: bool
+    +compute(): num
+    -_formatNumber(number: double): String
+    -_renderBinaryOperation(firstOperand: double, secondOperand: double, calculatorOperator: Operator, operationEnded: bool): String
+    -_renderUnaryOperation(uniqueOperand: double, calculatorOperator: Operator, operationEnded: bool): String
+    +copyWith(firstOperand: double, secondOperand: double, calculatorOperator: Operator, operationEnded: bool): Operation
+    +clear(): void
+}
+
+class Operator {
+    -final symbols: String
+    -final isUnary: bool
+    -final {field} operation: Function
+    +isBinaryOperator: bool                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+    +Operator(symbols: String, operation: Function, isUnary: bool)
+    +{static} operators: List<Operator>
+    +{static} add: Operator
+    +{static} subtract: Operator
+    +{static} multiply: Operator
+    +{static} divide: Operator
+    +{static} square: Operator
+    +{static} squareRoot: Operator
+    +{static} inverse: Operator
+    +{static} power: Operator
+    +{static} modulus: Operator
+    +{static} factorial: Operator
+    +{static} logarithm: Operator
+    +{static} tangent: Operator
+    +{static} cosine: Operator
+    +{static} absolute: Operator
+    +{static} exponential: Operator
+    +{static} none: Operator
+    +toString(): String
+}
+
+Operation "1" *-- "1" Operator
+
+@enduml
