@@ -9,8 +9,8 @@ class Operation {
 
   /// Constructs an instance of [Operation].
   Operation({
-    this.firstOperand = 0,
-    this.secondOperand = 0,
+    this.firstOperand = double.minPositive,
+    this.secondOperand = double.minPositive,
     this.calculatorOperator,
     this.operationEnded = false,
   });
@@ -32,6 +32,24 @@ class Operation {
                 firstOperand, calculatorOperator, operationEnded)
         : _formatNumber(firstOperand);
   }
+
+  /// Returns true if the first operand is defined, false otherwise.
+  bool get firstOperandIsDefined =>
+      (firstOperand != double.minPositive) && operatorIsDefined;
+
+  /// Returns true if the second operand is defined, false otherwise.
+  bool get secondOperandIsDefined =>
+      (secondOperand != double.minPositive) && firstOperandIsDefined;
+
+  /// Returns true if the operator is defined, false otherwise.
+  bool get operatorIsDefined =>
+      (calculatorOperator != null) && (calculatorOperator != Operator.none);
+
+  /// Returns true if the operation is uninitialized, false otherwise.
+  bool get isUnSetuped => !(firstOperandIsDefined &&
+      secondOperandIsDefined &&
+      operatorIsDefined &&
+      operationEnded);
 
   /// Returns whether the operation is a binary operation.
   bool get isBinaryOperation {
@@ -72,7 +90,7 @@ class Operation {
   ///
   /// If the number is an integer, it returns the integer value as a string.
   /// Otherwise, it returns the number as a string.
-  String _formatNumber(double number) {
+  String _formatNumber(num number) {
     if (number % 1 == 0) {
       return number.toInt().toString();
     } else {
@@ -86,7 +104,13 @@ class Operation {
   /// [secondOperand], and [operationEnded] flag.
   String _renderBinaryOperation(double firstOperand, double secondOperand,
       Operator? calculatorOperator, bool operationEnded) {
-    return "${_formatNumber(firstOperand)}${calculatorOperator != Operator.none ? " ${calculatorOperator}" : ""}${secondOperand != 0 && operationEnded ? " ${_formatNumber(secondOperand)}" : ""}${operationEnded ? " =" : ""}";
+    // Check for sentinel value and replace with 0
+    final displayFirstOperand =
+        firstOperand == double.minPositive ? 0 : firstOperand;
+    final displaySecondOperand =
+        secondOperand == double.minPositive ? 0 : secondOperand;
+
+    return "${_formatNumber(displayFirstOperand)}${calculatorOperator != Operator.none ? " ${calculatorOperator}" : ""}${displaySecondOperand != 0 && operationEnded ? " ${_formatNumber(displaySecondOperand)}" : ""}${operationEnded ? " =" : ""}";
   }
 
   /// Renders a unary operation as a string.
@@ -95,7 +119,11 @@ class Operation {
   /// and [operationEnded] flag.
   String _renderUnaryOperation(
       double uniqueOperand, Operator? calculatorOperator, bool operationEnded) {
-    return "${calculatorOperator}(${_formatNumber(uniqueOperand)})${operationEnded ? " =" : ""}";
+    // Check for sentinel value and replace with 0
+    final displayUniqueOperand =
+        uniqueOperand == double.minPositive ? 0 : uniqueOperand;
+
+    return "${calculatorOperator}(${_formatNumber(displayUniqueOperand)})${operationEnded ? " =" : ""}";
   }
 
   /// Creates a copy of the [Operation] instance with the specified properties
@@ -119,8 +147,8 @@ class Operation {
   /// Sets the first and second operands to 0, the calculator operator to none,
   /// and operationEnded to false.
   void clear() {
-    firstOperand = 0;
-    secondOperand = 0;
+    firstOperand = double.minPositive;
+    secondOperand = double.minPositive;
     calculatorOperator = Operator.none;
     operationEnded = false;
   }
