@@ -36,79 +36,59 @@ class _MyHomePageState extends State<MyHomePage> {
         _operationEnded = false;
       }
 
+      // Update displayed value
       if (_displayedValue == "0") {
         _displayedValue = value;
-        if (_currentOperation.firstOperand != 0 &&
-            _currentOperation.calculatorOperator != Operator.none) {
-          // _currentOperation.secondOperand = double.parse(value);
-
-          _currentOperation = Operation(
-              firstOperand: _firstOperand,
-              secondOperand: _secondOperand,
-              calculatorOperator: _currentOperator,
-              operationEnded: _operationEnded);
-        }
       } else {
-        if (_currentOperator == Operator.none) {
-          _displayedValue += value;
+        if (!_currentOperation.secondOperandIsDefined) {
+          _displayedValue = _currentOperation.firstOperandIsDefined
+              ? (_currentOperation.secondOperand != double.minPositive)
+                  ? _displayedValue + value
+                  : value
+              : _displayedValue + value;
         } else {
-          if (_currentOperation.firstOperand == 0.0) {
-            _displayedValue = value;
-          } else {
-            if (_currentOperation.secondOperand == 0.0) {
-              _displayedValue = "";
-            }
-            _displayedValue += value;
-          }
+          _displayedValue += value;
         }
       }
 
-      if (_currentOperator == Operator.none) {
+      if (!_currentOperation.firstOperandIsDefined) {
         _firstOperand = double.parse(_displayedValue);
-        // _currentOperation.firstOperand = _firstOperand;
-        _currentOperation = Operation(
-            firstOperand: _firstOperand,
-            secondOperand: _secondOperand,
-            calculatorOperator: _currentOperator,
-            operationEnded: _operationEnded);
-      } else {
-        if (!_operationEnded) {
-          _secondOperand = double.parse(_displayedValue);
-          // _currentOperation.secondOperand = double.parse(_displayedValue);
-
-          _currentOperation = Operation(
-              firstOperand: _firstOperand,
-              secondOperand: _secondOperand,
-              calculatorOperator: _currentOperator,
-              operationEnded: _operationEnded);
-        }
+        _currentOperation =
+            _currentOperation.copyWith(firstOperand: _firstOperand);
+      } else if (!_currentOperation.secondOperandIsDefined) {
+        _secondOperand = double.parse(_displayedValue);
+        _currentOperation =
+            _currentOperation.copyWith(secondOperand: _secondOperand);
       }
     });
   }
 
+  /// Sets the first operator.
   void setFirstOperator() {
     if (_displayedValue == "0") return;
 
     _firstOperand = double.parse(_displayedValue);
   }
 
+  /// Sets the second operator.
   void setSecondOperator() {
     _secondOperand = double.parse(_displayedValue);
     _displayedValue = "0";
   }
 
+  /// Sets the current operator.
   void setCurrentOperator(Operator newOperator) {
     setState(() {
       if (_operationEnded) {
         _operationEnded = false;
         _displayedValue = "0";
-        _secondOperand = 0.0;
-     
+        _secondOperand = double.minPositive;
+
         _firstOperand = _currentOperation.compute().toDouble();
 
         _currentOperator = Operator.none;
 
-        _currentOperation = Operation(
+        _currentOperation = _currentOperation.copyWith(
             firstOperand: _firstOperand,
             secondOperand: _secondOperand,
             calculatorOperator: _currentOperator,
@@ -118,40 +98,28 @@ class _MyHomePageState extends State<MyHomePage> {
             _firstOperand != 0.0) {
           _currentOperator = newOperator;
 
-          _currentOperation = Operation(
-              firstOperand: _firstOperand,
-              secondOperand: _secondOperand,
-              calculatorOperator: _currentOperator,
-              operationEnded: _operationEnded);
+          _currentOperation =
+              _currentOperation.copyWith(calculatorOperator: _currentOperator);
 
           return;
         }
       }
       if (_currentOperator == Operator.none) {
         _currentOperator = newOperator;
-        // _currentOperation.calculatorOperator = _currentOperator;
-
-        _currentOperation = Operation(
-            firstOperand: _firstOperand,
-            secondOperand: _secondOperand,
-            calculatorOperator: _currentOperator,
-            operationEnded: _operationEnded);
+        _currentOperation =
+            _currentOperation.copyWith(calculatorOperator: _currentOperator);
       } else {
         _firstOperand = _currentOperation.compute().toDouble();
         _currentOperator = newOperator;
-        // _currentOperation.calculatorOperator = _currentOperator;
+        _currentOperation =
+            _currentOperation.copyWith(calculatorOperator: _currentOperator);
 
-        _currentOperation = Operation(
-            firstOperand: _firstOperand,
-            secondOperand: _secondOperand,
-            calculatorOperator: _currentOperator,
-            operationEnded: _operationEnded);
-
-        _secondOperand = 0.0;
+        _secondOperand = double.minPositive;
       }
     });
   }
 
+  /// Ends the current operation.
   void endOperation() {
     setState(() {
       _operationEnded = true;
@@ -168,9 +136,11 @@ class _MyHomePageState extends State<MyHomePage> {
         calculatorOperator: _currentOperator,
         operationEnded: _operationEnded,
       );
+      _currentOperation.clear();
     });
   }
 
+  /// Clears the current entry.
   void clearEntry() {
     setState(() {
       if (!(_currentOperation.isComplete && _currentOperation.operationEnded)) {
@@ -191,6 +161,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  /// Performs a backspace operation.
   void backspace() {
     setState(() {
       if (_displayedValue != "") {
@@ -214,6 +185,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  /// Changes the sign of the displayed value.
   void plusMinus() {
     setState(() {
       if (_displayedValue != "0") {
@@ -238,6 +210,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  /// Sets the decimal point.
   void setDecimal() {
     setState(() {
       if (_displayedValue != "0") {
@@ -249,6 +222,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  /// Clears all values and resets the calculator.
   void clear() {
     setState(() {
       _displayedValue = "0";
@@ -366,8 +340,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Expanded(
                   child: CalculatorButton(
                       name: "%",
-                      onPressed: () =>
-                          setCurrentOperator(Operator.modulus),
+                      onPressed: () => setCurrentOperator(Operator.modulus),
                       buttonColor: Colors.white70),
                 ),
                 Expanded(
@@ -399,29 +372,25 @@ class _MyHomePageState extends State<MyHomePage> {
                 Expanded(
                   child: CalculatorButton(
                       name: "¹/x",
-                      onPressed: () =>
-                          setCurrentOperator(Operator.inverse),
+                      onPressed: () => setCurrentOperator(Operator.inverse),
                       buttonColor: Colors.white70),
                 ),
                 Expanded(
                   child: CalculatorButton(
                       name: "x²",
-                      onPressed: () =>
-                          setCurrentOperator(Operator.square),
+                      onPressed: () => setCurrentOperator(Operator.square),
                       buttonColor: Colors.white70),
                 ),
                 Expanded(
                   child: CalculatorButton(
                       name: "²√x",
-                      onPressed: () =>
-                          setCurrentOperator(Operator.squareRoot),
+                      onPressed: () => setCurrentOperator(Operator.squareRoot),
                       buttonColor: Colors.white70),
                 ),
                 Expanded(
                   child: CalculatorButton(
                       name: "÷",
-                      onPressed: () =>
-                          setCurrentOperator(Operator.divide),
+                      onPressed: () => setCurrentOperator(Operator.divide),
                       buttonColor: Colors.white70),
                 ),
               ],
@@ -445,8 +414,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Expanded(
                   child: CalculatorButton(
                       name: "*",
-                      onPressed: () =>
-                          setCurrentOperator(Operator.multiply),
+                      onPressed: () => setCurrentOperator(Operator.multiply),
                       buttonColor: Colors.white70),
                 ),
               ],
@@ -470,8 +438,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Expanded(
                   child: CalculatorButton(
                       name: "-",
-                      onPressed: () =>
-                          {setCurrentOperator(Operator.subtract)},
+                      onPressed: () => {setCurrentOperator(Operator.subtract)},
                       buttonColor: Colors.white70),
                 ),
               ],
@@ -495,8 +462,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Expanded(
                   child: CalculatorButton(
                       name: "+",
-                      onPressed: () =>
-                          setCurrentOperator(Operator.add),
+                      onPressed: () => setCurrentOperator(Operator.add),
                       buttonColor: Colors.white70),
                 ),
               ],
