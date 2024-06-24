@@ -39,7 +39,7 @@ class Operation {
 
   /// Returns true if the second operand is defined, false otherwise.
   bool get secondOperandIsDefined =>
-      (secondOperand != double.minPositive) && firstOperandIsDefined;
+      (secondOperand != double.minPositive) && firstOperandIsDefined && operationEnded;
 
   /// Returns true if the operator is defined, false otherwise.
   bool get operatorIsDefined =>

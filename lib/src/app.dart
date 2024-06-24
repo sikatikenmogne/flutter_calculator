@@ -41,11 +41,15 @@ class _MyHomePageState extends State<MyHomePage> {
         _displayedValue = value;
       } else {
         if (!_currentOperation.secondOperandIsDefined) {
-          _displayedValue = _currentOperation.firstOperandIsDefined
-              ? (_currentOperation.secondOperand != double.minPositive)
-                  ? _displayedValue + value
-                  : value
-              : _displayedValue + value;
+          if (_currentOperation.firstOperandIsDefined) {
+            if (_currentOperation.secondOperand != double.minPositive) {
+              _displayedValue = _displayedValue + value;
+            } else {
+              _displayedValue = value;
+            }
+          } else {
+            _displayedValue = _displayedValue + value;
+          }
         } else {
           _displayedValue += value;
         }
