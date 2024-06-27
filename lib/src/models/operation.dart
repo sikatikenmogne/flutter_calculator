@@ -65,9 +65,9 @@ class Operation {
   bool get isComplete {
     if (calculatorOperator != Operator.none) {
       if (isBinaryOperation) {
-        return (firstOperand != 0 && secondOperand != 0 && !operationEnded);
+        return (firstOperand != double.minPositive && secondOperand != double.minPositive && !operationEnded);
       } else {
-        return (firstOperand != 0 && !operationEnded);
+        return (firstOperand != double.minPositive && !operationEnded);
       }
     } else {
       return false;
@@ -106,11 +106,11 @@ class Operation {
       Operator? calculatorOperator, bool operationEnded) {
     // Check for sentinel value and replace with 0
     final displayFirstOperand =
-        firstOperand == double.minPositive ? 0 : firstOperand;
+        firstOperand == double.minPositive ? double.minPositive : firstOperand;
     final displaySecondOperand =
-        secondOperand == double.minPositive ? 0 : secondOperand;
+        secondOperand == double.minPositive ? double.minPositive : secondOperand;
 
-    return "${_formatNumber(displayFirstOperand)}${calculatorOperator != Operator.none ? " ${calculatorOperator}" : ""}${displaySecondOperand != 0 && operationEnded ? " ${_formatNumber(displaySecondOperand)}" : ""}${operationEnded ? " =" : ""}";
+    return "${_formatNumber(displayFirstOperand)}${calculatorOperator != Operator.none ? " ${calculatorOperator}" : ""}${displaySecondOperand != double.minPositive && operationEnded ? " ${_formatNumber(displaySecondOperand)}" : ""}${operationEnded ? " =" : ""}";
   }
 
   /// Renders a unary operation as a string.
@@ -121,7 +121,7 @@ class Operation {
       double uniqueOperand, Operator? calculatorOperator, bool operationEnded) {
     // Check for sentinel value and replace with 0
     final displayUniqueOperand =
-        uniqueOperand == double.minPositive ? 0 : uniqueOperand;
+        uniqueOperand == double.minPositive ? double.minPositive : uniqueOperand;
 
     return "${calculatorOperator}(${_formatNumber(displayUniqueOperand)})${operationEnded ? " =" : ""}";
   }
