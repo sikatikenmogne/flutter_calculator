@@ -33,7 +33,8 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       if (_operationEnded) {
         clearEntry();
-        _operationEnded = false;
+        // _operationEnded = false;
+        // _currentOperation.operationEnded = _operationEnded;
       }
 
       // Update displayed value
@@ -63,6 +64,20 @@ class _MyHomePageState extends State<MyHomePage> {
         _secondOperand = double.parse(_displayedValue);
         _currentOperation =
             _currentOperation.copyWith(secondOperand: _secondOperand);
+      } else {
+        _currentOperation = Operation();
+        _firstOperand = double.parse(_displayedValue);
+
+        _currentOperator = Operator.none;
+
+        _currentOperation = _currentOperation.copyWith(
+            firstOperand: _firstOperand, calculatorOperator: _currentOperator);
+      }
+
+      if (_operationEnded) {
+        // clearEntry();
+        _operationEnded = false;
+        _currentOperation.operationEnded = _operationEnded;
       }
     });
   }
@@ -126,8 +141,6 @@ class _MyHomePageState extends State<MyHomePage> {
   /// Ends the current operation.
   void endOperation() {
     setState(() {
-      _operationEnded = true;
-
       try {
         _displayedValue = _currentOperation.compute().toString();
       } on Exception catch (e) {
@@ -140,7 +153,10 @@ class _MyHomePageState extends State<MyHomePage> {
         calculatorOperator: _currentOperator,
         operationEnded: _operationEnded,
       );
-      _currentOperation.clear();
+      // _currentOperation.clear();
+      // _currentOperation.operationEnded = true;
+
+      _operationEnded = true;
     });
   }
 
@@ -149,11 +165,11 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       if (!(_currentOperation.isComplete && _currentOperation.operationEnded)) {
         _displayedValue = "0";
-        if (_currentOperation.calculatorOperator != Operator.none) {
-          _secondOperand = double.parse(_displayedValue);
-        } else {
-          _firstOperand = double.parse(_displayedValue);
-        }
+        // if (_currentOperation.calculatorOperator != Operator.none) {
+        //   _secondOperand = double.parse(_displayedValue);
+        // } else {
+        //   _firstOperand = double.parse(_displayedValue);
+        // }
         _currentOperation = Operation(
             firstOperand: _firstOperand,
             secondOperand: _secondOperand,
@@ -230,8 +246,8 @@ class _MyHomePageState extends State<MyHomePage> {
   void clear() {
     setState(() {
       _displayedValue = "0";
-      _firstOperand = 0.0;
-      _secondOperand = 0.0;
+      _firstOperand = double.minPositive;
+      _secondOperand = double.minPositive;
       _currentOperator = Operator.none;
       _currentOperation = Operation(
           firstOperand: _firstOperand,
