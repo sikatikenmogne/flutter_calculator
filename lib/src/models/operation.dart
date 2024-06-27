@@ -30,7 +30,7 @@ class Operation {
                 firstOperand, secondOperand, calculatorOperator, operationEnded)
             : _renderUnaryOperation(
                 firstOperand, calculatorOperator, operationEnded)
-        : _formatNumber(firstOperand);
+        : _formatNumber((firstOperand == double.minPositive)? 0 : firstOperand);
   }
 
   /// Returns true if the first operand is defined, false otherwise.
