@@ -93,8 +93,8 @@ void main() {
 
       Operation clearedOperation = operation;
 
-      expect(clearedOperation.firstOperand, equals(0.0));
-      expect(clearedOperation.secondOperand, equals(0.0));
+      expect(clearedOperation.firstOperand, equals(double.minPositive));
+      expect(clearedOperation.secondOperand, equals(double.minPositive));
       expect(clearedOperation.calculatorOperator, equals(Operator.none));
       expect(clearedOperation.operationEnded, equals(false));
     });
