@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../models/operation.dart';
+import '../../model/operation.dart';
 
 class OperationDisplayer extends StatelessWidget {
   final Operation? operationToDisplay;
