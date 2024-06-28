@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_calculator/src/models/operation.dart';
-import 'models/operator.dart';
-import 'widgets/calculator_button.dart';
+import 'package:flutter_calculator/src/model/calculator.dart';
+import 'package:flutter_calculator/src/model/operation.dart';
+import 'package:flutter_calculator/src/view/calculator_screen.dart';
+import 'package:flutter_calculator/src/view/components/calculator_app_bar.dart';
+import 'model/operator.dart';
+import 'view/components/calculator_button.dart';
 
-import 'widgets/calculator_icon_button.dart';
-import 'widgets/operation_displayer.dart';
-import 'widgets/input_output_displayer.dart';
+import 'view/components/calculator_icon_button.dart';
+import 'view/components/operation_displayer.dart';
+import 'view/components/input_output_displayer.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -29,12 +32,14 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Operation _currentOperation = Operation();
 
+  /// Adds a digit to the displayed value and updates the current operation.
+  ///
+  /// The [value] parameter represents the digit to be added.
+  /// This method is called when a digit button is pressed in the calculator UI.
   void addDigit(String value) {
     setState(() {
       if (_operationEnded) {
         clearEntry();
-        // _operationEnded = false;
-        // _currentOperation.operationEnded = _operationEnded;
       }
 
       // Update displayed value
@@ -65,17 +70,14 @@ class _MyHomePageState extends State<MyHomePage> {
         _currentOperation =
             _currentOperation.copyWith(secondOperand: _secondOperand);
       } else {
-        _currentOperation = Operation();
+        _currentOperation.clear();
         _firstOperand = double.parse(_displayedValue);
-
         _currentOperator = Operator.none;
-
         _currentOperation = _currentOperation.copyWith(
             firstOperand: _firstOperand, calculatorOperator: _currentOperator);
       }
 
       if (_operationEnded) {
-        // clearEntry();
         _operationEnded = false;
         _currentOperation.operationEnded = _operationEnded;
       }
@@ -147,15 +149,6 @@ class _MyHomePageState extends State<MyHomePage> {
         // TODO: Implement user feedback for invalid operations
       }
 
-      _currentOperation = Operation(
-        firstOperand: _firstOperand,
-        secondOperand: _secondOperand,
-        calculatorOperator: _currentOperator,
-        operationEnded: _operationEnded,
-      );
-      // _currentOperation.clear();
-      // _currentOperation.operationEnded = true;
-
       _operationEnded = true;
     });
   }
@@ -165,16 +158,6 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       if (!(_currentOperation.isComplete && _currentOperation.operationEnded)) {
         _displayedValue = "0";
-        // if (_currentOperation.calculatorOperator != Operator.none) {
-        //   _secondOperand = double.parse(_displayedValue);
-        // } else {
-        //   _firstOperand = double.parse(_displayedValue);
-        // }
-        _currentOperation = Operation(
-            firstOperand: _firstOperand,
-            secondOperand: _secondOperand,
-            calculatorOperator: _currentOperator,
-            operationEnded: _operationEnded);
       } else {
         clear();
       }
@@ -190,17 +173,17 @@ class _MyHomePageState extends State<MyHomePage> {
 
         if (_displayedValue == "") _displayedValue = "0";
 
-        if (_currentOperation.calculatorOperator != Operator.none) {
+        if ((_currentOperation.calculatorOperator != Operator.none) ||
+            (_currentOperation.calculatorOperator != null)) {
           _secondOperand = double.parse(_displayedValue);
         } else {
           _firstOperand = double.parse(_displayedValue);
         }
 
-        _currentOperation = Operation(
+        _currentOperation = _currentOperation.copyWith(
             firstOperand: _firstOperand,
             secondOperand: _secondOperand,
-            calculatorOperator: _currentOperator,
-            operationEnded: _operationEnded);
+            calculatorOperator: _currentOperator);
       }
     });
   }
@@ -249,269 +232,15 @@ class _MyHomePageState extends State<MyHomePage> {
       _firstOperand = double.minPositive;
       _secondOperand = double.minPositive;
       _currentOperator = Operator.none;
-      _currentOperation = Operation(
-          firstOperand: _firstOperand,
-          secondOperand: _secondOperand,
-          calculatorOperator: _currentOperator);
+      _currentOperation.clear();
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Row(
-          children: [
-            Text(
-              widget.title,
-              style: const TextStyle(fontWeight: FontWeight.bold),
-              textAlign: TextAlign.left,
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 0, 8.0, 0),
-              child: IconButton(
-                icon: const Icon(Icons.pin_invoke_rounded,
-                    color: Colors.black87, size: 20.0),
-                tooltip: 'Pin calculator',
-                onPressed: () {},
-              ),
-            ),
-          ],
-        ),
-        actions: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 0, 8.0, 0),
-                child: IconButton(
-                  icon: const Icon(Icons.history_outlined,
-                      color: Colors.black87, size: 20.0),
-                  tooltip: 'Operations history',
-                  onPressed: () {},
-                ),
-              ),
-            ],
-          ),
-        ], //<Widget>[]
-        leading: IconButton(
-          icon: const Icon(Icons.menu, color: Colors.black87, size: 20.0),
-          tooltip: 'Menu',
-          onPressed: () {},
-        ),
-      ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Expanded(
-            flex: 2,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Column(
-                  children: [
-                    Expanded(
-                        child: OperationDisplayer(
-                      operationToDisplay: Operation(
-                          firstOperand: _firstOperand,
-                          secondOperand: _secondOperand,
-                          calculatorOperator: _currentOperator,
-                          operationEnded: _operationEnded),
-                    )),
-                    Expanded(
-                      flex: 2,
-                      child: Container(
-                          padding: EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 8.0),
-                          alignment: Alignment.topRight,
-                          child: InputOutputDisplayer(
-                            valueToDisplay: _displayedValue,
-                          )),
-                    ),
-                  ],
-                )
-              ],
-            ),
-          ),
-          // Expanded(
-          //   child: Row(
-          //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          //     mainAxisSize: MainAxisSize.max,
-          //     crossAxisAlignment: CrossAxisAlignment.stretch,
-          //     children: [
-          //       CalculatorButton(name: "MC", onPressed: () => {}),
-          //       CalculatorButton(name: "MR", onPressed: () => {}),
-          //       CalculatorButton(name: "M+", onPressed: () => {}),
-          //       CalculatorButton(name: "M-", onPressed: () => {}),
-          //       CalculatorButton(name: "MS", onPressed: () => {}),
-          //     ],
-          //   ), // Buttons
-          // ),
-          const SizedBox(height: 5),
-          Expanded(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Expanded(
-                  child: CalculatorButton(
-                      name: "%",
-                      onPressed: () => setCurrentOperator(Operator.modulus),
-                      buttonColor: Colors.white70),
-                ),
-                Expanded(
-                  child: CalculatorButton(
-                      name: "CE",
-                      onPressed: clearEntry,
-                      buttonColor: Colors.white70),
-                ),
-                Expanded(
-                  child: CalculatorButton(
-                      name: "C", onPressed: clear, buttonColor: Colors.white70),
-                ),
-                Expanded(
-                  child: CalculatorIconButton(
-                    name: "backspace_outlined",
-                    onPressed: backspace,
-                    buttonColor: Colors.white70, // Colors.redAccent,
-                  ),
-                ),
-              ],
-            ), // Buttons
-          ),
-          Expanded(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Expanded(
-                  child: CalculatorButton(
-                      name: "¹/x",
-                      onPressed: () => setCurrentOperator(Operator.inverse),
-                      buttonColor: Colors.white70),
-                ),
-                Expanded(
-                  child: CalculatorButton(
-                      name: "x²",
-                      onPressed: () => setCurrentOperator(Operator.square),
-                      buttonColor: Colors.white70),
-                ),
-                Expanded(
-                  child: CalculatorButton(
-                      name: "²√x",
-                      onPressed: () => setCurrentOperator(Operator.squareRoot),
-                      buttonColor: Colors.white70),
-                ),
-                Expanded(
-                  child: CalculatorButton(
-                      name: "÷",
-                      onPressed: () => setCurrentOperator(Operator.divide),
-                      buttonColor: Colors.white70),
-                ),
-              ],
-            ),
-          ),
-          Expanded(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Expanded(
-                    child: CalculatorButton(
-                        name: "7", onPressed: () => addDigit("7"))),
-                Expanded(
-                    child: CalculatorButton(
-                        name: "8", onPressed: () => addDigit("8"))),
-                Expanded(
-                    child: CalculatorButton(
-                        name: "9", onPressed: () => addDigit("9"))),
-                Expanded(
-                  child: CalculatorButton(
-                      name: "*",
-                      onPressed: () => setCurrentOperator(Operator.multiply),
-                      buttonColor: Colors.white70),
-                ),
-              ],
-            ),
-          ),
-          Expanded(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Expanded(
-                    child: CalculatorButton(
-                        name: "4", onPressed: () => addDigit("4"))),
-                Expanded(
-                    child: CalculatorButton(
-                        name: "5", onPressed: () => addDigit("5"))),
-                Expanded(
-                    child: CalculatorButton(
-                        name: "6", onPressed: () => addDigit("6"))),
-                Expanded(
-                  child: CalculatorButton(
-                      name: "-",
-                      onPressed: () => {setCurrentOperator(Operator.subtract)},
-                      buttonColor: Colors.white70),
-                ),
-              ],
-            ),
-          ),
-          Expanded(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Expanded(
-                    child: CalculatorButton(
-                        name: "1", onPressed: () => addDigit("1"))),
-                Expanded(
-                    child: CalculatorButton(
-                        name: "2", onPressed: () => addDigit("2"))),
-                Expanded(
-                    child: CalculatorButton(
-                        name: "3", onPressed: () => addDigit("3"))),
-                Expanded(
-                  child: CalculatorButton(
-                      name: "+",
-                      onPressed: () => setCurrentOperator(Operator.add),
-                      buttonColor: Colors.white70),
-                ),
-              ],
-            ),
-          ),
-          Expanded(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Expanded(
-                    child: CalculatorButton(name: "+/-", onPressed: plusMinus)),
-                Expanded(
-                    child: CalculatorButton(
-                        name: "0", onPressed: () => addDigit("0"))),
-                Expanded(
-                    child: CalculatorButton(name: ".", onPressed: setDecimal)),
-                Expanded(
-                  child: CalculatorButton(
-                      name: "=",
-                      onPressed: endOperation,
-                      buttonColor: Colors.blueAccent),
-                ),
-              ],
-            ),
-          )
-        ],
-      ),
+    return CalculatorScreen(
+      title: widget.title,
+      calculator: Calculator(),
     );
   }
 }
