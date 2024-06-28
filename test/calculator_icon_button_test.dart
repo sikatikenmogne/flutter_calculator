@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_calculator/src/widgets/calculator_icon_button.dart';
+import 'package:flutter_calculator/src/view/components/calculator_icon_button.dart';
 
 void main() {
   group('CalculatorIconButton', () {

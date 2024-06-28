@@ -1,7 +1,7 @@
 import 'dart:math';
 
-import 'package:flutter_calculator/src/models/operation.dart';
-import 'package:flutter_calculator/src/models/operator.dart';
+import 'package:flutter_calculator/src/model/operation.dart';
+import 'package:flutter_calculator/src/model/operator.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

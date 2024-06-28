@@ -30,7 +30,8 @@ class Operation {
                 firstOperand, secondOperand, calculatorOperator, operationEnded)
             : _renderUnaryOperation(
                 firstOperand, calculatorOperator, operationEnded)
-        : _formatNumber((firstOperand == double.minPositive)? 0 : firstOperand);
+        : _formatNumber(
+            (firstOperand == double.minPositive) ? 0 : firstOperand);
   }
 
   /// Returns true if the first operand is defined, false otherwise.
@@ -39,7 +40,9 @@ class Operation {
 
   /// Returns true if the second operand is defined, false otherwise.
   bool get secondOperandIsDefined =>
-      (secondOperand != double.minPositive) && firstOperandIsDefined && operationEnded;
+      (secondOperand != double.minPositive) &&
+      firstOperandIsDefined &&
+      operationEnded;
 
   /// Returns true if the operator is defined, false otherwise.
   bool get operatorIsDefined =>
@@ -65,7 +68,9 @@ class Operation {
   bool get isComplete {
     if (calculatorOperator != Operator.none) {
       if (isBinaryOperation) {
-        return (firstOperand != double.minPositive && secondOperand != double.minPositive && !operationEnded);
+        return (firstOperand != double.minPositive &&
+            secondOperand != double.minPositive &&
+            !operationEnded);
       } else {
         return (firstOperand != double.minPositive && !operationEnded);
       }
@@ -107,8 +112,9 @@ class Operation {
     // Check for sentinel value and replace with 0
     final displayFirstOperand =
         firstOperand == double.minPositive ? double.minPositive : firstOperand;
-    final displaySecondOperand =
-        secondOperand == double.minPositive ? double.minPositive : secondOperand;
+    final displaySecondOperand = secondOperand == double.minPositive
+        ? double.minPositive
+        : secondOperand;
 
     return "${_formatNumber(displayFirstOperand)}${calculatorOperator != Operator.none ? " ${calculatorOperator}" : ""}${displaySecondOperand != double.minPositive && operationEnded ? " ${_formatNumber(displaySecondOperand)}" : ""}${operationEnded ? " =" : ""}";
   }
@@ -120,8 +126,9 @@ class Operation {
   String _renderUnaryOperation(
       double uniqueOperand, Operator? calculatorOperator, bool operationEnded) {
     // Check for sentinel value and replace with 0
-    final displayUniqueOperand =
-        uniqueOperand == double.minPositive ? double.minPositive : uniqueOperand;
+    final displayUniqueOperand = uniqueOperand == double.minPositive
+        ? double.minPositive
+        : uniqueOperand;
 
     return "${calculatorOperator}(${_formatNumber(displayUniqueOperand)})${operationEnded ? " =" : ""}";
   }

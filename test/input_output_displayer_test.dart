@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_calculator/src/widgets/input_output_displayer.dart';
+import 'package:flutter_calculator/src/view/components/input_output_displayer.dart';
 
 void main() {
   group('InputOutputDisplayer', () {
