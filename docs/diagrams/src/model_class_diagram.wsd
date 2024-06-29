@@ -42,6 +42,12 @@ class Operator {
     +toString(): String
 }
 
+class Calculator {
+    + addDigit(String value): void
+    + setCurrentOperator(Operator operator): void
+    + endoperation(): void
+}
+
 Operation "1" *-- "1" Operator
 
 @enduml
