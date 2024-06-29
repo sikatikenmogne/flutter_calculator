@@ -63,6 +63,10 @@ These instructions will get you a copy of the project up and running on your loc
 
 Open the app, and you'll see a standard calculator interface. You can perform basic arithmetic operations, as well as some advanced operations.
 
+## :book: Documentation
+
+![DomainClassDiagram](docs/diagrams/src/Model_class_diagram/modelClassDiagram.png)
+
 ## :handshake: Contributing
 
 Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are greatly appreciated.
