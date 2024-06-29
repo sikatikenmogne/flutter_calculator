@@ -46,8 +46,14 @@ class Calculator {
     + addDigit(String value): void
     + setCurrentOperator(Operator operator): void
     + endoperation(): void
+    + clearEntry(): void
+    + backspace(): void
+    + plusMinus(): void
+    + setDecimal(): void
+    + clear(): void
 }
 
 Operation "1" *-- "1" Operator
+Calculator "1" -- "*" Operation : compute >
 
 @enduml
