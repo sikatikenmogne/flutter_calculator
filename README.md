@@ -65,6 +65,8 @@ Open the app, and you'll see a standard calculator interface. You can perform ba
 
 ## :book: Documentation
 
+This is an overview of our app business logic which show relation between the main class of our application
+
 ![DomainClassDiagram](docs/diagrams/src/Model_class_diagram/modelClassDiagram.png)
 
 ## :handshake: Contributing
