@@ -43,6 +43,8 @@ class Operator {
 }
 
 class Calculator {
+    + displayedValue: String
+    + currentOperation: Operation
     + addDigit(String value): void
     + setCurrentOperator(Operator operator): void
     + endoperation(): void
