@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_calculator/src/app.dart';
+import 'package:flutter_calculator/src/model/calculator.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => Calculator(),
+      child:  MyApp(), 
+    ),
+    );
 }
 
 class MyApp extends StatelessWidget {
