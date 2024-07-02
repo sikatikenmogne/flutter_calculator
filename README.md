@@ -67,7 +67,14 @@ Open the app, and you'll see a standard calculator interface. You can perform ba
 
 This is an overview of our app business logic which show relation between the main class of our application
 
+<details>
+<summary>📃 App model class diagram</summary>
+<div align="center">
+
 ![DomainClassDiagram](docs/diagrams/src/Model_class_diagram/modelClassDiagram.png)
+
+</div>
+</details>
 
 ## :handshake: Contributing
 
