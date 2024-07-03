@@ -36,8 +36,8 @@ class Calculator extends ChangeNotifier{
     }
 
     if (!currentOperation.firstOperandIsDefined) {
-      currentOperation = currentOperation.copyWith(
-          firstOperand: double.parse(displayedValue));
+      currentOperation =
+          currentOperation.copyWith(firstOperand: double.parse(displayedValue));
     } else if (!currentOperation.secondOperandIsDefined) {
       currentOperation = currentOperation.copyWith(
           secondOperand: double.parse(displayedValue));
@@ -73,6 +73,8 @@ class Calculator extends ChangeNotifier{
         currentOperation =
             currentOperation.copyWith(calculatorOperator: newOperator);
 
+        notifyListeners();
+
         return;
       }
     }
@@ -88,7 +90,6 @@ class Calculator extends ChangeNotifier{
     }
 
     notifyListeners();
-
   }
 
   /// Ends the current operation.
@@ -102,7 +103,6 @@ class Calculator extends ChangeNotifier{
     currentOperation.operationEnded = true;
 
     notifyListeners();
-
   }
 
   /// Clears the current entry.
@@ -114,7 +114,6 @@ class Calculator extends ChangeNotifier{
     }
 
     notifyListeners();
-
   }
 
   /// Performs a backspace operation.
@@ -166,7 +165,6 @@ class Calculator extends ChangeNotifier{
         firstOperand: firstOperand, secondOperand: secondOperand);
 
     notifyListeners();
-    
   }
 
   /// Sets the decimal point.
@@ -176,7 +174,7 @@ class Calculator extends ChangeNotifier{
         displayedValue = "$displayedValue.";
       }
     }
-  
+
     notifyListeners();
   }
 
