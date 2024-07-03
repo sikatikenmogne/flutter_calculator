@@ -60,8 +60,6 @@ class Calculator extends ChangeNotifier{
     if (currentOperation.operationEnded) {
       displayedValue = "0";
 
-      currentOperation.firstOperand = currentOperation.compute().toDouble();
-
       currentOperation = currentOperation.copyWith(
           firstOperand: currentOperation.compute().toDouble(),
           secondOperand: double.minPositive,
