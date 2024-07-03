@@ -19,8 +19,6 @@ class CalculatorScreen extends StatelessWidget {
     required this.calculator,
   }) : super(key: key);
 
-  final String _displayedValue = "0";
-
   final Operation currentOperation = Operation();
 
   @override

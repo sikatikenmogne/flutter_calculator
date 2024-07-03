@@ -7,7 +7,7 @@ void main() {
   runApp(
     ChangeNotifierProvider(
       create: (context) => Calculator(),
-      child:  MyApp(), 
+      child:  const MyApp(), 
     ),
     );
 }
