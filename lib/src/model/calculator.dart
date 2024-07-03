@@ -123,24 +123,24 @@ class Calculator extends ChangeNotifier{
     double secondOperand = 0.0;
 
     if (displayedValue != "") {
-      displayedValue =
-          displayedValue.substring(0, displayedValue.length - 1);
+      displayedValue = displayedValue.substring(0, displayedValue.length - 1);
 
       if (displayedValue == "") displayedValue = "0";
 
-      if ((currentOperation.calculatorOperator != Operator.none) ||
-          (currentOperation.calculatorOperator != null)) {
-        secondOperand = double.parse(displayedValue);
-      } else {
+      if (!currentOperation.firstOperandIsDefined ||
+          !currentOperation.operatorIsDefined) {
         firstOperand = double.parse(displayedValue);
-      }
 
-      currentOperation = currentOperation.copyWith(
-          firstOperand: firstOperand, secondOperand: secondOperand);
+        currentOperation =
+            currentOperation.copyWith(firstOperand: firstOperand);
+      } else {
+        secondOperand = double.parse(displayedValue);
+        currentOperation =
+            currentOperation.copyWith(secondOperand: secondOperand);
+      }
     }
 
     notifyListeners();
-
   }
 
   /// Changes the sign of the displayed value.
