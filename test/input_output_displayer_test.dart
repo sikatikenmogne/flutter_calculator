@@ -31,7 +31,7 @@ void main() {
         ),
       );
 
-      expect(find.text('42'), findsOneWidget);
+      expect(find.text('42.0'), findsOneWidget);
     });
 
     testWidgets('Should format decimal number correctly', (WidgetTester tester) async {
