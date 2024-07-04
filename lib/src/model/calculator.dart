@@ -153,14 +153,16 @@ class Calculator extends ChangeNotifier{
       }
     }
 
-    if (currentOperation.calculatorOperator != Operator.none) {
-      secondOperand = double.parse(displayedValue);
-    } else {
+    if (!currentOperation.firstOperandIsDefined ||
+        !currentOperation.operatorIsDefined) {
       firstOperand = double.parse(displayedValue);
-    }
 
-    currentOperation = currentOperation.copyWith(
-        firstOperand: firstOperand, secondOperand: secondOperand);
+      currentOperation = currentOperation.copyWith(firstOperand: firstOperand);
+    } else {
+      secondOperand = double.parse(displayedValue);
+      currentOperation =
+          currentOperation.copyWith(secondOperand: secondOperand);
+    }
 
     notifyListeners();
   }
