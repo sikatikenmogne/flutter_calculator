@@ -6,7 +6,6 @@ class Calculator extends ChangeNotifier{
   String displayedValue = "0";
   Operation currentOperation = Operation();
 
-
   /// Adds a digit to the displayed value and updates the current operation.
   ///
   /// The [value] parameter represents the digit to be added.
@@ -169,10 +168,8 @@ class Calculator extends ChangeNotifier{
 
   /// Sets the decimal point.
   void setDecimal() {
-    if (displayedValue != "0") {
       if (!displayedValue.contains('.') && !currentOperation.operationEnded) {
         displayedValue = "$displayedValue.";
-      }
     }
 
     notifyListeners();
