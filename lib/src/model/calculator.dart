@@ -168,8 +168,8 @@ class Calculator extends ChangeNotifier{
 
   /// Sets the decimal point.
   void setDecimal() {
-      if (!displayedValue.contains('.') && !currentOperation.operationEnded) {
-        displayedValue = "$displayedValue.";
+    if (!displayedValue.contains('.') && !currentOperation.operationEnded) {
+      displayedValue = "$displayedValue.";
     }
 
     notifyListeners();

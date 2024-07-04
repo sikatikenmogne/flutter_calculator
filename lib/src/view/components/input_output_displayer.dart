@@ -30,7 +30,7 @@ class InputOutputDisplayer extends StatelessWidget {
       child: Container(
           alignment: Alignment.topRight,
           child: Text(
-            _formatNumber(double.parse(valueToDisplay)),
+            valueToDisplay.contains('.') ? valueToDisplay : _formatNumber(double.parse(valueToDisplay)),
             style: TextStyle(
                 fontSize: fontSize, color: color, fontWeight: FontWeight.bold),
             textAlign: TextAlign.end,
