@@ -72,7 +72,7 @@ class Operator {
       if (secondOperand != 0) {
         return firstOperand / secondOperand!;
       } else {
-        throw ArgumentError('You cannot divide by zero.');
+        throw ArgumentError('You cannot divide by zero');
       }
     },
   );
@@ -92,7 +92,7 @@ class Operator {
   static Operator squareRoot = Operator(
     symbols: "√",
     operation: (num firstOperand, num? secondOperand) {
-      if (firstOperand < 0) throw Exception('Number must be non-negative.');
+      if (firstOperand < 0) throw Exception('Number must be non-negative');
       return sqrt(firstOperand);
     },
   );
@@ -106,7 +106,7 @@ class Operator {
       if (firstOperand != 0) {
         return 1 / firstOperand;
       } else {
-        throw ArgumentError('You cannot divide by zero.');
+        throw ArgumentError('You cannot divide by zero');
       }
     },
   );
@@ -149,7 +149,7 @@ class Operator {
     symbols: "!",
     operation: (num firstOperand, num? secondOperand) {
       if (firstOperand < 0) {
-        throw ArgumentError('Number must be non-negative.');
+        throw ArgumentError('Number must be non-negative');
       } else if (firstOperand == 0) {
         return 1;
       } else {
@@ -166,7 +166,7 @@ class Operator {
     symbols: "log",
     operation: (num firstOperand, num? secondOperand) {
       if (firstOperand <= 0)
-        throw Exception('The number must be greater than zero.');
+        throw Exception('The number must be greater than zero');
       return log(firstOperand);
     },
   );
