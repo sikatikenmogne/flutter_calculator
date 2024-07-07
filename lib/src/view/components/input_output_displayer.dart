@@ -23,6 +23,11 @@ class InputOutputDisplayer extends StatelessWidget {
     }
   }
 
+  bool _isNumeric(String str) {
+    if(str.isEmpty) return false;
+    return double.tryParse(str) != null;
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -30,9 +35,9 @@ class InputOutputDisplayer extends StatelessWidget {
       child: Container(
           alignment: Alignment.topRight,
           child: Text(
-            valueToDisplay.contains('.') ? valueToDisplay : _formatNumber(double.parse(valueToDisplay)),
+            valueToDisplay.contains('.') ? valueToDisplay : _isNumeric(valueToDisplay)? _formatNumber(double.parse(valueToDisplay)) : valueToDisplay,
             style: TextStyle(
-                fontSize: fontSize, color: color, fontWeight: FontWeight.bold),
+                fontSize: _isNumeric(valueToDisplay)? fontSize: 20.0, color: color, fontWeight: FontWeight.bold),
             textAlign: TextAlign.end,
           )),
     );
