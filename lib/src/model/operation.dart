@@ -86,9 +86,16 @@ class Operation {
   /// Otherwise, it performs the operation using the [calculatorOperator] on
   /// the [firstOperand] and null.
   num compute() {
-    return (isBinaryOperation)
-        ? calculatorOperator!.operation(firstOperand, secondOperand)
-        : calculatorOperator!.operation(firstOperand, null);
+    num result = double.minPositive;
+    try{
+      result = (isBinaryOperation)
+          ? calculatorOperator!.operation(firstOperand, secondOperand)
+          : calculatorOperator!.operation(firstOperand, null);
+    }catch(e){
+        rethrow;
+    }
+    
+    return result;
   }
 
   /// Formats a number as a string.

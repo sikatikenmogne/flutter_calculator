@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_calculator/src/model/operation.dart';
 import 'package:flutter_calculator/src/model/operator.dart';
 
-class Calculator extends ChangeNotifier{
+class Calculator extends ChangeNotifier {
   String displayedValue = "0";
   Operation currentOperation = Operation();
 
@@ -93,8 +93,8 @@ class Calculator extends ChangeNotifier{
   void endOperation() {
     try {
       displayedValue = currentOperation.compute().toString();
-    } on Exception catch (e) {
-      // TODO: Implement user feedback for invalid operations
+    } catch (e) {
+      displayedValue = e.toString().replaceAll('Exception: ', '').replaceAll('Invalid argument(s): ', '');
     }
 
     currentOperation.operationEnded = true;
