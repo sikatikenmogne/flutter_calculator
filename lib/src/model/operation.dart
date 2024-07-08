@@ -87,14 +87,14 @@ class Operation {
   /// the [firstOperand] and null.
   num compute() {
     num result = double.minPositive;
-    try{
+    try {
       result = (isBinaryOperation)
           ? calculatorOperator!.operation(firstOperand, secondOperand)
           : calculatorOperator!.operation(firstOperand, null);
-    }catch(e){
-        rethrow;
+    } catch (e) {
+      rethrow;
     }
-    
+
     return result;
   }
 

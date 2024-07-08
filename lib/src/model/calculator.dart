@@ -70,6 +70,10 @@ class Calculator extends ChangeNotifier {
         currentOperation =
             currentOperation.copyWith(calculatorOperator: newOperator);
 
+        if (currentOperation.calculatorOperator!.isUnary) {
+          endOperation();
+        }
+
         notifyListeners();
 
         return;
@@ -78,6 +82,11 @@ class Calculator extends ChangeNotifier {
     if (currentOperation.calculatorOperator == Operator.none) {
       currentOperation =
           currentOperation.copyWith(calculatorOperator: newOperator);
+
+      if (currentOperation.calculatorOperator!.isUnary) {
+        endOperation();
+      }
+
     } else {
       currentOperation.firstOperand = currentOperation.compute().toDouble();
       currentOperation =
@@ -94,7 +103,10 @@ class Calculator extends ChangeNotifier {
     try {
       displayedValue = currentOperation.compute().toString();
     } catch (e) {
-      displayedValue = e.toString().replaceAll('Exception: ', '').replaceAll('Invalid argument(s): ', '');
+      displayedValue = e
+          .toString()
+          .replaceAll('Exception: ', '')
+          .replaceAll('Invalid argument(s): ', '');
     }
 
     currentOperation.operationEnded = true;
