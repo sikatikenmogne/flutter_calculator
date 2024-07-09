@@ -1,0 +1,20 @@
+@startuml
+[*] --> UnSetuped
+UnSetuped --> EnteringFirstNumber
+EnteringFirstNumber --> OperationSelected : Complete\nEntry
+OperationSelected --> FirstNumberEntered
+FirstNumberEntered --> EnteringSecondNumber : Enter\nFirst Number
+EnteringSecondNumber --> SecondNumberEntered : Equals\nPressed
+SecondNumberEntered --> Computing : second\nnumber\nentered 
+Computing --> ResultDisplayed : Success
+Computing --> Error : Failure\n(e.g., Division by Zero)
+ResultDisplayed --> [*]
+Error --> [*]
+
+note right of OperationSelected : User selects\nan operation like +, -, *, /
+note right of EnteringFirstNumber : User is entering\nthe first operand
+note right of EnteringSecondNumber : User is entering\nthe second operand
+note right of Computing : Calculation is\nbeing performed
+note right of ResultDisplayed : Display the\nresult to the user
+note right of Error : Show error message\nto the user
+@enduml
